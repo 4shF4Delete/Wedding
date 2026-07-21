@@ -113,7 +113,6 @@
             pointer-events: none;
         }
 
-        /* The container holding the image to constrain the light sweep */
         .splash-image-wrapper {
             position: relative;
             width: 80%;
@@ -131,11 +130,9 @@
             height: auto;
             object-fit: contain;
             filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
-            /* Subtle base glow pulsing */
             animation: goldPulse 4s infinite alternate ease-in-out;
         }
 
-        /* The Shining Gold Sweep Effect */
         .splash-image-wrapper::after {
             content: '';
             position: absolute;
@@ -152,7 +149,6 @@
             transform: skewX(-25deg);
             animation: shineSweep 4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
             pointer-events: none;
-            /* Color dodge blends the white sweep to make the gold underneath look intensely bright/metallic */
             mix-blend-mode: color-dodge;
         }
 
@@ -243,7 +239,7 @@
            ========================================================================== */
         .hero-section {
             position: relative;
-            height: 100vh; /* Changed from 110vh for better mobile fit */
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -282,7 +278,7 @@
 
         .name-bertwin, .name-mechele {
             font-family: var(--font-display);
-            font-size: clamp(3.5rem, 15vw, 12rem);
+            font-size: clamp(4rem, 12vw, 12rem);
             color: var(--c-navy-abyss);
             line-height: 0.9;
             position: relative;
@@ -358,6 +354,40 @@
             gap: var(--s-mega);
             position: relative;
             z-index: 10;
+        }
+
+        .story-image-canvas {
+            grid-column: 1 / 2;
+            position: relative;
+            aspect-ratio: 4/5;
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .story-image-canvas::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border: 1px solid var(--c-gold-foil);
+            z-index: -1;
+        }
+
+        .canvas-inner {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--c-champagne-dark); /* Fallback */
+        }
+
+        .canvas-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(0.2) contrast(1.1); /* Subtle editorial photo treatment */
+            transition: transform 1.5s ease;
+        }
+
+        .canvas-inner:hover img {
+            transform: scale(1.05);
         }
 
         .story-text-content {
@@ -448,7 +478,7 @@
 
         .detail-card-luxury .lux-time {
             font-family: var(--font-script);
-            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-size: clamp(2.5rem, 6vw, 3rem);
             color: var(--c-gold-metallic);
             display: block;
             margin-bottom: var(--s-nano);
@@ -505,6 +535,7 @@
         }
 
         .block-parents { grid-column: 1 / 13; display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; }
+        .parent-side { border-left: 1px solid rgba(197, 160, 89, 0.3); padding-left: 2vw; }
         
         .name-lux {
             font-family: var(--font-display);
@@ -648,7 +679,7 @@
             max-width: 800px;
             background: rgba(250, 249, 246, 0.03);
             border: 1px solid rgba(197, 160, 89, 0.3);
-            padding: var(--s-kilo); /* Reduced from giga for mobile */
+            padding: var(--s-kilo); 
             position: relative;
             backdrop-filter: blur(20px);
             z-index: 20;
@@ -671,7 +702,6 @@
             font-family: var(--font-script);
             font-size: clamp(2.8rem, 8vw, 6rem);
             color: var(--c-gold-metallic);
-            /* Fixed line height to prevent overlapping script tails */
             line-height: 1.3; 
             margin-bottom: 10px;
             padding: 10px 0; 
@@ -798,8 +828,8 @@
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
-            .story-image-canvas { display: none; }
-            .details-masonry { grid-template-columns: 1fr; }
+            .story-image-canvas { display: block; width: 100%; max-width: 500px; margin: 0 auto 2rem; }
+            .details-masonry { grid-template-columns: 1fr; gap: 2rem; }
             .card-church, .card-reception { grid-column: 1 / -1; transform: none; }
             .magazine-grid { grid-template-columns: 1fr; }
             .block-parents, .block-sponsors-groom, .block-sponsors-bride, .block-bridal, .block-grooms { grid-column: 1 / -1; }
@@ -811,22 +841,85 @@
         @media (max-width: 768px) {
             :root {
                 --s-mega: 8vw;
-                --s-tera: 15vw; /* Much smaller vertical padding on mobile */
+                --s-tera: 15vw; 
             }
-            .hero-title-group { transform: none; }
-            .name-bertwin { transform: none; }
-            .name-mechele { transform: none; margin-top: 5px; }
-            .hero-ampersand { position: relative; transform: none; margin: -20px 0; font-size: 5rem; }
+
+            /* Fix Hero Mobile */
+            .hero-title-group { 
+                transform: none; 
+                gap: 15px; 
+                padding: 2rem 0;
+            }
+            .name-bertwin, .name-mechele { 
+                transform: none; 
+                margin: 0; 
+                text-align: center;
+                line-height: 1;
+            }
+            .hero-ampersand { 
+                position: absolute; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%); 
+                font-size: 6rem; 
+            }
+
+            /* Fix Celebration Mobile */
+            .card-church, .card-reception { 
+                transform: none !important; /* Ensure no overlap/stagger on mobile */
+                margin-top: 0; 
+            }
+
+            /* Fix Entourage Mobile */
+            .block-parents { 
+                grid-template-columns: 1fr; 
+                gap: 2rem; 
+            }
+            .parent-side { 
+                border-left: none; 
+                padding-left: 0; 
+                border-top: 1px solid rgba(197, 160, 89, 0.3); 
+                padding-top: 1rem; 
+                text-align: center;
+            }
+            .parent-side:first-child { 
+                border-top: none; 
+                padding-top: 0; 
+            }
             
-            .lux-list { column-count: 1; }
-            .parent-side { border-left: none; padding-left: 0; border-top: 1px solid rgba(197, 160, 89, 0.3); padding-top: 15px; margin-top: 15px; }
-            .parent-side:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+            .mag-block-title { 
+                text-align: center; 
+                margin-bottom: 1rem;
+            }
             
-            .party-grid-inner { grid-template-columns: 1fr; }
-            .lux-radio-group { flex-direction: column; gap: 15px; }
+            .lux-list { 
+                column-count: 1; 
+                text-align: center;
+            }
+            .lux-list li { 
+                padding-left: 0; 
+            }
+            .lux-list li::before { 
+                display: none; 
+            }
             
-            /* Remove horizontal shifting on details cards */
-            .card-church, .card-reception { transform: none; }
+            .party-grid-inner { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+                text-align: center;
+            }
+            .party-member-lux { 
+                margin-bottom: 0; 
+            }
+            .name-lux { 
+                text-align: center; 
+            }
+
+            /* Form tweaks for small screens */
+            .lux-radio-group { 
+                flex-direction: column; 
+                gap: 15px; 
+            }
         }
     </style>
 </head>
@@ -867,14 +960,10 @@
         </defs>
     </svg>
 
-    <!-- ATMOSPHERIC ELEMENTS -->
+    <!-- ATMOSPHERIC NOISE -->
     <div class="global-noise"></div>
 
-    <!-- 
-      SPLASH SCREEN REVEAL 
-      - Now pointing to static/2.png
-      - Shining gold sweep effect applied via CSS
-    -->
+    <!-- SPLASH SCREEN -->
     <div id="splash-screen" onclick="unlockExperience()">
         <div class="splash-image-wrapper">
             <img src="static/2.png" alt="M & B Monogram Splash">
@@ -915,6 +1004,12 @@
              ========================================================================== -->
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid">
+                <!-- THE NEW STATIC/1.PNG IMAGE CANVAS -->
+                <div class="story-image-canvas k-reveal">
+                    <div class="canvas-inner">
+                        <img src="static/1.png" alt="Bertwin and Mechele Portrait">
+                    </div>
+                </div>
                 <div class="story-text-content k-reveal">
                     <span class="chapter-label">Chapter I</span>
                     <h2>The Prelude</h2>
@@ -1117,25 +1212,22 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER V: THE RSVP (INTEGRATED WITH FORMSPREE)
+             CHAPTER V: THE RSVP
              ========================================================================== -->
         <section id="chapter-rsvp" class="chapter-rsvp">
             <div class="rsvp-envelope k-reveal">
                 <div class="rsvp-title">
                     <p>Kindly reply by September 1, 2026</p>
-                    <!-- Increased line height fixed the overlapping letters issue -->
                     <h2>Répondez s'il vous plaît</h2>
                 </div>
 
                 <!-- 
-                   FORMSPREE INTEGRATION:
-                   Replace "YOUR_FORMSPREE_ID" below with the actual string you get 
-                   when you create a free form on Formspree.io. 
+                   GOOGLE SHEETS APPS SCRIPT INTEGRATION:
+                   Replace YOUR_GOOGLE_WEB_APP_URL_HERE in the script block below!
                 -->
-                <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                <form id="rsvpForm" onsubmit="handleRSVP(event)">
                     <div class="lux-form-group">
-                        <!-- name attribute is required for Formspree to capture data -->
-                        <input type="text" id="guestName" name="Guest Name" class="lux-input" required>
+                        <input type="text" id="guestName" name="GuestName" class="lux-input" required>
                         <label for="guestName" class="lux-label">Name(s) of Guest(s) *</label>
                     </div>
 
@@ -1156,7 +1248,7 @@
                     </div>
                     
                     <div class="lux-form-group" style="margin-top: 40px;">
-                        <input type="text" id="dietary" name="Dietary Restrictions" class="lux-input">
+                        <input type="text" id="dietary" name="Dietary" class="lux-input">
                         <label for="dietary" class="lux-label">Dietary Restrictions (Optional)</label>
                     </div>
 
@@ -1176,6 +1268,9 @@
 
     </main>
 
+    <!-- ==========================================================================
+         JAVASCRIPT
+         ========================================================================== -->
     <script>
         // --- 1. SPLASH SCREEN LOGIC ---
         function unlockExperience() {
@@ -1206,6 +1301,42 @@
 
         function checkReveals() {
             revealElements.forEach(el => revealObserver.observe(el));
+        }
+
+        // --- 3. THE RSVP GOOGLE SHEETS HANDLER ---
+        function handleRSVP(e) {
+            e.preventDefault();
+            const form = document.getElementById('rsvpForm');
+            const btn = form.querySelector('.lux-submit');
+            
+            // Change button state
+            btn.innerHTML = "Sending...";
+            btn.style.pointerEvents = "none";
+
+            // PASTE YOUR GOOGLE SCRIPT WEB APP URL BELOW:
+            const scriptURL = 'YOUR_GOOGLE_WEB_APP_URL_HERE';
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                body: new FormData(form)
+            })
+            .then(response => {
+                // Transform the form area into a beautiful Thank You message
+                form.parentElement.innerHTML = `
+                    <div style="text-align: center; padding: 40px 0; animation: etherealReveal 1s forwards;">
+                        <h3 style="font-family: var(--font-display); font-size: 3rem; color: var(--c-gold-metallic); margin-bottom: 10px;">Thank You</h3>
+                        <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250, 249, 246, 0.7);">
+                            Your response is cherished.
+                        </p>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                btn.innerHTML = "Error. Please try again.";
+                btn.style.pointerEvents = "auto";
+            });
         }
     </script>
 </body>
