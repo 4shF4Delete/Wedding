@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B & M | A Celebration of Love</title>
+    
+    <!-- LUXURY TYPOGRAPHY INCLUDES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & DESIGN TOKENS
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --color-ivory: #FDFBF7;
+            --color-champagne: #F2EBE1;
+            --color-warm-white: #FAF9F6;
+            --color-pearl: #F5F5F0;
+            --color-sage-green: #9CA996;
+            --color-dusty-blue: #708090;
+            --color-soft-blue: #ADD8E6;
+            --color-navy: #001F5B;
+            --color-navy-dark: #00153D;
+            --color-soft-gold: #C5A059;
+            --color-gold-foil: #D4AF37;
+            --color-matte-black: #1A1A1A;
+            
+            /* Typography */
+            --font-editorial-serif: 'Cormorant Garamond', serif;
+            --font-display: 'Cinzel', serif;
+            --font-modern-sans: 'Montserrat', sans-serif;
+            --font-calligraphy: 'Pinyon Script', cursive;
+
+            /* Spacing & Layout */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2.5rem;
+            --spacing-lg: 5rem;
+            --spacing-xl: 10rem;
+            --spacing-xxl: 15rem;
+            
+            /* Borders & Shadows */
+            --border-gold: 1px solid rgba(197, 160, 89, 0.4);
+            --shadow-subtle: 0 10px 40px rgba(0, 31, 91, 0.05);
+            --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.1);
+            
+            /* Transitions */
+            --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-slow: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           2. RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-modern-sans);
+            color: var(--color-matte-black);
+            background-color: var(--color-ivory);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        /* Paper Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+        }
+
+        /* Typography Base */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 300;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-weight: 300;
+            color: #444;
+            line-height: 2;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           3. SPLASH SCREEN (B&M ONLY)
+           ========================================================================== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--color-ivory);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.5s;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-letters {
+            font-family: var(--font-display);
+            font-size: 8rem;
+            color: var(--color-navy);
+            letter-spacing: -0.05em;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            animation: splashReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .splash-letters::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-soft-gold);
+            transform: translateX(-50%);
+            animation: lineDraw 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+        }
+
+        @keyframes splashReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes lineDraw {
+            to {
+                width: 120%;
+            }
+        }
+
+        /* ==========================================================================
+           4. FLORAL & BOTANICAL SVG SYSTEM
+           ========================================================================== */
+        .floral-layer {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+            mix-blend-mode: multiply;
+            opacity: 0.9;
+        }
+
+        .floral-top-left {
+            top: -5%;
+            left: -5%;
+            width: 45vw;
+            max-width: 600px;
+            transform: rotate(15deg);
+        }
+
+        .floral-bottom-right {
+            bottom: -5%;
+            right: -5%;
+            width: 50vw;
+            max-width: 700px;
+            transform: rotate(-10deg);
+        }
+        
+        .floral-mid-right {
+            top: 40%;
+            right: -10%;
+            width: 40vw;
+            max-width: 500px;
+            transform: rotate(-45deg);
+        }
+
+        .floral-mid-left {
+            top: 60%;
+            left: -10%;
+            width: 35vw;
+            max-width: 450px;
+            transform: rotate(25deg);
+        }
+
+        /* Floral Animation */
+        .float-subtle {
+            animation: float 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(15px, 20px) rotate(2deg); }
+        }
+
+        /* ==========================================================================
+           5. NAVIGATION
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9000;
+            transition: var(--transition-smooth);
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-bottom: var(--border-gold);
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-navy);
+            letter-spacing: 0.1em;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-md);
+        }
+
+        nav a {
+            font-family: var(--font-modern-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-matte-black);
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-soft-gold);
+            transition: var(--transition-smooth);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           6. HERO SECTION
+           ========================================================================== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, var(--color-warm-white) 0%, var(--color-champagne) 100%);
+        }
+
+        .hero-content {
+            z-index: 20;
+            margin-top: 5vh;
+        }
+
+        .hero-pretitle {
+            font-family: var(--font-modern-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--color-dusty-blue);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-title {
+            font-family: var(--font-editorial-serif);
+            font-size: 8rem;
+            line-height: 0.9;
+            color: var(--color-navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-style: italic;
+        }
+
+        .hero-title .ampersand {
+            font-family: var(--font-calligraphy);
+            font-size: 6rem;
+            color: var(--color-soft-gold);
+            margin: -20px 0;
+            display: block;
+        }
+
+        .hero-date {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+            color: var(--color-matte-black);
+            margin-top: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .hero-date span.divider {
+            width: 50px;
+            height: 1px;
+            background-color: var(--color-soft-gold);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .scroll-indicator span {
+            font-family: var(--font-modern-sans);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-dusty-blue);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background-color: var(--color-soft-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-navy);
+            animation: scrollDown 2s infinite ease-in-out;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* ==========================================================================
+           7. EDITORIAL STORY SECTION
+           ========================================================================== */
+        section {
+            padding: var(--spacing-xl) 10vw;
+            position: relative;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .editorial-text h2 {
+            font-family: var(--font-editorial-serif);
+            font-size: 4rem;
+            color: var(--color-navy);
+            margin-bottom: var(--spacing-md);
+            font-style: italic;
+        }
+
+        .editorial-text p::first-letter {
+            font-family: var(--font-editorial-serif);
+            font-size: 5rem;
+            line-height: 0.8;
+            float: left;
+            margin-right: 15px;
+            color: var(--color-soft-gold);
+            font-style: italic;
+        }
+
+        .editorial-image-wrapper {
+            position: relative;
+            padding: 30px;
+        }
+
+        .editorial-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80%;
+            height: 100%;
+            border: 1px solid var(--color-soft-gold);
+            z-index: 1;
+        }
+
+        .editorial-image-placeholder {
+            background-color: var(--color-pearl);
+            width: 100%;
+            aspect-ratio: 4/5;
+            position: relative;
+            z-index: 2;
+            box-shadow: var(--shadow-deep);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-dusty-blue);
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            overflow: hidden;
+        }
+
+        /* Custom Gold Foil Border effect inside placeholder */
+        .editorial-image-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid rgba(197, 160, 89, 0.5);
+        }
+
+        /* ==========================================================================
+           8. DETAILS SECTION (CHURCH & RECEPTION)
+           ========================================================================== */
+        #details {
+            background-color: var(--color-pearl);
+            text-align: center;
+        }
+
+        .section-header {
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-editorial-serif);
+            font-size: 4rem;
+            color: var(--color-navy);
+            font-style: italic;
+        }
+
+        .section-header .ornament {
+            color: var(--color-soft-gold);
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .details-container {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .detail-card {
+            flex: 1;
+            padding: var(--spacing-lg);
+            background: var(--color-ivory);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+        }
+
+        /* Elegant Corner Accents */
+        .detail-card::before, .detail-card::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: var(--color-soft-gold);
+            border-style: solid;
+            transition: var(--transition-smooth);
+        }
+
+        .detail-card::before {
+            top: 15px;
+            left: 15px;
+            border-width: 1px 0 0 1px;
+        }
+
+        .detail-card::after {
+            bottom: 15px;
+            right: 15px;
+            border-width: 0 1px 1px 0;
+        }
+
+        .detail-icon {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .detail-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-navy);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .detail-card .time {
+            font-family: var(--font-editorial-serif);
+            font-size: 1.5rem;
+            color: var(--color-soft-gold);
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .detail-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           9. THE ENTOURAGE (MAGAZINE SPREAD)
+           ========================================================================== */
+        #entourage {
+            background-color: var(--color-ivory);
+            position: relative;
+        }
+
+        .entourage-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .entourage-group {
+            text-align: center;
+        }
+
+        .entourage-group-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            color: var(--color-soft-gold);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .entourage-group-title::before, .entourage-group-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background-color: var(--color-soft-gold);
+        }
+
+        .entourage-group-title::before { right: 100%; margin-right: 20px; }
+        .entourage-group-title::after { left: 100%; margin-left: 20px; }
+
+        .parents-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .parents-grid .role {
+            font-family: var(--font-modern-sans);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: var(--color-dusty-blue);
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .parents-grid .name {
+            font-family: var(--font-editorial-serif);
+            font-size: 2rem;
+            color: var(--color-navy);
+        }
+
+        /* Complex Grid for Sponsors */
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+            text-align: left;
+        }
+
+        .sponsors-column ul {
+            list-style: none;
+            column-count: 1; /* For mobile */
+        }
+
+        @media (min-width: 768px) {
+            .sponsors-column ul {
+                column-count: 2;
+                column-gap: 40px;
+            }
+        }
+
+        .sponsors-column li {
+            font-family: var(--font-editorial-serif);
+            font-size: 1.2rem;
+            color: var(--color-matte-black);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sponsors-column li::before {
+            content: '❦';
+            color: var(--color-soft-gold);
+            font-size: 0.8rem;
+            margin-right: 15px;
+        }
+
+        .wedding-party-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .party-member {
+            text-align: center;
+        }
+
+        .party-role {
+            font-family: var(--font-modern-sans);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--color-dusty-blue);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .party-name {
+            font-family: var(--font-editorial-serif);
+            font-size: 1.6rem;
+            color: var(--color-navy);
+            margin-bottom: 5px;
+        }
+
+        /* ==========================================================================
+           10. ATTIRE & GIFT GUIDE
+           ========================================================================== */
+        #attire {
+            background-color: var(--color-champagne);
+            text-align: center;
+        }
+
+        .attire-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--color-ivory);
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-10px);
+        }
+
+        .color-swatch::after {
+            content: attr(data-color);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-modern-sans);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: var(--color-dusty-blue);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .color-swatch:hover::after {
+            opacity: 1;
+        }
+
+        .attire-guidelines {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-md);
+            text-align: left;
+        }
+
+        .attire-column h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-navy);
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--color-soft-gold);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .attire-column p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* ==========================================================================
+           11. RSVP (MAGAZINE STYLE FORM)
+           ========================================================================== */
+        #rsvp {
+            background-color: var(--color-ivory);
+            position: relative;
+        }
+
+        .rsvp-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--color-warm-white);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            position: relative;
+            z-index: 20;
+            box-shadow: var(--shadow-deep);
+        }
+
+        .rsvp-form .form-group {
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .rsvp-form label {
+            display: block;
+            font-family: var(--font-modern-sans);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--color-navy);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .rsvp-form input, 
+        .rsvp-form select {
+            width: 100%;
+            padding: 15px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-dusty-blue);
+            font-family: var(--font-editorial-serif);
+            font-size: 1.5rem;
+            color: var(--color-matte-black);
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .rsvp-form input:focus,
+        .rsvp-form select:focus {
+            border-bottom-color: var(--color-soft-gold);
+        }
+
+        .rsvp-form button {
+            margin-top: var(--spacing-md);
+            width: 100%;
+            background-color: var(--color-navy);
+            color: var(--color-ivory);
+            border: none;
+            padding: 20px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+        }
+
+        .rsvp-form button:hover {
+            background-color: var(--color-soft-gold);
+            color: var(--color-navy-dark);
+        }
+
+        /* ==========================================================================
+           12. FOOTER
+           ========================================================================== */
+        footer {
+            background-color: var(--color-navy-dark);
+            color: var(--color-ivory);
+            text-align: center;
+            padding: var(--spacing-xl) 10vw var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--color-soft-gold);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-text {
+            font-family: var(--font-editorial-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* ==========================================================================
+           13. RESPONSIVE DESIGN (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .editorial-grid { grid-template-columns: 1fr; }
+            .details-container { flex-direction: column; }
+            .wedding-party-grid { grid-template-columns: repeat(2, 1fr); }
+            .sponsors-grid { grid-template-columns: 1fr; }
+            #hero h1 { font-size: 6rem; }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --spacing-xl: 5rem;
+                --spacing-lg: 3rem;
+            }
+            header { padding: var(--spacing-sm); flex-direction: column; gap: 15px; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            #hero h1 { font-size: 4rem; }
+            .hero-title .ampersand { font-size: 4rem; margin: -10px 0; }
+            .parents-grid { grid-template-columns: 1fr; }
+            .wedding-party-grid { grid-template-columns: 1fr; }
+            .attire-guidelines { flex-direction: column; gap: var(--spacing-lg); }
+            .rsvp-container { padding: var(--spacing-lg) var(--spacing-md); }
+        }
+
+        /* ==========================================================================
+           14. ANIMATIONS (SCROLL REVEAL)
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition-smooth);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+      SPLASH SCREEN
+      Requirement: Only the letters B&M 
+    -->
+    <div id="splash-screen" onclick="hideSplash()">
+        <div class="splash-letters">B & M</div>
+    </div>
+
+    <!-- 
+      SVG DEFINITIONS (FLORALS, WATERCOLORS, ICONS)
+      Constructed deeply to meet the luxurious, handcrafted requirement.
+    -->
+    <svg style="display: none;">
+        <defs>
+            <!-- Elaborate Navy Peony & Foliage Asset -->
+            <g id="luxury-floral-cluster">
+                <!-- Watercolor Base Shade -->
+                <path d="M50,150 C20,120 10,80 30,50 C60,10 100,20 120,50 C150,80 140,120 120,150 C90,180 70,180 50,150 Z" fill="rgba(112, 128, 144, 0.2)" filter="blur(15px)"/>
+                
+                <!-- Main Navy Peony -->
+                <path d="M100,100 C120,80 140,90 130,110 C150,110 160,130 140,140 C150,160 130,170 110,160 C100,180 80,170 90,150 C70,150 60,130 80,120 C70,100 90,90 100,100 Z" fill="var(--color-navy)"/>
+                <path d="M105,105 C115,95 125,100 120,110 C130,110 135,120 125,125 C130,135 120,140 110,135 C105,145 95,140 100,130 C90,130 85,120 95,115 C90,105 100,100 105,105 Z" fill="var(--color-navy-dark)"/>
+                
+                <!-- Gold Foil Accent Lines -->
+                <path d="M100,100 Q110,110 120,105 M130,110 Q120,120 125,130 M110,140 Q100,130 95,140 M80,120 Q90,115 85,105" stroke="var(--color-gold-foil)" stroke-width="1.5" fill="none" opacity="0.8"/>
+                
+                <!-- Dusty Blue Hydrangea Petals -->
+                <path d="M150,70 C160,60 170,70 160,80 C170,90 160,100 150,90 C140,100 130,90 140,80 C130,70 140,60 150,70 Z" fill="var(--color-dusty-blue)"/>
+                <path d="M170,90 C180,80 190,90 180,100 C190,110 180,120 170,110 C160,120 150,110 160,100 C150,90 160,80 170,90 Z" fill="var(--color-dusty-blue)" opacity="0.8"/>
+                
+                <!-- Sage Green Eucalyptus Leaves -->
+                <path d="M70,100 C50,80 40,90 60,110 Z" fill="var(--color-sage-green)"/>
+                <path d="M50,120 C30,100 20,110 40,130 Z" fill="var(--color-sage-green)" opacity="0.9"/>
+                <path d="M60,140 C40,120 30,130 50,150 Z" fill="var(--color-sage-green)" opacity="0.8"/>
+                
+                <!-- Delicate Gold Stems -->
+                <path d="M70,100 Q60,110 40,130 M50,120 Q40,130 30,140" stroke="var(--color-soft-gold)" stroke-width="1" fill="none"/>
+                
+                <!-- Secondary White Rose -->
+                <path d="M60,60 C75,50 85,65 70,75 C80,85 70,95 60,85 C50,95 40,85 50,75 C35,65 45,50 60,60 Z" fill="var(--color-warm-white)"/>
+                <path d="M60,65 C68,58 74,68 66,74 C72,80 66,86 60,80 C54,86 48,80 54,74 C46,68 52,58 60,65 Z" fill="var(--color-champagne)"/>
+            </g>
+
+            <g id="gold-ornament">
+                <path d="M0,10 Q10,0 20,10 Q30,20 40,10 Q30,0 20,10 Q10,20 0,10 Z" fill="var(--color-soft-gold)"/>
+                <circle cx="20" cy="10" r="3" fill="var(--color-gold-foil)"/>
+            </g>
+        </defs>
+    </svg>
+
+    <!-- FLORAL OVERLAYS (Positioned Absolutely) -->
+    <svg class="floral-layer floral-top-left float-subtle" viewBox="0 0 200 200">
+        <use href="#luxury-floral-cluster" transform="scale(1.2)" />
+    </svg>
+    <svg class="floral-layer floral-bottom-right float-subtle" viewBox="0 0 200 200" style="animation-delay: -5s;">
+        <use href="#luxury-floral-cluster" transform="scale(1.4) rotate(180 100 100)" />
+    </svg>
+    <svg class="floral-layer floral-mid-right float-subtle" viewBox="0 0 200 200" style="animation-delay: -2s; opacity: 0.5;">
+        <use href="#luxury-floral-cluster" transform="scale(0.8) rotate(90 100 100)" />
+    </svg>
+    <svg class="floral-layer floral-mid-left float-subtle" viewBox="0 0 200 200" style="animation-delay: -7s; opacity: 0.4;">
+        <use href="#luxury-floral-cluster" transform="scale(0.9) rotate(-90 100 100)" />
+    </svg>
+
+    <!-- HEADER NAVIGATION -->
+    <header id="site-header">
+        <div class="nav-brand">B & M</div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Invitation</a></li>
+                <li><a href="#our-story">Our Story</a></li>
+                <li><a href="#details">Details</a></li>
+                <li><a href="#entourage">Entourage</a></li>
+                <li><a href="#attire">Attire</a></li>
+                <li><a href="#rsvp">RSVP</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="hero-content reveal active">
+            <div class="hero-pretitle">Together with their families</div>
+            <h1 class="hero-title">
+                Bertwin
+                <span class="ampersand">&</span>
+                Mechele
+            </h1>
+            <div class="hero-date">
+                <span class="divider"></span>
+                <span>September 26, 2026</span>
+                <span class="divider"></span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- OUR STORY SECTION -->
+    <section id="our-story" class="reveal">
+        <div class="editorial-grid">
+            <div class="editorial-text">
+                <h2>The Prelude</h2>
+                <p>Joyfully, we invite you to bear witness as we step into a new chapter of our lives. What began as a subtle spark has flourished into a profound and enduring love. Every moment, every laugh, and every quiet understanding has paved the way to this beautiful commitment.</p>
+                <p>As we prepare to exchange vows, we reflect on the beautiful journey that brought us here. We cannot wait to share the magic of our wedding day with the people who mean the world to us.</p>
+            </div>
+            <div class="editorial-image-wrapper">
+                <div class="editorial-image-placeholder">
+                    Portrait Placeholder
+                    <!-- Represents a stunning Vogue-style editorial photograph of the couple -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILS SECTION -->
+    <section id="details" class="reveal">
+        <div class="section-header">
+            <h2>The Celebration</h2>
+            <div class="ornament">❦</div>
+        </div>
+        
+        <div class="details-container">
+            <!-- Church Detail -->
+            <div class="detail-card reveal">
+                <h3>Church Ceremony</h3>
+                <span class="time">Saturday, 8:30 AM</span>
+                <p><strong>St. John the Apostle and Evangelist Church</strong></p>
+                <p>Labo, Camarines Norte</p>
+            </div>
+            
+            <!-- Reception Detail -->
+            <div class="detail-card reveal">
+                <h3>Reception</h3>
+                <span class="time">To Follow Ceremony</span>
+                <p><strong>Labo Convention Center</strong></p>
+                <p>Hillcrest Subdivision, Brgy Bulhao</p>
+                <p>Labo, Camarines Norte</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENTOURAGE SECTION -->
+    <section id="entourage" class="reveal">
+        <div class="section-header" style="text-align: center;">
+            <h2>The Entourage</h2>
+            <div class="ornament">❦</div>
+        </div>
+
+        <div class="entourage-layout">
+            
+            <!-- Parents -->
+            <div class="entourage-group reveal">
+                <h3 class="entourage-group-title">The Parents</h3>
+                <div class="parents-grid">
+                    <div>
+                        <span class="role">Parents of the Groom</span>
+                        <span class="name">Alberto D. Ponce</span><br>
+                        <span class="name">Chona N. Ponce</span>
+                    </div>
+                    <div>
+                        <span class="role">Parents of the Bride</span>
+                        <span class="name">Edgardo B. Taupo</span><br>
+                        <span class="name">Ma. Cecilia A. Taupo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Principal Sponsors -->
+            <div class="entourage-group reveal">
+                <h3 class="entourage-group-title">Principal Sponsors</h3>
+                <div class="sponsors-grid">
+                    <!-- Groom Side Sponsors -->
+                    <div class="sponsors-column">
+                        <ul>
+                            <li>Alex G. Garfin</li>
+                            <li>Grant A. Bonum</li>
+                            <li>Alex Oira</li>
+                            <li>Cesar V. Alaon Jr</li>
+                            <li>Gilbert Babala</li>
+                            <li>Hermenegildo B. Arce</li>
+                            <li>Frederick V. Blasa</li>
+                            <li>George Babagay</li>
+                            <li>Mario Nopre</li>
+                            <li>Nilo Diliman</li>
+                            <li>Felix M. Canaria</li>
+                            <li>Col. Jomar Daquiaog</li>
+                            <li>Atty. William Mamanteo</li>
+                            <li>Col. Fedil I. Macatangay</li>
+                            <li>PO2 Napoleon Mendoza PN</li>
+                            <li>PO2 Abner Angue PN</li>
+                            <li>CPO John D Domingo PN</li>
+                            <li>TSgt Anthony Lo PN(M)</li>
+                            <li>Benito R. Namoro</li>
+                            <li>Christian Villa</li>
+                            <li>Ruben Balicbic</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Bride Side Sponsors -->
+                    <div class="sponsors-column">
+                        <ul>
+                            <li>Marites O. Cariño</li>
+                            <li>Concepcion S. Gerio</li>
+                            <li>Theresa Carlene L. Herradura</li>
+                            <li>Maila N. Galero</li>
+                            <li>Myra Babala</li>
+                            <li>Alisa Francisco P. Legaspi</li>
+                            <li>Eden T. Saenz</li>
+                            <li>Josephine O. Duena</li>
+                            <li>Emma A. Paor</li>
+                            <li>Irene N. Dicion</li>
+                            <li>Sharon M. Largo</li>
+                            <li>Reynalyn V. Cereno</li>
+                            <li>Arlyn F. Monternel</li>
+                            <li>Marivic R. Pagapong</li>
+                            <li>Arnelyn R. Blasco</li>
+                            <li>Christine C. Anastacio</li>
+                            <li>Annalyn D. Alaon</li>
+                            <li>Ivy S. Anastacio</li>
+                            <li>Lorna T. Guevarra</li>
+                            <li>Angelina C. Taupo</li>
+                            <li>Crisanta Rasco</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wedding Party -->
+            <div class="entourage-group reveal">
+                <h3 class="entourage-group-title">The Wedding Party</h3>
+                
+                <div class="wedding-party-grid" style="margin-bottom: 2rem;">
+                    <div class="party-member">
+                        <span class="party-role">Maid of Honor</span>
+                        <span class="party-name">Shiela Taupo</span>
+                    </div>
+                    <div class="party-member" style="grid-column: 4;">
+                        <span class="party-role">Best Man</span>
+                        <span class="party-name">Ariel Nataño</span>
+                    </div>
+                </div>
+
+                <div class="wedding-party-grid">
+                    <div class="party-member">
+                        <span class="party-role">Bridesmaid</span>
+                        <span class="party-name">Rose Ann Villamar</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Bridesmaid</span>
+                        <span class="party-name">Rosebelle Anunciacion</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Bridesmaid</span>
+                        <span class="party-name">Lyka Madi</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Bridesmaid</span>
+                        <span class="party-name">Abby Dacuba</span>
+                    </div>
+                </div>
+
+                <div class="wedding-party-grid">
+                    <div class="party-member">
+                        <span class="party-role">Groomsman</span>
+                        <span class="party-name">Ismael Taupo</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Groomsman</span>
+                        <span class="party-name">Joseph Paul Oira</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Groomsman</span>
+                        <span class="party-name">Ryan Muncada</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Groomsman</span>
+                        <span class="party-name">Mariel Nataño</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Sponsors -->
+            <div class="entourage-group reveal" style="margin-top: var(--spacing-xl);">
+                <h3 class="entourage-group-title">Children of the Entourage</h3>
+                <div class="wedding-party-grid">
+                    <div class="party-member">
+                        <span class="party-role">Flower Girl</span>
+                        <span class="party-name">Abegail Balce</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Flower Girl</span>
+                        <span class="party-name">Precious Jhade Nala</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Flower Girl</span>
+                        <span class="party-name">Celyn Taupo</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Ring Bearer</span>
+                        <span class="party-name">Zain Sky Corporal</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Coin Bearer</span>
+                        <span class="party-name">Cxian Jeff Anastacio</span>
+                    </div>
+                    <div class="party-member">
+                        <span class="party-role">Bible Bearer</span>
+                        <span class="party-name">Xian Gail De Leon</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ATTIRE & GIFT GUIDE SECTION -->
+    <section id="attire" class="reveal">
+        <div class="section-header">
+            <h2>Attire & Gifts</h2>
+            <div class="ornament">❦</div>
+        </div>
+        <div class="attire-content">
+            <p>We request the pleasure of your company in semi-formal attire. We would love to see our guests wear elegant tones inspired by the sea and sky.</p>
+            
+            <div class="color-palette reveal">
+                <div class="color-swatch" style="background-color: var(--color-navy);" data-color="Navy Blue"></div>
+                <div class="color-swatch" style="background-color: var(--color-dusty-blue);" data-color="Dusty Blue"></div>
+                <div class="color-swatch" style="background-color: var(--color-soft-blue);" data-color="Soft Blue"></div>
+                <div class="color-swatch" style="background-color: var(--color-soft-gold);" data-color="Gold"></div>
+                <div class="color-swatch" style="background-color: #F5F5DC;" data-color="Beige"></div>
+            </div>
+
+            <div class="attire-guidelines reveal">
+                <div class="attire-column">
+                    <h4>Principal Sponsors</h4>
+                    <p>Gentlemen: Barong</p>
+                    <p>Ladies: Dusty Blue or Beige Gown</p>
+                </div>
+                <div class="attire-column">
+                    <h4>Guests</h4>
+                    <p>Gentlemen & Ladies: Semi-Formal</p>
+                    <p>Please refer to our color palette.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: var(--spacing-lg);" class="reveal">
+                Your love, prayers, and presence are the greatest gift we could receive. If you would like to bless us with a gift, we would be eternally grateful for a monetary gift as we begin our married life together.
+            </p>
+        </div>
+    </section>
+
+    <!-- RSVP SECTION -->
+    <section id="rsvp" class="reveal">
+        <!-- Background floral specific to RSVP -->
+        <svg class="floral-layer floral-mid-right float-subtle" viewBox="0 0 200 200" style="z-index: 1;">
+            <use href="#luxury-floral-cluster" transform="scale(1.1)" />
+        </svg>
+
+        <div class="rsvp-container reveal">
+            <div class="section-header" style="text-align: center; margin-bottom: var(--spacing-md);">
+                <h2>Répondez S'il Vous Plaît</h2>
+                <p style="font-family: var(--font-modern-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;">Kindly respond by September 1st, 2026</p>
+            </div>
+
+            <form class="rsvp-form" action="#" method="POST" onsubmit="submitRSVP(event)">
+                <div class="form-group">
+                    <label for="fullName">Name(s) of Guest(s)</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="M.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance">Will you attend?</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="" disabled selected>Please select...</option>
+                        <option value="accepts">Accepts with Pleasure</option>
+                        <option value="declines">Declines with Regret</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dietary">Dietary Requirements</label>
+                    <input type="text" id="dietary" name="dietary" placeholder="Leave blank if none">
+                </div>
+
+                <button type="submit">Send Reply</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">B & M</div>
+        <p class="footer-text">We cannot wait to celebrate with you.</p>
+        <div style="margin-top: 40px; font-family: var(--font-modern-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-dusty-blue);">
+            September 26, 2026 • Labo, Camarines Norte
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Splash Screen Logic
+        function hideSplash() {
+            const splash = document.getElementById('splash-screen');
+            splash.classList.add('hidden');
+            // Re-trigger scroll reveal on load
+            reveal();
+        }
+
+        // Header Scroll Effect
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Reveal Animation Logic
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        // Initial call
+        reveal();
+
+        // Parallax Effect for Florals
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const floralsTop = document.querySelectorAll('.floral-top-left, .floral-mid-right');
+            const floralsBottom = document.querySelectorAll('.floral-bottom-right, .floral-mid-left');
+            
+            floralsTop.forEach(floral => {
+                floral.style.transform = `translateY(${scrolled * 0.15}px) rotate(${15 + scrolled * 0.01}deg)`;
+            });
+            
+            floralsBottom.forEach(floral => {
+                floral.style.transform = `translateY(${scrolled * -0.1}px) rotate(${-10 - scrolled * 0.01}deg)`;
+            });
+        });
+
+        // RSVP Form Handling (Mock)
+        function submitRSVP(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "Sending...";
+            btn.style.backgroundColor = "var(--color-soft-gold)";
+            btn.style.color = "var(--color-navy-dark)";
+            
+            setTimeout(() => {
+                e.target.innerHTML = `
+                    <div style="text-align: center; padding: 40px 0;">
+                        <h3 style="font-family: var(--font-editorial-serif); font-size: 2.5rem; color: var(--color-navy); margin-bottom: 20px;">Thank You</h3>
+                        <p style="font-family: var(--font-modern-sans); color: var(--color-dusty-blue); letter-spacing: 0.1em; line-height: 1.8;">
+                            Your response has been received.<br>
+                            We look forward to sharing this beautiful day.
+                        </p>
+                    </div>
+                `;
+            }, 1500);
+        }
+    </script>
+
+</body>
+</html>
