@@ -66,6 +66,12 @@
             padding: 0;
         }
 
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* Prevents the white strip gutter on the right */
+        }
+
         html {
             scroll-behavior: smooth;
             font-size: 16px;
@@ -76,7 +82,6 @@
             font-family: var(--font-sans);
             color: var(--c-text-primary);
             background-color: var(--c-paper-texture);
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             line-height: 1.6;
@@ -87,7 +92,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             pointer-events: none;
             z-index: 9998;
@@ -101,7 +106,7 @@
             position: fixed;
             top: -50%;
             left: -50%;
-            width: 200vw;
+            width: 200%;
             height: 200vh;
             pointer-events: none;
             z-index: 9997;
@@ -116,11 +121,12 @@
         }
 
         /* ==========================================================================
-           2. SPLASH SCREEN (EXACT SPECIFICATION)
+           2. SPLASH SCREEN
            ========================================================================== */
         #splash-screen {
             position: fixed;
             inset: 0;
+            width: 100%;
             background-color: var(--c-paper-texture);
             z-index: 100000;
             display: flex;
@@ -323,10 +329,6 @@
         /* ==========================================================================
            5. ARTWORK & FLORAL INTEGRATION SYSTEM
            ========================================================================== */
-        /*
-          Instead of just placing images, we construct layered SVG containers
-          that act as clipping masks, shadows, and intertwining foreground elements.
-        */
         .botanical-artwork {
             position: absolute;
             pointer-events: none;
@@ -337,11 +339,10 @@
         .botanical-foreground {
             position: absolute;
             pointer-events: none;
-            z-index: 25; /* Higher than text */
+            z-index: 25;
             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
         }
 
-        /* Highly complex CSS-drawn decorative corners acting as fine art */
         .ornamental-corner {
             position: absolute;
             width: 15vw;
@@ -372,15 +373,15 @@
         .corner-br { bottom: var(--s-mega); right: var(--s-mega); transform: rotate(180deg); }
 
         /* ==========================================================================
-           6. HERO SECTION: THE MASTERPIECE
+           6. HERO SECTION
            ========================================================================== */
         .hero-section {
             position: relative;
-            height: 110vh; /* Deliberate overflow for scroll feel */
+            height: 110vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: hidden; /* Contains the absolutely positioned 120vw floral wrap */
             border-bottom: 1px solid var(--c-gold-foil);
         }
 
@@ -420,7 +421,6 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Creating extreme depth: Text overlaps */
         }
 
         .name-bertwin, .name-mechele {
@@ -440,7 +440,7 @@
 
         .name-mechele {
             transform: translateX(10vw);
-            margin-top: -5vh; /* Overlap */
+            margin-top: -5vh; 
         }
 
         .hero-ampersand {
@@ -451,22 +451,22 @@
             font-family: var(--font-script);
             font-size: clamp(10rem, 25vw, 30rem);
             color: var(--c-gold-foil);
-            opacity: 0.3; /* Acts as a watermark */
+            opacity: 0.3;
             z-index: 1;
             pointer-events: none;
             mix-blend-mode: color-burn;
         }
 
-        /* Foreground floral wrapping AROUND the text */
         .hero-floral-wrap {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120vw;
-            height: 120vh;
+            width: 120%; /* Replaced vw with % to avoid scrollbars */
+            min-width: 1200px; 
+            height: 120%;
             pointer-events: none;
-            z-index: 15; /* Sits BETWEEN Bertwin and Mechele if we split z-indexes */
+            z-index: 15;
         }
 
         .hero-date {
@@ -487,7 +487,6 @@
             background: linear-gradient(to right, transparent, var(--c-gold-foil), transparent);
         }
 
-        /* Scroll Line Absolute */
         .scroll-down-cinematic {
             position: absolute;
             bottom: 0;
@@ -559,7 +558,6 @@
             box-shadow: var(--shadow-elevated);
         }
 
-        /* Creating a frame-within-a-frame */
         .story-image-canvas::before {
             content: '';
             position: absolute;
@@ -579,7 +577,6 @@
             overflow: hidden;
         }
 
-        /* Placeholder graphic looking like an etching */
         .canvas-inner::after {
             content: 'Portrait';
             font-family: var(--font-display);
@@ -630,19 +627,19 @@
             color: var(--c-navy-ink);
         }
 
-        /* Floating botanical piece acting as transition */
         .floating-botanical-1 {
             position: absolute;
             right: -5vw;
             bottom: -15vh;
-            width: 40vw;
+            width: 40%;
+            min-width: 300px;
             pointer-events: none;
             z-index: 30;
             filter: drop-shadow(0 30px 40px rgba(0,0,0,0.1));
         }
 
         /* ==========================================================================
-           8. CHAPTER II: THE DETAILS (RICH LAYERING)
+           8. CHAPTER II: THE DETAILS
            ========================================================================== */
         .chapter-details {
             background-color: var(--c-navy-abyss);
@@ -652,7 +649,6 @@
             overflow: hidden;
         }
 
-        /* Deep textures for dark mode */
         .chapter-details::before {
             content: '';
             position: absolute;
@@ -692,7 +688,7 @@
 
         .card-church {
             grid-column: 2 / 7;
-            transform: translateY(40px); /* Parallax offset */
+            transform: translateY(40px);
         }
 
         .card-reception {
@@ -700,7 +696,6 @@
             transform: translateY(-40px);
         }
 
-        /* Intricate Corner Details on Cards */
         .detail-card-luxury::before, .detail-card-luxury::after {
             content: '';
             position: absolute;
@@ -751,7 +746,7 @@
         }
 
         /* ==========================================================================
-           9. CHAPTER III: ENTOURAGE (EDITORIAL MAGAZINE SPREAD)
+           9. CHAPTER III: ENTOURAGE
            ========================================================================== */
         .chapter-entourage {
             padding: var(--s-tera) var(--s-mega);
@@ -771,7 +766,6 @@
             font-style: italic;
         }
 
-        /* The Grid System mimicking a high-end fashion magazine spread */
         .magazine-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -860,7 +854,7 @@
         }
 
         /* ==========================================================================
-           10. CHAPTER IV: ATTIRE (INTERACTIVE FABRIC SWATCHES)
+           10. CHAPTER IV: ATTIRE
            ========================================================================== */
         .chapter-attire {
             padding: var(--s-tera) 0;
@@ -899,7 +893,6 @@
             max-width: 500px;
         }
 
-        /* Swatches mimicking physical materials */
         .swatch-rack {
             display: flex;
             gap: 20px;
@@ -930,7 +923,6 @@
             box-shadow: var(--shadow-ambient);
         }
 
-        /* Attire Guidelines Box */
         .guideline-box {
             border-left: 2px solid var(--c-gold-foil);
             padding-left: 20px;
@@ -953,7 +945,7 @@
         }
 
         /* ==========================================================================
-           11. CHAPTER V: THE RSVP (MINIMALIST LUXURY FORM)
+           11. CHAPTER V: THE RSVP
            ========================================================================== */
         .chapter-rsvp {
             padding: var(--s-tera) var(--s-mega);
@@ -993,10 +985,12 @@
 
         .rsvp-title h2 {
             font-family: var(--font-script);
-            font-size: clamp(4rem, 8vw, 8rem);
+            font-size: clamp(3.5rem, 6vw, 6rem);
             color: var(--c-gold-metallic);
-            line-height: 0.8;
+            /* Fixed line height to allow the script font tails to breathe and not overlap */
+            line-height: 1.3;
             margin-bottom: 20px;
+            padding: 10px 0; 
         }
 
         .rsvp-title p {
@@ -1050,7 +1044,6 @@
             color: var(--c-gold-foil);
         }
 
-        /* Custom Radio Buttons (Gold Rings) */
         .lux-radio-group {
             display: flex;
             gap: 40px;
@@ -1147,18 +1140,14 @@
         /* ==========================================================================
            13. COMPLEX SVG BOTANICAL ARTWORK DEFINITIONS (INLINE)
            ========================================================================== */
-        /*
-          These SVGs create the deep, layered, world-class floral aesthetic.
-          They use drop shadows, gradients, and precise pathing to look bespoke.
-        */
         .svg-defs { display: none; }
 
         /* ==========================================================================
-           14. MEDIA QUERIES (RESPONSIVE MASTERY)
+           14. MEDIA QUERIES
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
-            .story-image-canvas { display: none; /* Simplify for tablet */ }
+            .story-image-canvas { display: none; }
             .details-masonry { grid-template-columns: 1fr; }
             .card-church, .card-reception { grid-column: 1 / -1; transform: none; }
             .magazine-grid { grid-template-columns: 1fr; }
@@ -1180,7 +1169,7 @@
             .lux-list { column-count: 1; }
             .party-grid-inner { grid-template-columns: 1fr; }
             .lux-radio-group { flex-direction: column; gap: 15px; }
-            .luxury-nav { display: none; /* Use a hamburger menu in real prod, hiding for simplicity here */ }
+            .luxury-nav { display: none; }
         }
     </style>
 </head>
@@ -1189,12 +1178,10 @@
     <!-- SVG DEFINITIONS FOR ADVANCED BOTANICAL ARTWORK -->
     <svg class="svg-defs">
         <defs>
-            <!-- Custom Drop Shadow Filter -->
             <filter id="luxury-shadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="#000000" flood-opacity="0.15"/>
             </filter>
             
-            <!-- Metallic Gold Gradient -->
             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#BF953F" />
                 <stop offset="25%" stop-color="#FCF6BA" />
@@ -1203,31 +1190,19 @@
                 <stop offset="100%" stop-color="#BF953F" />
             </linearGradient>
 
-            <!-- Complex Peony Component -->
             <g id="bespoke-peony">
-                <!-- Base Watercolor Shade -->
                 <path d="M100,50 C150,20 200,60 180,120 C220,160 180,220 120,200 C80,240 20,200 40,140 C0,100 40,40 100,50 Z" fill="rgba(90, 107, 122, 0.3)" filter="blur(20px)"/>
-                
-                <!-- Main Petals (Navy) -->
                 <path d="M110,70 C140,50 170,80 150,110 C180,130 170,170 130,160 C110,190 70,180 80,140 C50,120 60,80 90,90 Z" fill="var(--c-navy-ink)" filter="url(#luxury-shadow)"/>
-                
-                <!-- Inner Petals (Deep Navy) -->
                 <path d="M115,85 C130,70 150,90 135,110 C150,125 140,150 120,140 C105,160 85,150 95,130 C80,115 90,90 105,100 Z" fill="var(--c-navy-abyss)"/>
-                
-                <!-- Gold Foil Line Art Tracing -->
                 <path d="M110,70 Q125,60 140,80 M150,110 Q165,120 140,140 M130,160 Q110,175 90,150 M80,140 Q65,120 90,100" stroke="url(#gold-grad)" stroke-width="1.5" fill="none"/>
                 
-                <!-- Delicate Center Stamen -->
                 <circle cx="115" cy="115" r="2" fill="var(--c-gold-metallic)"/>
                 <circle cx="122" cy="118" r="1.5" fill="var(--c-gold-metallic)"/>
                 <circle cx="112" cy="122" r="2" fill="var(--c-gold-metallic)"/>
             </g>
 
-            <!-- Eucalyptus Branch -->
             <g id="bespoke-branch">
-                <!-- Stem -->
                 <path d="M20,200 Q50,100 150,20" stroke="url(#gold-grad)" stroke-width="1.5" fill="none"/>
-                <!-- Leaves -->
                 <path d="M40,160 C20,140 30,120 50,130 C70,140 60,160 40,160 Z" fill="var(--c-dusty-blue-mist)" opacity="0.8" filter="url(#luxury-shadow)"/>
                 <path d="M70,110 C50,90 60,70 80,80 C100,90 90,110 70,110 Z" fill="var(--c-dusty-blue-deep)" opacity="0.9" filter="url(#luxury-shadow)"/>
                 <path d="M100,60 C80,40 90,20 110,30 C130,40 120,60 100,60 Z" fill="var(--c-dusty-blue-mist)" opacity="0.8" filter="url(#luxury-shadow)"/>
@@ -1241,11 +1216,11 @@
 
     <!-- 
       SPLASH SCREEN REVEAL
-      Using the exact referenced image centered with an embossing effect.
+      Now properly calling the requested static "1.png" file.
     -->
     <div id="splash-screen" onclick="unlockExperience()">
         <div class="splash-image-container">
-            <img src="static/1.png" alt="M & B Monogram Splash">
+            <img src="1.png" alt="M & B Monogram Splash">
         </div>
         <div class="splash-hint">Tap to Enter</div>
     </div>
@@ -1253,7 +1228,7 @@
     <!-- MAIN LUXURY EXPERIENCE -->
     <main id="main-experience">
 
-        <!-- ARCHITECTURAL LINES (DECORATIVE) -->
+        <!-- ARCHITECTURAL LINES -->
         <div class="architectural-lines">
             <div class="line-v" style="left: 10vw;"></div>
             <div class="line-v" style="right: 10vw;"></div>
@@ -1275,11 +1250,9 @@
              ========================================================================== -->
         <header class="hero-section">
             
-            <!-- Corner Ornaments -->
             <div class="ornamental-corner corner-tl"></div>
             <div class="ornamental-corner corner-br"></div>
 
-            <!-- Massive overlapping botanical art -->
             <svg class="hero-floral-wrap" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
                 <use href="#bespoke-peony" x="100" y="100" transform="scale(1.5)" />
                 <use href="#bespoke-branch" x="50" y="400" transform="scale(2) rotate(-20)" />
@@ -1307,7 +1280,7 @@
         </header>
 
         <!-- ==========================================================================
-             CHAPTER I: THE STORY (ASYMMETRICAL MASONRY)
+             CHAPTER I: THE STORY
              ========================================================================== -->
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid">
@@ -1322,14 +1295,13 @@
                 </div>
             </div>
 
-            <!-- Foreground Floating Element -->
             <svg class="floating-botanical-1" viewBox="0 0 300 300">
                 <use href="#bespoke-branch" transform="scale(1.5) rotate(45 150 150)"/>
             </svg>
         </section>
 
         <!-- ==========================================================================
-             CHAPTER II: DETAILS (LUXURY CARDS)
+             CHAPTER II: DETAILS
              ========================================================================== -->
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="details-masonry">
@@ -1337,13 +1309,11 @@
                     <h2>The Celebration</h2>
                 </div>
 
-                <!-- Church Card -->
                 <div class="detail-card-luxury card-church k-reveal" style="transition-delay: 0.1s;">
                     <div class="card-icon-bespoke">
-                        <!-- Minimalist Arch Icon -->
                         <svg width="30" height="40" viewBox="0 0 30 40" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M15 5 C5 5 5 15 5 15 L5 35 L25 35 L25 15 C25 15 25 5 15 5 Z" />
-                            <path d="M15 5 L15 -5 M10 0 L20 0" /> <!-- Cross -->
+                            <path d="M15 5 L15 -5 M10 0 L20 0" />
                         </svg>
                     </div>
                     <h3>Church Ceremony</h3>
@@ -1353,10 +1323,8 @@
                     Labo, Camarines Norte</p>
                 </div>
 
-                <!-- Reception Card -->
                 <div class="detail-card-luxury card-reception k-reveal" style="transition-delay: 0.3s;">
                     <div class="card-icon-bespoke">
-                        <!-- Minimalist Chandelier/Glass Icon -->
                         <svg width="30" height="40" viewBox="0 0 30 40" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M5 10 L25 10 L15 30 Z" />
                             <path d="M15 30 L15 40 M10 40 L20 40" />
@@ -1373,7 +1341,7 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER III: ENTOURAGE (EDITORIAL SPREAD)
+             CHAPTER III: ENTOURAGE
              ========================================================================== -->
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             
@@ -1384,7 +1352,6 @@
 
             <div class="magazine-grid">
                 
-                <!-- Parents -->
                 <div class="mag-block block-parents k-reveal">
                     <div class="parent-side">
                         <span class="mag-block-title">Parents of the Groom</span>
@@ -1398,7 +1365,6 @@
                     </div>
                 </div>
 
-                <!-- Sponsors -->
                 <div class="mag-block block-sponsors-groom k-reveal">
                     <span class="mag-block-title">Principal Sponsors (Groom)</span>
                     <ul class="lux-list">
@@ -1453,7 +1419,6 @@
                     </ul>
                 </div>
 
-                <!-- Wedding Party -->
                 <div class="mag-block block-bridal k-reveal">
                     <span class="mag-block-title">Bridal Party</span>
                     <div class="party-grid-inner">
@@ -1461,7 +1426,7 @@
                             <span class="role">Maid of Honor</span>
                             <span class="name-lux" style="font-size: 1.5rem;">Shiela Taupo</span>
                         </div>
-                        <div></div> <!-- Empty cell for layout -->
+                        <div></div>
                         <div class="party-member-lux">
                             <span class="role">Bridesmaid</span>
                             <span class="name-lux" style="font-size: 1.2rem;">Rose Ann Villamar</span>
@@ -1488,7 +1453,7 @@
                             <span class="role">Best Man</span>
                             <span class="name-lux" style="font-size: 1.5rem;">Ariel Nataño</span>
                         </div>
-                        <div></div> <!-- Empty cell -->
+                        <div></div>
                         <div class="party-member-lux">
                             <span class="role">Groomsman</span>
                             <span class="name-lux" style="font-size: 1.2rem;">Ismael Taupo</span>
@@ -1512,7 +1477,7 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER IV: ATTIRE & GIFTS (INTERACTIVE)
+             CHAPTER IV: ATTIRE & GIFTS
              ========================================================================== -->
         <section id="chapter-attire" class="chapter-attire">
             <div class="attire-container">
@@ -1550,11 +1515,11 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER V: RSVP (MINIMALIST LUXURY)
+             CHAPTER V: RSVP
              ========================================================================== -->
         <section id="chapter-rsvp" class="chapter-rsvp">
             
-            <svg class="botanical-artwork" style="top: 0; left: 0; width: 60vw; opacity: 0.2; transform: rotate(180deg);" viewBox="0 0 500 500">
+            <svg class="botanical-artwork" style="top: 0; left: 0; width: 60vw; min-width: 500px; opacity: 0.2; transform: rotate(180deg);" viewBox="0 0 500 500">
                 <use href="#bespoke-peony" x="50" y="50" transform="scale(1.5)" />
             </svg>
 
@@ -1603,7 +1568,7 @@
     </main>
 
     <!-- ==========================================================================
-         JAVASCRIPT (INTERACTIONS & REVEALS)
+         JAVASCRIPT
          ========================================================================== -->
     <script>
         // --- 1. SPLASH SCREEN LOGIC ---
@@ -1611,24 +1576,19 @@
             const splash = document.getElementById('splash-screen');
             const main = document.getElementById('main-experience');
             
-            // Trigger splash out animation
             splash.classList.add('unlocked');
             
-            // Trigger main experience in
             setTimeout(() => {
                 main.classList.add('active');
-                // Re-evaluate scroll triggers immediately
                 checkReveals();
             }, 1000);
             
-            // Allow scrolling on body
             document.body.style.overflowY = 'auto';
         }
 
-        // Lock scroll initially
         document.body.style.overflowY = 'hidden';
 
-        // --- 2. KINETIC SCROLL REVEAL SYSTEM (Intersection Observer) ---
+        // --- 2. KINETIC SCROLL REVEAL SYSTEM ---
         const revealElements = document.querySelectorAll('.k-reveal, .k-scale');
         
         const revealOptions = {
@@ -1640,8 +1600,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-in-view');
-                    // Optional: Unobserve after revealing for performance
-                    // observer.unobserve(entry.target); 
                 }
             });
         }, revealOptions);
