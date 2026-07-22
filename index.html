@@ -48,7 +48,8 @@
             
             --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
             --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
-            --shadow-gold-glow: 0 0 30px rgba(197, 160, 89, 0.15);
+            /* ENHANCED GOLD GLOW: Made significantly larger and brighter */
+            --shadow-gold-glow: 0 0 50px rgba(212, 175, 55, 0.35);
             
             --t-cinematic: opacity 1.5s ease;
             --t-fluid: all 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,145 +59,73 @@
         /* ==========================================================================
            1. RESET & CANVAS
            ========================================================================== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
         html, body {
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden; 
-            background-color: var(--c-paper-texture);
-        }
-
-        html {
-            scroll-behavior: auto; 
-            font-size: 16px;
+            width: 100%; max-width: 100vw; overflow-x: hidden; 
+            background-color: var(--c-paper-texture); font-size: 16px;
         }
 
         body {
-            font-family: var(--font-sans);
-            color: var(--c-text-primary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            line-height: 1.6;
+            font-family: var(--font-sans); color: var(--c-text-primary);
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.6;
         }
 
         html.smooth-scroll { scroll-behavior: smooth; }
 
         .global-noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.35;
-            mix-blend-mode: multiply;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            z-index: 9998; opacity: 0.35; mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
         }
 
         /* ==========================================================================
-           2. FLORAL BACKGROUND & PETALS
+           2. FLORAL BACKGROUND & PETALS 
            ========================================================================== */
-        .gold-border-frame {
-            position: fixed;
-            top: 1.5vw; left: 1.5vw; right: 1.5vw; bottom: 1.5vw;
-            border: 3px solid var(--c-gold-metallic);
-            pointer-events: none;
-            z-index: 5;
-            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
-        }
-
         .floral-background-container {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0; 
-            overflow: hidden;
+            position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
         }
 
         .floral-bg-image {
-            position: absolute;
-            width: 45vw;
-            max-width: 800px;
-            min-width: 350px;
-            object-fit: contain;
-            opacity: 0.7; 
-            filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
+            position: absolute; width: 45vw; max-width: 800px; min-width: 350px; object-fit: contain;
+            opacity: 0.7; filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
             animation: bouquetBreathe 12s ease-in-out infinite alternate;
         }
 
         .f-top-right { top: -10%; right: -10%; transform-origin: top right; }
         .f-bottom-left { bottom: -10%; left: -10%; transform-origin: bottom left; animation-delay: -6s; }
 
-        @keyframes bouquetBreathe {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
+        @keyframes bouquetBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        #petal-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; 
-            z-index: 9995; 
-            overflow: hidden;
-        }
-
-        .falling-petal {
-            position: absolute; background-size: contain; background-repeat: no-repeat;
-            pointer-events: none; will-change: transform, opacity;
-        }
+        #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9995; overflow: hidden; }
+        .falling-petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; will-change: transform, opacity; }
 
         /* ==========================================================================
-           3. SPLASH SCREEN
+           3. SPLASH SCREEN 
            ========================================================================== */
         #splash-screen {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--c-paper-texture);
-            z-index: 100000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: opacity 1.5s ease, visibility 1.5s ease;
+            position: fixed; inset: 0; width: 100%; height: 100%; background-color: var(--c-paper-texture);
+            z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            cursor: pointer; transition: opacity 1.5s ease, visibility 1.5s ease;
         }
-
         #splash-screen.unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
-
+        
         .splash-image-wrapper {
-            position: relative; width: 80%; max-width: 400px;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; transform: translateY(20px);
-            animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+            position: relative; width: 80%; max-width: 400px; display: flex; justify-content: center; align-items: center;
+            opacity: 0; transform: translateY(20px); animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
         }
-
         .splash-image-wrapper img {
-            width: 100%; height: auto; object-fit: contain;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+            width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
             animation: goldPulse 4s infinite alternate ease-in-out;
         }
-
         .splash-image-wrapper::after {
             content: ''; position: absolute; top: -20%; left: -150%; width: 50%; height: 140%;
             background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-            transform: skewX(-25deg); animation: shineSweep 4s ease-in-out infinite;
-            pointer-events: none; mix-blend-mode: color-dodge;
+            transform: skewX(-25deg); animation: shineSweep 4s ease-in-out infinite; pointer-events: none; mix-blend-mode: color-dodge;
         }
-
         .splash-hint {
-            position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.65rem;
-            letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-gold-dark); opacity: 0;
-            animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
+            position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+            color: var(--c-gold-dark); opacity: 0; animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
         }
 
         @keyframes etherealReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -207,90 +136,94 @@
         /* ==========================================================================
            4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS
            ========================================================================== */
-        #main-experience {
-            opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10;
-        }
+        #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; pointer-events: auto; }
 
         .editorial-section {
             position: relative; width: 100%; padding: var(--s-tera) var(--s-mega);
-            display: flex; flex-direction: column; justify-content: center; z-index: 10;
-            background-color: transparent !important;
+            display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
         }
 
         /* 
-           THE GLASS PANEL (CARD COMPONENT)
-           Size reduced to 950px to show more background flowers
+           THE ADVANCED GLASS PANEL (CARD COMPONENT)
+           PC SIZE INCREASED: max-width 1100px. Padding increased for breathing room.
         */
         .glass-panel {
-            background-color: rgba(253, 251, 247, 0.95);
+            position: relative;
+            background-color: rgba(253, 251, 247, 0.92);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 2.5rem 3rem; border-radius: 12px;
+            padding: 4rem 5rem; border-radius: 12px;
             box-shadow: var(--shadow-elevated), var(--shadow-gold-glow);
-            border: 1.5px solid rgba(197, 160, 89, 0.4);
-            max-width: 950px; /* Reduced for better flow and framing */
-            width: 100%; margin: 0 auto;
-            position: relative; z-index: 10;
+            max-width: 1100px; width: 100%; margin: 0 auto;
+            z-index: 10;
         }
 
-        .glass-panel.dark {
-            background-color: rgba(0, 18, 51, 0.95);
-            color: var(--c-ivory-base);
-            border: 1.5px solid rgba(197, 160, 89, 0.25);
-        }
-
-        /* 
-           THE FLORAL PINS
-           Decorative corner elements tying the card to the background.
-        */
-        .floral-pin {
-            position: absolute;
-            width: clamp(60px, 12vw, 100px);
-            height: auto;
-            object-fit: contain;
-            z-index: 30;
-            filter: drop-shadow(0 10px 15px rgba(0, 31, 91, 0.25));
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .floral-pin:hover {
-            transform: scale(1.1) rotate(5deg) !important;
-        }
-
-        .pin-top-left { top: -30px; left: -30px; transform: rotate(-15deg); }
-        .pin-top-right { top: -30px; right: -30px; transform: rotate(15deg); }
-        .pin-bottom-left { bottom: -30px; left: -30px; transform: rotate(-100deg); }
-        .pin-bottom-right { bottom: -30px; right: -30px; transform: rotate(100deg); }
-        .pin-center-top { top: -45px; left: 50%; transform: translateX(-50%); }
-
-        /* THE DYNAMIC SILK MASKING SYSTEM */
         .silk-bg-container {
             position: absolute; inset: 0; border-radius: inherit;
             overflow: hidden; z-index: -1; pointer-events: none;
         }
 
         .silk-accent {
-            position: absolute;
-            background-image: url('static/silk-bg.png');
-            background-size: cover; background-repeat: no-repeat;
-            mix-blend-mode: multiply; 
+            position: absolute; background-image: url('static/silk-bg.png');
+            background-size: cover; background-repeat: no-repeat; mix-blend-mode: multiply; 
         }
 
+        /* 
+           THE FLORAL PINS 
+           Size increased (clamp) & pushed inward (top/left/right: -15px instead of -30px)
+        */
+        .floral-pin {
+            position: absolute;
+            width: clamp(80px, 15vw, 130px);
+            height: auto;
+            object-fit: contain;
+            z-index: 30;
+            filter: drop-shadow(0 15px 25px rgba(0, 31, 91, 0.25));
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floral-pin:hover { transform: scale(1.1) rotate(5deg) !important; }
+
+        .pin-top-left { top: -15px; left: -15px; transform: rotate(-15deg); }
+        .pin-top-right { top: -15px; right: -15px; transform: rotate(15deg); }
+        .pin-bottom-left { bottom: -15px; left: -15px; transform: rotate(-100deg); }
+        .pin-bottom-right { bottom: -15px; right: -15px; transform: rotate(100deg); }
+        .pin-center-top { top: -25px; left: 50%; transform: translateX(-50%); }
+
+        /* THE ANIMATED REFLECTING GOLD BORDER */
+        .glass-panel::before {
+            content: ""; position: absolute; inset: 0; border-radius: 12px;
+            padding: 2px; 
+            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%);
+            background-size: 300% 300%;
+            animation: shimmerGold 5s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none; z-index: 20;
+        }
+
+        @keyframes shimmerGold {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 150% 50%; }
+        }
+
+        /* Dark Variation for Celebration and RSVP sections */
+        .glass-panel.dark { background-color: rgba(0, 18, 51, 0.95); color: var(--c-ivory-base); }
+        .glass-panel.dark .silk-bg-layer { opacity: 0.15; mix-blend-mode: screen; filter: grayscale(50%) sepia(20%) hue-rotate(180deg); }
+
+        /* Expert UI/UX Asymmetrical Placements */
         .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } 
         .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } 
         .silk-v3 { top: -10%; left: -10%; width: 120%; height: 120%; background-position: center; transform: rotate(-5deg); opacity: 0.25; } 
         .silk-v4 { top: -20%; right: -20%; width: 140%; height: 140%; background-position: top right; transform: rotate(20deg); opacity: 0.35; } 
         .silk-v5 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(10deg); opacity: 0.15; mix-blend-mode: screen; } 
 
-        .k-reveal {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-            will-change: opacity, transform;
-        }
+        .k-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1); will-change: opacity, transform; }
         .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
         /* ==========================================================================
-           5. HERO SECTION
+           5. HERO SECTION (NON-CARD, FLOATING TEXT)
            ========================================================================== */
         .hero-section {
             min-height: 100vh; padding-top: 8vh; padding-bottom: 15vh; 
@@ -319,7 +252,7 @@
         .date-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--c-gold-foil), transparent); }
 
         .scroll-indicator {
-            position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
             display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 50;
         }
         .scroll-indicator span { font-family: var(--font-sans); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-dusty-blue-deep); }
@@ -333,7 +266,7 @@
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--s-kilo); position: relative; z-index: 10;}
         .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; position: relative; z-index: 10;}
         .prelude-floral-wrapper img {
-            width: 100%; max-width: 400px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15));
+            width: 100%; max-width: 450px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15));
             animation: floatFlower 6s ease-in-out infinite alternate;
         }
         @keyframes floatFlower { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-15px) rotate(3deg); } }
@@ -344,7 +277,7 @@
         .story-text-content p { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 2.2; color: var(--c-text-muted); margin-bottom: var(--s-nano); }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS
+           7. CHAPTER II: DETAILS 
            ========================================================================== */
         .details-header { text-align: center; margin-bottom: var(--s-kilo); width: 100%; position: relative; z-index: 10;}
         .details-header h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-gold-foil); font-weight: 300; }
@@ -399,7 +332,7 @@
         .guideline-box span { font-size: 0.7rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* ==========================================================================
-           10. CHAPTER V: THE RSVP 
+           10. CHAPTER V: THE RSVP (DARK CARD)
            ========================================================================== */
         .chapter-rsvp .glass-panel { max-width: 800px; }
         .rsvp-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
@@ -440,28 +373,30 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
-            /* Mobile Background Flowers Opacity increased to 50% */
+            /* Mobile Background Flowers Opacity */
             .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
 
-            .editorial-section { padding: 4vh 4vw; }
-            .glass-panel { padding: 2.5rem 1.5rem; border-radius: 12px; }
+            .editorial-section { padding: 3vh 3vw; }
+            
+            /* Tighter, balanced padding for mobile cards so they aren't too bulky */
+            .glass-panel { padding: 1.8rem 1rem; border-radius: 12px; }
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
-            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 4rem; }
-            .hero-ampersand { font-size: 5rem; }
-
-            /* Hide the prelude floral image on mobile to save space */
+            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.5rem; }
+            .hero-ampersand { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; }
+            
             .prelude-floral-wrapper { display: none !important; }
 
             /* PERFECT HORIZONTAL SWIPE CAROUSELS */
             .mobile-swipe-container {
                 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
                 scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-                gap: 15px !important; padding-bottom: 15px; 
-                margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; scrollbar-width: none; 
+                gap: 10px !important; padding-bottom: 15px; 
+                margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem;
+                scrollbar-width: none; 
             }
             .mobile-swipe-container::-webkit-scrollbar { display: none; }
-            .mobile-swipe-item { flex: 0 0 85% !important; scroll-snap-align: center; transform: none !important; }
+            .mobile-swipe-item { flex: 0 0 88% !important; scroll-snap-align: center; transform: none !important; }
 
             .block-parents { display: block; }
             .parent-side { border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center; }
@@ -477,6 +412,7 @@
 
             .attire-cards-container { display: flex; width: 100vw; margin-left: 0; margin-right: 0;}
             .guideline-box { padding: 1.2rem; text-align: center; }
+
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
@@ -518,7 +454,6 @@
 
     <!-- ATMOSPHERIC BACKGROUNDS & FRAMES -->
     <div class="global-noise"></div>
-    <div class="gold-border-frame"></div>
     
     <!-- 
       ==========================================================================
@@ -532,7 +467,7 @@
         <img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Decorative Floral Bottom Left">
     </div>
 
-    <!-- PETAL PHYSICS CONTAINER -->
+    <!-- PETAL PHYSICS CONTAINER (z-index: 9995 - over everything) -->
     <div id="petal-container"></div>
 
     <!-- SPLASH SCREEN REVEAL -->
@@ -801,7 +736,7 @@
              ========================================================================== -->
         <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="glass-panel dark k-reveal rsvp-envelope">
-
+                
                 <!-- THE DYNAMIC SILK BACKGROUND (Dark RSVP Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v5"></div>
