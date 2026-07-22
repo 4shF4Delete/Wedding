@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bertwin & Mechele | An Unforgettable Celebration</title>
 
+    <!-- SCRIPT FOR INSTANT TOP-SCROLL ON RELOAD (Must be in head to stop jumping) -->
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+
     <!-- AWWWARDS-LEVEL LUXURY TYPOGRAPHY -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,15 +43,15 @@
             --s-nano: 1rem;
             --s-kilo: 2.5rem;
             --s-mega: 6vw;
-            --s-tera: 15vw;
+            --s-tera: 10vw; /* Adjusted for better flow */
             
-            --shadow-contact: 0 2px 10px rgba(0, 0, 0, 0.02);
+            --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
             --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
             --shadow-gold-glow: 0 0 30px rgba(197, 160, 89, 0.15);
             
-            --t-cinematic: all 2.4s cubic-bezier(0.19, 1, 0.22, 1);
-            --t-fluid: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            --t-snappy: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --t-cinematic: opacity 1.5s ease;
+            --t-fluid: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            --t-snappy: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* ==========================================================================
@@ -62,9 +70,8 @@
             background-color: var(--c-paper-texture);
         }
 
-        /* Force scroll to top on load setup */
         html {
-            scroll-behavior: auto; /* Changed to auto to prevent slow scrolling to top on load */
+            scroll-behavior: auto; 
             font-size: 16px;
         }
 
@@ -76,18 +83,14 @@
             line-height: 1.6;
         }
 
-        /* Smooth scrolling re-enabled as a class to apply AFTER load */
-        html.smooth-scroll {
-            scroll-behavior: smooth;
-        }
+        html.smooth-scroll { scroll-behavior: smooth; }
 
         .global-noise {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            height: 100svh;
+            height: 100%;
             pointer-events: none;
             z-index: 9998;
             opacity: 0.35;
@@ -102,8 +105,7 @@
             position: fixed;
             inset: 0;
             width: 100%;
-            height: 100vh;
-            height: 100svh;
+            height: 100%;
             background-color: var(--c-paper-texture);
             z-index: 100000;
             display: flex;
@@ -111,13 +113,12 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.5s, transform 2s;
+            transition: opacity 1s ease, visibility 1s ease;
         }
 
         #splash-screen.unlocked {
             opacity: 0;
             visibility: hidden;
-            transform: scale(1.05);
             pointer-events: none;
         }
 
@@ -130,7 +131,7 @@
             align-items: center;
             opacity: 0;
             transform: translateY(20px);
-            animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+            animation: etherealReveal 2s ease forwards;
         }
 
         .splash-image-wrapper img {
@@ -148,14 +149,9 @@
             left: -150%;
             width: 50%;
             height: 140%;
-            background: linear-gradient(
-                to right, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.8) 50%, 
-                transparent 100%
-            );
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
             transform: skewX(-25deg);
-            animation: shineSweep 4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+            animation: shineSweep 4s ease-in-out infinite;
             pointer-events: none;
             mix-blend-mode: color-dodge;
         }
@@ -169,12 +165,12 @@
             text-transform: uppercase;
             color: var(--c-gold-dark);
             opacity: 0;
-            animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 2s forwards, flash 3s infinite 4s;
+            animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
         }
 
         @keyframes etherealReveal {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes shineSweep {
             0% { left: -150%; }
@@ -182,8 +178,8 @@
             100% { left: 200%; }
         }
         @keyframes goldPulse {
-            0% { filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15)) brightness(1); }
-            100% { filter: drop-shadow(0 20px 40px rgba(197, 160, 89, 0.3)) brightness(1.15); }
+            0% { filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1)) brightness(1); }
+            100% { filter: drop-shadow(0 15px 30px rgba(197, 160, 89, 0.25)) brightness(1.1); }
         }
         @keyframes flash {
             0%, 100% { opacity: 1; }
@@ -195,25 +191,18 @@
            ========================================================================== */
         #main-experience {
             opacity: 0;
-            transform: translateY(50px);
-            transition: var(--t-cinematic);
+            transition: opacity 1s ease;
             pointer-events: none;
-            /* Added overflow hidden to prevent internal scrollbar issues */
-            overflow: hidden;
         }
 
         #main-experience.active {
             opacity: 1;
-            transform: translateY(0);
             pointer-events: auto;
-            overflow: visible;
         }
 
         .editorial-section {
             position: relative;
             width: 100%;
-            min-height: 100vh;
-            min-height: 100svh;
             padding: var(--s-tera) var(--s-mega);
             display: flex;
             flex-direction: column;
@@ -221,18 +210,16 @@
             z-index: 10;
         }
 
-        /* KINETIC REVEALS - Optimized to prevent glitching on mobile */
+        /* Highly optimized reveal animation to prevent glitching */
         .k-reveal {
             opacity: 0;
-            transform: translateY(40px);
-            filter: blur(4px);
-            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), filter 1.5s ease;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
             will-change: opacity, transform;
         }
         .k-reveal.is-in-view {
             opacity: 1;
-            transform: translateY(0) !important; /* Force reset to prevent layout conflicts */
-            filter: blur(0);
+            transform: translateY(0);
         }
 
         /* ==========================================================================
@@ -240,14 +227,16 @@
            ========================================================================== */
         .hero-section {
             position: relative;
-            height: 100vh;
-            height: 100svh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden; 
             border-bottom: 1px solid var(--c-gold-foil);
             padding: 0 var(--s-mega);
+        }
+        @supports (min-height: 100svh) {
+            .hero-section { min-height: 100svh; }
         }
 
         .hero-composition {
@@ -280,7 +269,7 @@
 
         .name-bertwin, .name-mechele {
             font-family: var(--font-display);
-            font-size: clamp(4.5rem, 15vw, 12rem);
+            font-size: clamp(4rem, 12vw, 12rem);
             color: var(--c-navy-abyss);
             line-height: 0.9;
             position: relative;
@@ -299,10 +288,23 @@
             font-family: var(--font-script);
             font-size: clamp(8rem, 25vw, 25rem);
             color: var(--c-gold-foil);
-            opacity: 0.35;
+            opacity: 0.25;
             z-index: 1;
             pointer-events: none;
             mix-blend-mode: multiply;
+        }
+
+        .hero-floral-wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; 
+            min-width: 800px; 
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+            opacity: 0.6;
         }
 
         .hero-date {
@@ -326,9 +328,7 @@
         /* ==========================================================================
            5. CHAPTER I: THE STORY 
            ========================================================================== */
-        .chapter-story {
-            background-color: var(--c-ivory-base);
-        }
+        .chapter-story { background-color: var(--c-ivory-base); }
 
         .story-grid {
             display: grid;
@@ -365,7 +365,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: sepia(0.2) contrast(1.1); 
+            filter: sepia(0.1) contrast(1.05); 
             transition: transform 1.5s ease;
         }
 
@@ -432,7 +432,6 @@
             padding: var(--s-kilo);
             border: 1px solid rgba(197, 160, 89, 0.2);
             background: rgba(0, 31, 91, 0.4);
-            /* Removed backdrop-filter for better mobile performance */
         }
 
         .card-church { transform: translateY(40px); }
@@ -466,13 +465,11 @@
         /* ==========================================================================
            7. CHAPTER III: ENTOURAGE
            ========================================================================== */
-        .chapter-entourage {
-            background-color: var(--c-paper-texture);
-        }
+        .chapter-entourage { background-color: var(--c-paper-texture); }
 
         .editorial-spread-title {
             text-align: center;
-            margin-bottom: var(--s-kilo);
+            margin-bottom: var(--s-giga);
         }
 
         .editorial-spread-title h2 {
@@ -514,12 +511,7 @@
             margin-bottom: 5px;
         }
 
-        .lux-list {
-            list-style: none;
-            column-count: 2;
-            column-gap: 3vw;
-        }
-
+        .lux-list { list-style: none; column-count: 2; column-gap: 3vw; }
         .lux-list li {
             font-family: var(--font-sans);
             font-size: 0.85rem;
@@ -528,12 +520,7 @@
             break-inside: avoid;
         }
 
-        .party-grid-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--s-nano);
-        }
-
+        .party-grid-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-nano); }
         .party-member-lux { margin-bottom: 15px; }
         .party-member-lux .role {
             font-size: 0.55rem;
@@ -544,65 +531,71 @@
         }
 
         /* ==========================================================================
-           8. CHAPTER IV: ATTIRE
+           8. CHAPTER IV: ATTIRE (REDESIGNED FOR DESKTOP EDITORIAL CENTER)
            ========================================================================== */
         .chapter-attire {
             background-color: var(--c-ivory-base);
             border-top: 1px solid rgba(0, 31, 91, 0.1);
             border-bottom: 1px solid rgba(0, 31, 91, 0.1);
+            text-align: center;
+            align-items: center; /* Centers content horizontally */
         }
 
-        .attire-container {
-            max-width: 1400px;
+        .attire-text {
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--s-kilo);
-            align-items: center;
         }
 
         .attire-text h2 {
             font-family: var(--font-display);
-            font-size: clamp(2.5rem, 6vw, 6rem);
+            font-size: clamp(3rem, 6vw, 6rem);
             color: var(--c-navy-abyss);
             margin-bottom: var(--s-nano);
         }
 
         .attire-text p {
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
             color: var(--c-text-muted);
             margin-bottom: var(--s-kilo);
+            line-height: 1.8;
         }
 
         .swatch-rack {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: var(--s-kilo);
+            justify-content: center;
+            margin-bottom: var(--s-mega);
         }
 
         .fabric-swatch {
-            width: clamp(50px, 10vw, 70px);
-            height: clamp(70px, 15vw, 100px);
+            width: clamp(50px, 8vw, 70px);
+            height: clamp(70px, 12vw, 100px);
             border-radius: 40px;
             box-shadow: var(--shadow-contact);
             border: 2px solid #fff;
         }
 
+        /* The balanced two-column cards for desktop */
         .attire-cards-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            width: 100%;
         }
 
         .guideline-box {
-            border-left: 2px solid var(--c-gold-foil);
-            padding-left: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid var(--c-gold-foil);
+            padding: 2rem;
+            box-shadow: var(--shadow-contact);
+            text-align: left;
         }
         
         .guideline-box strong {
             font-family: var(--font-display);
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
             color: var(--c-navy-ink);
             font-weight: 500;
             display: block;
@@ -635,6 +628,14 @@
             padding: var(--s-kilo); 
             position: relative;
             z-index: 20;
+        }
+
+        .rsvp-envelope::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            pointer-events: none;
         }
 
         .rsvp-title { text-align: center; margin-bottom: var(--s-kilo); }
@@ -720,11 +721,20 @@
         }
 
         /* ==========================================================================
-           11. MEDIA QUERIES (MOBILE SWIPE MASTERY)
+           11. SVG DEFS
+           ========================================================================== */
+        .svg-defs { display: none; }
+
+        /* ==========================================================================
+           12. MEDIA QUERIES (MOBILE SWIPE MASTERY)
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
             .story-image-canvas { display: block; width: 100%; max-width: 500px; margin: 0 auto 2rem; }
+            .details-masonry { grid-template-columns: 1fr; gap: 2rem; }
+            .card-church, .card-reception { grid-column: 1 / -1; transform: none; }
+            .magazine-grid { grid-template-columns: 1fr; }
+            .block-parents, .block-sponsors-groom, .block-sponsors-bride, .block-bridal, .block-grooms { grid-column: 1 / -1; }
         }
 
         @media (max-width: 768px) {
@@ -733,29 +743,14 @@
                 --s-tera: 12vw; 
             }
 
-            /* --- HERO FIXES --- */
-            .hero-title-group { 
-                transform: none; 
-                gap: 5px; 
-                padding: 1rem 0;
-            }
-            .name-bertwin, .name-mechele { 
-                transform: none; 
-                margin: 0; 
-                text-align: center;
-                line-height: 1.1;
-                font-size: 4rem; /* Specific scaling for phone screens */
-            }
-            .hero-ampersand { 
-                position: absolute; 
-                top: 50%; 
-                left: 50%; 
-                transform: translate(-50%, -50%); 
-                font-size: 5rem; 
-            }
+            .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
+            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; }
+            .hero-ampersand { font-size: 5rem; }
 
-            /* --- THE SWIPEABLE CAROUSEL SYSTEM --- */
-            /* We apply this to containers we want to swipe horizontally on mobile */
+            /* Remove staggered translation for cards on mobile */
+            .card-church, .card-reception { margin: 0; transform: none; }
+
+            /* THE SWIPEABLE CAROUSEL SYSTEM */
             .mobile-swipe-container {
                 display: flex !important;
                 flex-wrap: nowrap !important;
@@ -764,28 +759,23 @@
                 -webkit-overflow-scrolling: touch;
                 gap: 15px !important;
                 padding-bottom: 20px;
-                margin: 0 calc(var(--s-mega) * -1); /* Pulls out to the edges of the screen */
-                padding: 10px var(--s-mega) 20px var(--s-mega); /* Pushes content back inside */
-                scrollbar-width: none; /* Hide scrollbar Firefox */
+                /* Pulls the container out to the edge of the screen */
+                width: 100vw;
+                margin-left: calc(var(--s-mega) * -1); 
+                padding-left: var(--s-mega);
+                padding-right: var(--s-mega);
+                scrollbar-width: none; 
             }
-            .mobile-swipe-container::-webkit-scrollbar { display: none; /* Hide scrollbar Chrome/Safari */ }
+            .mobile-swipe-container::-webkit-scrollbar { display: none; }
             
             .mobile-swipe-item {
-                flex: 0 0 85% !important; /* Shows a peek of the next card */
+                flex: 0 0 85% !important; 
                 scroll-snap-align: center;
-                transform: none !important; /* Disables the k-reveal vertical jump on mobile swipe items */
+                transform: none !important; /* Stop k-reveal transforms from interfering */
             }
 
-            /* --- SECTION SPECIFIC MOBILE FIXES --- */
-
-            /* Celebration (Cards) */
-            .card-church, .card-reception {
-                margin: 0;
-            }
-
-            /* Entourage */
             .block-parents { display: block; }
-            .parent-side { border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center;}
+            .parent-side { border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center; }
             .parent-side:last-child { margin-bottom: 0; }
             
             .mag-block-title { text-align: center; margin-bottom: 1rem; }
@@ -796,43 +786,48 @@
             .party-member-lux { margin-bottom: 0; }
             .name-lux { text-align: center; }
 
-            /* Attire (Aesthetic) */
-            .attire-container { 
-                grid-template-columns: 1fr; 
-            }
-            .attire-text {
-                text-align: center;
-                align-items: center;
-            }
-            .swatch-rack { justify-content: center; }
-            
+            /* Attire Carousel Fix */
             .attire-cards-container {
-                display: flex;
-                flex-direction: row; /* Make them sit side by side */
+                display: flex; /* Converts grid to flex for carousel */
+                width: 100vw;
             }
-            .guideline-box { 
-                border-left: none; 
-                border-top: 1px solid var(--c-gold-foil); 
-                padding: 15px; 
-                background: #fff;
-                box-shadow: var(--shadow-contact);
-            }
+            .guideline-box { padding: 1.5rem; text-align: center; }
 
-            /* Form tweaks */
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SCRIPT FOR INSTANT TOP-SCROLL ON RELOAD -->
-    <!-- This MUST be exactly here (top of body) to prevent the browser from jumping down -->
-    <script>
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-    </script>
+    <!-- SVG DEFINITIONS FOR BOTANICAL ARTWORK -->
+    <svg class="svg-defs">
+        <defs>
+            <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#BF953F" />
+                <stop offset="25%" stop-color="#FCF6BA" />
+                <stop offset="50%" stop-color="#B38728" />
+                <stop offset="75%" stop-color="#FBF5B7" />
+                <stop offset="100%" stop-color="#BF953F" />
+            </linearGradient>
+
+            <g id="bespoke-peony">
+                <path d="M100,50 C150,20 200,60 180,120 C220,160 180,220 120,200 C80,240 20,200 40,140 C0,100 40,40 100,50 Z" fill="rgba(90, 107, 122, 0.3)"/>
+                <path d="M110,70 C140,50 170,80 150,110 C180,130 170,170 130,160 C110,190 70,180 80,140 C50,120 60,80 90,90 Z" fill="var(--c-navy-ink)"/>
+                <path d="M115,85 C130,70 150,90 135,110 C150,125 140,150 120,140 C105,160 85,150 95,130 C80,115 90,90 105,100 Z" fill="var(--c-navy-abyss)"/>
+                <path d="M110,70 Q125,60 140,80 M150,110 Q165,120 140,140 M130,160 Q110,175 90,150 M80,140 Q65,120 90,100" stroke="url(#gold-grad)" stroke-width="1.5" fill="none"/>
+                <circle cx="115" cy="115" r="2" fill="var(--c-gold-metallic)"/>
+                <circle cx="122" cy="118" r="1.5" fill="var(--c-gold-metallic)"/>
+                <circle cx="112" cy="122" r="2" fill="var(--c-gold-metallic)"/>
+            </g>
+
+            <g id="bespoke-branch">
+                <path d="M20,200 Q50,100 150,20" stroke="url(#gold-grad)" stroke-width="1.5" fill="none"/>
+                <path d="M40,160 C20,140 30,120 50,130 C70,140 60,160 40,160 Z" fill="var(--c-dusty-blue-mist)" opacity="0.8"/>
+                <path d="M70,110 C50,90 60,70 80,80 C100,90 90,110 70,110 Z" fill="var(--c-dusty-blue-deep)" opacity="0.9"/>
+                <path d="M100,60 C80,40 90,20 110,30 C130,40 120,60 100,60 Z" fill="var(--c-dusty-blue-mist)" opacity="0.8"/>
+            </g>
+        </defs>
+    </svg>
 
     <!-- ATMOSPHERIC NOISE -->
     <div class="global-noise"></div>
@@ -852,9 +847,15 @@
              HERO SECTION
              ========================================================================== -->
         <header class="hero-section">
+            <svg class="hero-floral-wrap" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                <use href="#bespoke-peony" x="100" y="100" transform="scale(1.5)" />
+                <use href="#bespoke-branch" x="50" y="400" transform="scale(2) rotate(-20)" />
+                <use href="#bespoke-peony" x="700" y="600" transform="scale(1.2) rotate(180)" />
+            </svg>
+
             <div class="hero-composition">
                 <div class="hero-pretitle">Joyfully invite you</div>
-                <div class="hero-title-group k-reveal" style="transform: none;">
+                <div class="hero-title-group">
                     <span class="name-bertwin">Bertwin</span>
                     <span class="hero-ampersand">&</span>
                     <span class="name-mechele">Mechele</span>
@@ -887,7 +888,7 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER II: DETAILS (SWIPEABLE ON MOBILE)
+             CHAPTER II: DETAILS (CAROUSEL ON MOBILE)
              ========================================================================== -->
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="details-header k-reveal">
@@ -903,7 +904,7 @@
                     Labo, Camarines Norte</p>
                 </div>
 
-                <div class="detail-card-luxury card-reception k-reveal mobile-swipe-item" style="transition-delay: 0.2s;">
+                <div class="detail-card-luxury card-reception k-reveal mobile-swipe-item">
                     <h3>The Reception</h3>
                     <span class="lux-time">To Follow</span>
                     <p>Immediately after the ceremony<br>
@@ -915,7 +916,7 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER III: ENTOURAGE (SWIPEABLE ON MOBILE)
+             CHAPTER III: ENTOURAGE (CAROUSEL ON MOBILE)
              ========================================================================== -->
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             <div class="editorial-spread-title k-reveal">
@@ -1028,35 +1029,32 @@
         </section>
 
         <!-- ==========================================================================
-             CHAPTER IV: ATTIRE (SWIPEABLE ON MOBILE)
+             CHAPTER IV: ATTIRE (REDESIGNED DESKTOP & CAROUSEL MOBILE)
              ========================================================================== -->
-        <section id="chapter-attire" class="chapter-attire">
-            <div class="attire-container">
-                <div class="attire-text k-reveal">
-                    <span class="chapter-label">Chapter IV</span>
-                    <h2>Aesthetic</h2>
-                    <p>We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
-                    
-                    <div class="swatch-rack">
-                        <div class="fabric-swatch" style="background-color: var(--c-navy-ink);" title="Navy Blue"></div>
-                        <div class="fabric-swatch" style="background-color: var(--c-dusty-blue-mist);" title="Dusty Blue"></div>
-                        <div class="fabric-swatch" style="background-color: #ADD8E6;" title="Soft Blue"></div>
-                        <div class="fabric-swatch" style="background-color: var(--c-gold-dark);" title="Warm Gold"></div>
-                        <div class="fabric-swatch" style="background-color: #F5F5DC;" title="Beige"></div>
-                    </div>
+        <section id="chapter-attire" class="chapter-attire editorial-section">
+            <div class="attire-text k-reveal">
+                <span class="chapter-label">Chapter IV</span>
+                <h2>Aesthetic</h2>
+                <p>We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
+                
+                <div class="swatch-rack">
+                    <div class="fabric-swatch" style="background-color: var(--c-navy-ink);" title="Navy Blue"></div>
+                    <div class="fabric-swatch" style="background-color: var(--c-dusty-blue-mist);" title="Dusty Blue"></div>
+                    <div class="fabric-swatch" style="background-color: #ADD8E6;" title="Soft Blue"></div>
+                    <div class="fabric-swatch" style="background-color: var(--c-gold-dark);" title="Warm Gold"></div>
+                    <div class="fabric-swatch" style="background-color: #F5F5DC;" title="Beige"></div>
                 </div>
+            </div>
 
-                <!-- Swipeable guidelines container on mobile -->
-                <div class="attire-cards-container mobile-swipe-container k-reveal">
-                    <div class="guideline-box mobile-swipe-item">
-                        <span>Principal Sponsors</span>
-                        <strong>Gentlemen: Barong</strong>
-                        <strong>Ladies: Dusty Blue or Beige Gown</strong>
-                    </div>
-                    <div class="guideline-box mobile-swipe-item">
-                        <span>Guests</span>
-                        <strong>Semi-Formal Attire</strong>
-                    </div>
+            <div class="attire-cards-container mobile-swipe-container k-reveal">
+                <div class="guideline-box mobile-swipe-item">
+                    <span>Principal Sponsors</span>
+                    <strong>Gentlemen: Barong</strong>
+                    <strong>Ladies: Dusty Blue or Beige Gown</strong>
+                </div>
+                <div class="guideline-box mobile-swipe-item">
+                    <span>Guests</span>
+                    <strong>Semi-Formal Attire</strong>
                 </div>
             </div>
         </section>
@@ -1064,7 +1062,7 @@
         <!-- ==========================================================================
              CHAPTER V: THE RSVP
              ========================================================================== -->
-        <section id="chapter-rsvp" class="chapter-rsvp">
+        <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="rsvp-envelope k-reveal">
                 <div class="rsvp-title">
                     <p>Kindly reply by September 1, 2026</p>
@@ -1128,7 +1126,7 @@
             
             setTimeout(() => {
                 main.classList.add('active');
-                // Re-enable smooth scrolling for anchor links after initial load
+                // Allow smooth anchor link scrolling after load
                 document.documentElement.classList.add('smooth-scroll');
                 checkReveals();
             }, 1000);
@@ -1140,14 +1138,13 @@
         document.body.style.overflowY = 'hidden';
 
         // --- 2. KINETIC SCROLL REVEAL SYSTEM ---
+        // Softened parameters to prevent mobile layout shifting
         const revealElements = document.querySelectorAll('.k-reveal');
-        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const revealOptions = { threshold: 0.05, rootMargin: "0px 0px 0px 0px" };
 
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-in-view');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('is-in-view');
             });
         }, revealOptions);
 
