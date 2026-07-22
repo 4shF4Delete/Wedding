@@ -48,7 +48,6 @@
             
             --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
             --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
-            /* ENHANCED GOLD GLOW: Made significantly larger and brighter */
             --shadow-gold-glow: 0 0 50px rgba(212, 175, 55, 0.35);
             
             --t-cinematic: opacity 1.5s ease;
@@ -80,8 +79,18 @@
         }
 
         /* ==========================================================================
-           2. FLORAL BACKGROUND & PETALS 
+           2. THE BIG GOLD BORDER & FLORALS
            ========================================================================== */
+        /* Restored to a prominent, thick gold frame */
+        .gold-border-frame {
+            position: fixed;
+            top: 1.2vw; left: 1.2vw; right: 1.2vw; bottom: 1.2vw;
+            border: 4px solid var(--c-gold-metallic);
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
         .floral-background-container {
             position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
         }
@@ -101,7 +110,7 @@
         .falling-petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; will-change: transform, opacity; }
 
         /* ==========================================================================
-           3. SPLASH SCREEN 
+           3. SPLASH SCREEN
            ========================================================================== */
         #splash-screen {
             position: fixed; inset: 0; width: 100%; height: 100%; background-color: var(--c-paper-texture);
@@ -134,7 +143,7 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS
+           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS (WIDER PC SIZES)
            ========================================================================== */
         #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; pointer-events: auto; }
@@ -144,18 +153,23 @@
             display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
         }
 
-        /* 
-           THE ADVANCED GLASS PANEL (CARD COMPONENT)
-           PC SIZE INCREASED: max-width 1100px. Padding increased for breathing room.
-        */
+        /* Widened to 1250px for the expansive PC look */
         .glass-panel {
             position: relative;
-            background-color: rgba(253, 251, 247, 0.92);
+            background-color: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 4rem 5rem; border-radius: 12px;
             box-shadow: var(--shadow-elevated), var(--shadow-gold-glow);
-            max-width: 1100px; width: 100%; margin: 0 auto;
+            border: 1.5px solid rgba(197, 160, 89, 0.4);
+            max-width: 1250px; 
+            width: 100%; margin: 0 auto;
             z-index: 10;
+        }
+
+        .glass-panel.dark {
+            background-color: rgba(0, 18, 51, 0.95);
+            color: var(--c-ivory-base);
+            border: 1.5px solid rgba(197, 160, 89, 0.25);
         }
 
         .silk-bg-container {
@@ -170,11 +184,11 @@
 
         /* 
            THE FLORAL PINS 
-           Size increased (clamp) & pushed inward (top/left/right: -15px instead of -30px)
+           Now strictly alternating Right -> Left -> Right -> Left -> Right 
         */
         .floral-pin {
             position: absolute;
-            width: clamp(80px, 15vw, 130px);
+            width: clamp(80px, 15vw, 140px);
             height: auto;
             object-fit: contain;
             z-index: 30;
@@ -184,35 +198,9 @@
 
         .floral-pin:hover { transform: scale(1.1) rotate(5deg) !important; }
 
-        .pin-top-left { top: -15px; left: -15px; transform: rotate(-15deg); }
-        .pin-top-right { top: -15px; right: -15px; transform: rotate(15deg); }
-        .pin-bottom-left { bottom: -15px; left: -15px; transform: rotate(-100deg); }
-        .pin-bottom-right { bottom: -15px; right: -15px; transform: rotate(100deg); }
-        .pin-center-top { top: -25px; left: 50%; transform: translateX(-50%); }
+        .pin-top-left { top: -25px; left: -25px; transform: rotate(-15deg); }
+        .pin-top-right { top: -25px; right: -25px; transform: rotate(15deg); }
 
-        /* THE ANIMATED REFLECTING GOLD BORDER */
-        .glass-panel::before {
-            content: ""; position: absolute; inset: 0; border-radius: 12px;
-            padding: 2px; 
-            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%);
-            background-size: 300% 300%;
-            animation: shimmerGold 5s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none; z-index: 20;
-        }
-
-        @keyframes shimmerGold {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 150% 50%; }
-        }
-
-        /* Dark Variation for Celebration and RSVP sections */
-        .glass-panel.dark { background-color: rgba(0, 18, 51, 0.95); color: var(--c-ivory-base); }
-        .glass-panel.dark .silk-bg-layer { opacity: 0.15; mix-blend-mode: screen; filter: grayscale(50%) sepia(20%) hue-rotate(180deg); }
-
-        /* Expert UI/UX Asymmetrical Placements */
         .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } 
         .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } 
         .silk-v3 { top: -10%; left: -10%; width: 120%; height: 120%; background-position: center; transform: rotate(-5deg); opacity: 0.25; } 
@@ -223,7 +211,7 @@
         .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
         /* ==========================================================================
-           5. HERO SECTION (NON-CARD, FLOATING TEXT)
+           5. HERO SECTION
            ========================================================================== */
         .hero-section {
             min-height: 100vh; padding-top: 8vh; padding-bottom: 15vh; 
@@ -252,7 +240,7 @@
         .date-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--c-gold-foil), transparent); }
 
         .scroll-indicator {
-            position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
             display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 50;
         }
         .scroll-indicator span { font-family: var(--font-sans); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-dusty-blue-deep); }
@@ -261,7 +249,7 @@
         @keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(12px); opacity: 0; } }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE 
+           6. CHAPTER I: PRELUDE (PIN: RIGHT)
            ========================================================================== */
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--s-kilo); position: relative; z-index: 10;}
         .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; position: relative; z-index: 10;}
@@ -277,7 +265,7 @@
         .story-text-content p { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 2.2; color: var(--c-text-muted); margin-bottom: var(--s-nano); }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS 
+           7. CHAPTER II: DETAILS (PIN: LEFT)
            ========================================================================== */
         .details-header { text-align: center; margin-bottom: var(--s-kilo); width: 100%; position: relative; z-index: 10;}
         .details-header h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-gold-foil); font-weight: 300; }
@@ -295,7 +283,7 @@
         .detail-card-inner p { font-size: 0.85rem; letter-spacing: 0.05em; color: rgba(250, 249, 246, 0.7); line-height: 1.8; text-transform: uppercase; }
 
         /* ==========================================================================
-           8. CHAPTER III: ENTOURAGE
+           8. CHAPTER III: ENTOURAGE (PIN: RIGHT)
            ========================================================================== */
         .editorial-spread-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
         .editorial-spread-title h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-navy-abyss); font-style: italic; }
@@ -316,7 +304,7 @@
         .party-member-lux .role { font-size: 0.55rem; letter-spacing: 0.1em; color: var(--c-gold-dark); text-transform: uppercase; display: block; margin-bottom: 3px; }
 
         /* ==========================================================================
-           9. CHAPTER IV: ATTIRE 
+           9. CHAPTER IV: ATTIRE (PIN: LEFT)
            ========================================================================== */
         .attire-text { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
         .attire-text h2 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); color: var(--c-navy-abyss); margin-bottom: var(--s-nano); }
@@ -332,7 +320,7 @@
         .guideline-box span { font-size: 0.7rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* ==========================================================================
-           10. CHAPTER V: THE RSVP (DARK CARD)
+           10. CHAPTER V: THE RSVP (PIN: RIGHT)
            ========================================================================== */
         .chapter-rsvp .glass-panel { max-width: 800px; }
         .rsvp-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
@@ -360,7 +348,7 @@
         footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid rgba(197, 160, 89, 0.3); position: relative; z-index: 20; }
 
         /* ==========================================================================
-           12. MEDIA QUERIES (MOBILE SWIPE MASTERY)
+           12. MEDIA QUERIES (MOBILE FIXES - SMALL CARDS)
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
@@ -373,13 +361,12 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
-            /* Mobile Background Flowers Opacity */
             .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
 
             .editorial-section { padding: 3vh 3vw; }
             
-            /* Tighter, balanced padding for mobile cards so they aren't too bulky */
-            .glass-panel { padding: 1.8rem 1rem; border-radius: 12px; }
+            /* Tighter, balanced padding for mobile cards */
+            .glass-panel { padding: 1.5rem 1rem; border-radius: 10px; }
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
             .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.5rem; }
@@ -412,7 +399,6 @@
 
             .attire-cards-container { display: flex; width: 100vw; margin-left: 0; margin-right: 0;}
             .guideline-box { padding: 1.2rem; text-align: center; }
-
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
@@ -454,6 +440,7 @@
 
     <!-- ATMOSPHERIC BACKGROUNDS & FRAMES -->
     <div class="global-noise"></div>
+    <div class="gold-border-frame"></div>
     
     <!-- 
       ==========================================================================
@@ -467,7 +454,7 @@
         <img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Decorative Floral Bottom Left">
     </div>
 
-    <!-- PETAL PHYSICS CONTAINER (z-index: 9995 - over everything) -->
+    <!-- PETAL PHYSICS CONTAINER -->
     <div id="petal-container"></div>
 
     <!-- SPLASH SCREEN REVEAL -->
@@ -517,8 +504,8 @@
                     <div class="silk-accent silk-v1"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR STORY CARD -->
-                <img src="static/pin-1.png" class="floral-pin pin-top-left" alt="Decorative Pin">
+                <!-- FLORAL PINS FOR STORY CARD (RIGHT) -->
+                <img src="static/pin-1.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <!-- The Transparent Background Flower -->
                 <div class="prelude-floral-wrapper k-reveal">
@@ -545,8 +532,8 @@
                     <div class="silk-accent silk-v2"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR DETAILS CARD -->
-                <img src="static/pin-2.png" class="floral-pin pin-top-right" alt="Decorative Pin">
+                <!-- FLORAL PINS FOR DETAILS CARD (LEFT) -->
+                <img src="static/pin-2.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="details-header">
                     <h2>The Celebration</h2>
@@ -588,8 +575,8 @@
                     <div class="silk-accent silk-v3"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR ENTOURAGE CARD -->
-                <img src="static/pin-3.png" class="floral-pin pin-top-left" alt="Decorative Pin">
+                <!-- FLORAL PINS FOR ENTOURAGE CARD (RIGHT) -->
+                <img src="static/pin-3.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="editorial-spread-title">
                     <span class="chapter-label">Chapter III</span>
@@ -700,8 +687,8 @@
                     <div class="silk-accent silk-v4"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR ATTIRE CARD -->
-                <img src="static/pin-4.png" class="floral-pin pin-top-right" alt="Decorative Pin">
+                <!-- FLORAL PINS FOR ATTIRE CARD (LEFT) -->
+                <img src="static/pin-4.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="attire-text">
                     <span class="chapter-label">Chapter IV</span>
@@ -742,8 +729,8 @@
                     <div class="silk-accent silk-v5"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR RSVP CARD -->
-                <img src="static/pin-5.png" class="floral-pin pin-center-top" alt="Decorative Pin">
+                <!-- FLORAL PINS FOR RSVP CARD (RIGHT) -->
+                <img src="static/pin-5.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="rsvp-title">
                     <p>Kindly reply by September 1, 2026</p>
@@ -912,7 +899,7 @@
                 form.parentElement.innerHTML = `
                     <div style="text-align: center; padding: 40px 0; animation: etherealReveal 1s forwards;">
                         <h3 style="font-family: var(--font-display); font-size: 3rem; color: var(--c-gold-metallic); margin-bottom: 10px;">Thank You</h3>
-                        <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250, 249, 246, 0.7);">
+                        <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-ivory-base);">
                             Your response is cherished.
                         </p>
                     </div>
