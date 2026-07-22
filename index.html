@@ -48,7 +48,8 @@
             
             --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
             --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
-            --shadow-gold-glow: 0 0 50px rgba(212, 175, 55, 0.35);
+            /* MASSIVE GOLD GLOW INCREASED */
+            --shadow-gold-glow: 0 0 80px rgba(212, 175, 55, 0.45);
             
             --t-cinematic: opacity 1.5s ease;
             --t-fluid: all 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -181,9 +182,13 @@
             background-size: cover; background-repeat: no-repeat; mix-blend-mode: multiply; 
         }
 
+        /* 
+           THE FLORAL PINS - UPSCALED
+           Width heavily increased. Top/Left/Right coordinates adjusted to fit the new size.
+        */
         .floral-pin {
             position: absolute;
-            width: clamp(80px, 15vw, 140px);
+            width: clamp(100px, 18vw, 180px);
             height: auto;
             object-fit: contain;
             z-index: 30;
@@ -193,8 +198,8 @@
 
         .floral-pin:hover { transform: scale(1.1) rotate(5deg) !important; }
 
-        .pin-top-left { top: -15px; left: -15px; transform: rotate(-15deg); }
-        .pin-top-right { top: -15px; right: -15px; transform: rotate(15deg); }
+        .pin-top-left { top: -25px; left: -25px; transform: rotate(-15deg); }
+        .pin-top-right { top: -25px; right: -25px; transform: rotate(15deg); }
 
         .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } 
         .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } 
@@ -356,16 +361,11 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
-            /* Mobile Background Flowers Opacity increased */
             .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
 
             .editorial-section { padding: 4vh 4vw; }
             
-            /* 
-               MOBILE CARD FIX: 
-               Card width shrunk to 82% to give beautiful negative space around edges 
-               padding heavily reduced to avoid feeling bulky 
-            */
+            /* MOBILE CARD FIX: Card width shrunk to 82% */
             .glass-panel { 
                 width: 82% !important; 
                 padding: 2rem 1.2rem !important; 
@@ -379,10 +379,7 @@
             
             .prelude-floral-wrapper { display: none !important; }
 
-            /* 
-               PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS 
-               Calculated to fit perfectly inside the new 82% width cards
-            */
+            /* PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS */
             .mobile-swipe-container {
                 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
                 scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
@@ -495,7 +492,7 @@
                 </div>
             </div>
 
-            <!-- Cinematic Scroll Down Indicator Restored & Re-positioned -->
+            <!-- Cinematic Scroll Down Indicator -->
             <div class="scroll-indicator">
                 <div class="mouse"><div class="wheel"></div></div>
                 <span>Scroll</span>
@@ -731,9 +728,6 @@
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v5"></div>
                 </div>
-
-                <!-- FLORAL PIN: TOP RIGHT -->
-                <img src="static/pin-5.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="rsvp-title">
                     <p>Kindly reply by September 1, 2026</p>
