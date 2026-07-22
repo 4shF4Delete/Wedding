@@ -81,7 +81,6 @@
         /* ==========================================================================
            2. THE BIG GOLD BORDER & FLORALS
            ========================================================================== */
-        /* Restored to a prominent, thick gold frame */
         .gold-border-frame {
             position: fixed;
             top: 1.2vw; left: 1.2vw; right: 1.2vw; bottom: 1.2vw;
@@ -143,7 +142,7 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS (WIDER PC SIZES)
+           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS (PC SIZES PERFECTED)
            ========================================================================== */
         #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; pointer-events: auto; }
@@ -153,7 +152,7 @@
             display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
         }
 
-        /* Widened to 1250px for the expansive PC look */
+        /* PC Card size maintained at 1250px exactly as requested */
         .glass-panel {
             position: relative;
             background-color: rgba(253, 251, 247, 0.95);
@@ -182,10 +181,6 @@
             background-size: cover; background-repeat: no-repeat; mix-blend-mode: multiply; 
         }
 
-        /* 
-           THE FLORAL PINS 
-           Now strictly alternating Right -> Left -> Right -> Left -> Right 
-        */
         .floral-pin {
             position: absolute;
             width: clamp(80px, 15vw, 140px);
@@ -198,8 +193,8 @@
 
         .floral-pin:hover { transform: scale(1.1) rotate(5deg) !important; }
 
-        .pin-top-left { top: -25px; left: -25px; transform: rotate(-15deg); }
-        .pin-top-right { top: -25px; right: -25px; transform: rotate(15deg); }
+        .pin-top-left { top: -15px; left: -15px; transform: rotate(-15deg); }
+        .pin-top-right { top: -15px; right: -15px; transform: rotate(15deg); }
 
         .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } 
         .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } 
@@ -249,7 +244,7 @@
         @keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(12px); opacity: 0; } }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE (PIN: RIGHT)
+           6. CHAPTER I: PRELUDE 
            ========================================================================== */
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--s-kilo); position: relative; z-index: 10;}
         .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; position: relative; z-index: 10;}
@@ -265,7 +260,7 @@
         .story-text-content p { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 2.2; color: var(--c-text-muted); margin-bottom: var(--s-nano); }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS (PIN: LEFT)
+           7. CHAPTER II: DETAILS 
            ========================================================================== */
         .details-header { text-align: center; margin-bottom: var(--s-kilo); width: 100%; position: relative; z-index: 10;}
         .details-header h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-gold-foil); font-weight: 300; }
@@ -283,7 +278,7 @@
         .detail-card-inner p { font-size: 0.85rem; letter-spacing: 0.05em; color: rgba(250, 249, 246, 0.7); line-height: 1.8; text-transform: uppercase; }
 
         /* ==========================================================================
-           8. CHAPTER III: ENTOURAGE (PIN: RIGHT)
+           8. CHAPTER III: ENTOURAGE
            ========================================================================== */
         .editorial-spread-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
         .editorial-spread-title h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-navy-abyss); font-style: italic; }
@@ -304,7 +299,7 @@
         .party-member-lux .role { font-size: 0.55rem; letter-spacing: 0.1em; color: var(--c-gold-dark); text-transform: uppercase; display: block; margin-bottom: 3px; }
 
         /* ==========================================================================
-           9. CHAPTER IV: ATTIRE (PIN: LEFT)
+           9. CHAPTER IV: ATTIRE 
            ========================================================================== */
         .attire-text { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
         .attire-text h2 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); color: var(--c-navy-abyss); margin-bottom: var(--s-nano); }
@@ -320,7 +315,7 @@
         .guideline-box span { font-size: 0.7rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* ==========================================================================
-           10. CHAPTER V: THE RSVP (PIN: RIGHT)
+           10. CHAPTER V: THE RSVP
            ========================================================================== */
         .chapter-rsvp .glass-panel { max-width: 800px; }
         .rsvp-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
@@ -345,10 +340,10 @@
         /* ==========================================================================
            11. FOOTER
            ========================================================================== */
-        footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid rgba(197, 160, 89, 0.3); position: relative; z-index: 20; }
+        footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid var(--c-gold-bright); position: relative; z-index: 20; }
 
         /* ==========================================================================
-           12. MEDIA QUERIES (MOBILE FIXES - SMALL CARDS)
+           12. MOBILE UI/UX MASTERY (PERFECTING THE CARD SCALES)
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
@@ -361,29 +356,44 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
+            /* Mobile Background Flowers Opacity increased */
             .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
 
-            .editorial-section { padding: 3vh 3vw; }
+            .editorial-section { padding: 4vh 4vw; }
             
-            /* Tighter, balanced padding for mobile cards */
-            .glass-panel { padding: 1.5rem 1rem; border-radius: 10px; }
+            /* 
+               MOBILE CARD FIX: 
+               Card width shrunk to 82% to give beautiful negative space around edges 
+               padding heavily reduced to avoid feeling bulky 
+            */
+            .glass-panel { 
+                width: 82% !important; 
+                padding: 2rem 1.2rem !important; 
+                border-radius: 12px; 
+                margin: 0 auto; 
+            }
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
-            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.5rem; }
-            .hero-ampersand { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; }
+            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.2rem; }
+            .hero-ampersand { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; }
             
             .prelude-floral-wrapper { display: none !important; }
 
-            /* PERFECT HORIZONTAL SWIPE CAROUSELS */
+            /* 
+               PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS 
+               Calculated to fit perfectly inside the new 82% width cards
+            */
             .mobile-swipe-container {
                 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
                 scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-                gap: 10px !important; padding-bottom: 15px; 
-                margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem;
+                gap: 15px !important; padding-bottom: 15px; 
+                width: calc(100% + 2.4rem) !important;
+                margin-left: -1.2rem !important; margin-right: -1.2rem !important; 
+                padding-left: 1.2rem !important; padding-right: 1.2rem !important;
                 scrollbar-width: none; 
             }
             .mobile-swipe-container::-webkit-scrollbar { display: none; }
-            .mobile-swipe-item { flex: 0 0 88% !important; scroll-snap-align: center; transform: none !important; }
+            .mobile-swipe-item { flex: 0 0 90% !important; scroll-snap-align: center; transform: none !important; }
 
             .block-parents { display: block; }
             .parent-side { border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center; }
@@ -397,8 +407,9 @@
             .party-grid-inner { grid-template-columns: 1fr; gap: 0.8rem; text-align: center; }
             .name-lux { text-align: center; }
 
-            .attire-cards-container { display: flex; width: 100vw; margin-left: 0; margin-right: 0;}
+            .attire-cards-container { display: flex; }
             .guideline-box { padding: 1.2rem; text-align: center; }
+
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
@@ -445,8 +456,6 @@
     <!-- 
       ==========================================================================
       MASSIVE 40% COVERAGE FLORALS
-      Placed in background layer (z-index: 0) so they NEVER block content.
-      Desktop Opacity: 70% | Mobile Opacity: 50%
       ========================================================================== 
     -->
     <div class="floral-background-container">
@@ -494,20 +503,18 @@
         </header>
 
         <!-- ==========================================================================
-             CHAPTER I: THE STORY (GLASS CARD WITH PRELUDE-FLOWER.PNG)
+             CHAPTER I: THE STORY 
              ========================================================================== -->
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid glass-panel k-reveal">
                 
-                <!-- THE DYNAMIC SILK BACKGROUND (Story Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v1"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR STORY CARD (RIGHT) -->
+                <!-- FLORAL PIN: TOP RIGHT -->
                 <img src="static/pin-1.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
-                <!-- The Transparent Background Flower -->
                 <div class="prelude-floral-wrapper k-reveal">
                     <img src="static/prelude-flower.png" alt="Floral Decoration">
                 </div>
@@ -527,12 +534,11 @@
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="glass-panel dark k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Dark Mode Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v2"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR DETAILS CARD (LEFT) -->
+                <!-- FLORAL PIN: TOP LEFT -->
                 <img src="static/pin-2.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="details-header">
@@ -570,12 +576,11 @@
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             <div class="glass-panel k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Entourage Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v3"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR ENTOURAGE CARD (RIGHT) -->
+                <!-- FLORAL PIN: TOP RIGHT -->
                 <img src="static/pin-3.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="editorial-spread-title">
@@ -682,12 +687,11 @@
         <section id="chapter-attire" class="chapter-attire editorial-section">
             <div class="glass-panel k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Attire Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v4"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR ATTIRE CARD (LEFT) -->
+                <!-- FLORAL PIN: TOP LEFT -->
                 <img src="static/pin-4.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="attire-text">
@@ -724,12 +728,11 @@
         <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="glass-panel dark k-reveal rsvp-envelope">
                 
-                <!-- THE DYNAMIC SILK BACKGROUND (Dark RSVP Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v5"></div>
                 </div>
 
-                <!-- FLORAL PINS FOR RSVP CARD (RIGHT) -->
+                <!-- FLORAL PIN: TOP RIGHT -->
                 <img src="static/pin-5.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="rsvp-title">
@@ -737,7 +740,6 @@
                     <h2>Répondez s'il vous plaît</h2>
                 </div>
 
-                <!-- GOOGLE SHEETS APPS SCRIPT INTEGRATION -->
                 <form id="rsvpForm" onsubmit="handleRSVP(event)">
                     <div class="lux-form-group">
                         <input type="text" id="guestName" name="GuestName" class="lux-input" required>
@@ -794,7 +796,6 @@
             
             setTimeout(() => {
                 main.classList.add('active');
-                // Allow smooth anchor link scrolling after load
                 document.documentElement.classList.add('smooth-scroll');
                 checkReveals();
                 startPetalPhysics();
@@ -803,7 +804,6 @@
             document.body.style.overflowY = 'auto';
         }
 
-        // Lock scroll initially
         document.body.style.overflowY = 'hidden';
 
         // --- 2. KINETIC SCROLL REVEAL SYSTEM ---
@@ -887,7 +887,6 @@
             btn.innerHTML = "Sending...";
             btn.style.pointerEvents = "none";
 
-            // Live App Script URL Integrated
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwEgCBzascCcBdrmpEUFgXd7qrcT_8peJl6nKsqanl_Mgv1WzUChZ0OCZSBOOQbLvNE/exec';
 
             fetch(scriptURL, { 
@@ -899,7 +898,7 @@
                 form.parentElement.innerHTML = `
                     <div style="text-align: center; padding: 40px 0; animation: etherealReveal 1s forwards;">
                         <h3 style="font-family: var(--font-display); font-size: 3rem; color: var(--c-gold-metallic); margin-bottom: 10px;">Thank You</h3>
-                        <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-ivory-base);">
+                        <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250, 249, 246, 0.7);">
                             Your response is cherished.
                         </p>
                     </div>
