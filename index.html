@@ -97,7 +97,7 @@
 
         .floral-bg-image {
             position: absolute; width: 45vw; max-width: 800px; min-width: 350px; object-fit: contain;
-            opacity: 1; /* Updated: 100% Opacity */
+            opacity: 1; /* 100% Opacity */
             filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
             animation: bouquetBreathe 12s ease-in-out infinite alternate;
         }
@@ -144,7 +144,7 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS
+           4. MAIN LAYOUT ARCHITECTURE & CARDS
            ========================================================================== */
         #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; pointer-events: auto; }
@@ -154,44 +154,42 @@
             display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
         }
 
-        /* The Glass Panel with Animated Reflected Border */
+        /* The Glass Panel with Animated Reflected Border - Shrunk slightly per request */
         .glass-panel {
             position: relative;
             background-color: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 2.5rem 3rem; border-radius: 12px;
             box-shadow: var(--shadow-elevated), var(--shadow-gold-glow);
-            border: 1.5px solid transparent; /* Corrected: make static border transparent */
-            max-width: 1100px; width: 100%; margin: 0 auto;
+            border: 3px solid transparent; /* Border thickened to 3px */
+            max-width: 1000px; /* Reduced card size slightly */
+            width: 100%; margin: 0 auto;
             z-index: 10;
         }
 
         .glass-panel.dark {
             background-color: rgba(0, 18, 51, 0.95);
             color: var(--c-ivory-base);
-            border: 1.5px solid rgba(197, 160, 89, 0.25);
+            border: 3px solid rgba(197, 160, 89, 0.25);
         }
 
         /* 
-           THE ANIMATED REFLECTING GOLD BORDER
-           Pseudo-element creates a gold gradient and masks it to form the border 
-           animation: shimmerGold creates the light reflection effect
+           THE ANIMATED REFLECTING GOLD BORDER (Thicker)
         */
         .glass-panel::before {
             content: "";
             position: absolute;
-            inset: -1.5px; /* Shorthand for top: -1.5px, etc. to overlap exact static border width */
-            z-index: 20; /* Keep it above content for clear view of reflective border */
-            border-radius: 12px; /* Match panel's radius */
-            padding: 1.5px; /* Thickness of the reflective border */
-            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%); /* Gold reflective gradient */
-            background-size: 300% 300%; /* Size the gradient larger for smooth animation */
-            animation: shimmerGold 5s linear infinite; /* Apply shimmer animation */
-            /* Mask to make it look like a border only, clipping the center content-box and letting border-box show through */
+            inset: -3px; /* Adjusted to cover the thicker 3px static border */
+            z-index: 20; 
+            border-radius: 12px; 
+            padding: 3px; /* Thicker border (3px) */
+            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%); 
+            background-size: 300% 300%; 
+            animation: shimmerGold 5s linear infinite; 
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            pointer-events: none; /* Let clicks pass through */
+            pointer-events: none; 
         }
 
         @keyframes shimmerGold {
@@ -369,25 +367,32 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
-            /* Mobile Background Flowers Opacity increased to 100% */
-            .floral-bg-image { opacity: 1 !important; width: 85vw; max-width: 450px; } /* Updated: 100% Opacity on Mobile */
+            .floral-bg-image { opacity: 1 !important; width: 85vw; max-width: 450px; } 
 
             .editorial-section { padding: 4vh 4vw; }
-            .glass-panel { padding: 2.5rem 1.5rem; border-radius: 12px; }
+            
+            /* MOBILE CARD FIX: Card width slightly reduced to 78% */
+            .glass-panel { 
+                width: 78% !important; 
+                padding: 2.5rem 1.5rem !important; 
+                border-radius: 12px; 
+                margin: 0 auto; 
+            }
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
             .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 4rem; }
             .hero-ampersand { font-size: 5rem; }
 
-            /* Hide the prelude floral image on mobile to save space */
             .prelude-floral-wrapper { display: none !important; }
 
-            /* PERFECT HORIZONTAL SWIPE CAROUSELS */
+            /* PERFECT HORIZONTAL SWIPE CAROUSELS FOR NEW MOBILE WIDTH */
             .mobile-swipe-container {
                 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
                 scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
                 gap: 15px !important; padding-bottom: 15px; 
-                margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; scrollbar-width: none; 
+                width: calc(100% + 2rem) !important;
+                margin-left: -1rem !important; margin-right: -1rem !important; 
+                padding-left: 1rem !important; padding-right: 1rem !important; scrollbar-width: none; 
             }
             .mobile-swipe-container::-webkit-scrollbar { display: none; }
             .mobile-swipe-item { flex: 0 0 85% !important; scroll-snap-align: center; transform: none !important; }
@@ -451,9 +456,7 @@
     
     <!-- 
       ==========================================================================
-      MASSIVE 40% COVERAGE FLORALS
-      Placed in background layer (z-index: 0) so they NEVER block content.
-      Opacity: 100% on desktop and mobile.
+      MASSIVE FLORALS
       ========================================================================== 
     -->
     <div class="floral-background-container">
@@ -493,7 +496,7 @@
                 </div>
             </div>
 
-            <!-- Cinematic Scroll Down Indicator Restored & Re-positioned -->
+            <!-- Cinematic Scroll Down Indicator -->
             <div class="scroll-indicator">
                 <div class="mouse"><div class="wheel"></div></div>
                 <span>Scroll</span>
@@ -506,12 +509,13 @@
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid glass-panel k-reveal">
                 
-                <!-- THE DYNAMIC SILK BACKGROUND (Story Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v1"></div>
                 </div>
 
-                <!-- The Transparent Background Flower -->
+                <!-- FLORAL PIN: TOP RIGHT -->
+                <img src="static/pin-1.png" class="floral-pin pin-top-right" alt="Decorative Pin">
+
                 <div class="prelude-floral-wrapper k-reveal">
                     <img src="static/prelude-flower.png" alt="Floral Decoration">
                 </div>
@@ -531,10 +535,12 @@
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="glass-panel dark k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Dark Mode Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v2"></div>
                 </div>
+
+                <!-- FLORAL PIN: TOP LEFT -->
+                <img src="static/pin-2.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="details-header">
                     <h2>The Celebration</h2>
@@ -571,10 +577,12 @@
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             <div class="glass-panel k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Entourage Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v3"></div>
                 </div>
+
+                <!-- FLORAL PIN: TOP RIGHT -->
+                <img src="static/pin-3.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="editorial-spread-title">
                     <span class="chapter-label">Chapter III</span>
@@ -680,10 +688,12 @@
         <section id="chapter-attire" class="chapter-attire editorial-section">
             <div class="glass-panel k-reveal">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Attire Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v4"></div>
                 </div>
+
+                <!-- FLORAL PIN: TOP LEFT -->
+                <img src="static/pin-4.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="attire-text">
                     <span class="chapter-label">Chapter IV</span>
@@ -719,7 +729,6 @@
         <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="glass-panel dark k-reveal rsvp-envelope">
 
-                <!-- THE DYNAMIC SILK BACKGROUND (Dark RSVP Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v5"></div>
                 </div>
