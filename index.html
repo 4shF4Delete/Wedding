@@ -48,8 +48,8 @@
             
             --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
             --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
-            /* MASSIVE GOLD GLOW INCREASED */
-            --shadow-gold-glow: 0 0 80px rgba(212, 175, 55, 0.45);
+            /* GLOW REMOVED: Replaced by reflective border effect */
+            --shadow-gold-glow: 0 0 0 transparent;
             
             --t-cinematic: opacity 1.5s ease;
             --t-fluid: all 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -80,15 +80,15 @@
         }
 
         /* ==========================================================================
-           2. THE BIG GOLD BORDER & FLORALS
+           2. FLORAL BACKGROUND & PETALS
            ========================================================================== */
         .gold-border-frame {
             position: fixed;
-            top: 1.2vw; left: 1.2vw; right: 1.2vw; bottom: 1.2vw;
-            border: 4px solid var(--c-gold-metallic);
+            top: 1.5vw; left: 1.5vw; right: 1.5vw; bottom: 1.5vw;
+            border: 3px solid var(--c-gold-metallic);
             pointer-events: none;
             z-index: 5;
-            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.15);
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
         }
 
         .floral-background-container {
@@ -97,7 +97,8 @@
 
         .floral-bg-image {
             position: absolute; width: 45vw; max-width: 800px; min-width: 350px; object-fit: contain;
-            opacity: 0.7; filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
+            opacity: 1; /* Updated: 100% Opacity */
+            filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
             animation: bouquetBreathe 12s ease-in-out infinite alternate;
         }
 
@@ -143,7 +144,7 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS (PC SIZES PERFECTED)
+           4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS
            ========================================================================== */
         #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; pointer-events: auto; }
@@ -153,16 +154,15 @@
             display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
         }
 
-        /* PC Card size maintained at 1250px exactly as requested */
+        /* The Glass Panel with Animated Reflected Border */
         .glass-panel {
             position: relative;
             background-color: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 4rem 5rem; border-radius: 12px;
+            padding: 2.5rem 3rem; border-radius: 12px;
             box-shadow: var(--shadow-elevated), var(--shadow-gold-glow);
-            border: 1.5px solid rgba(197, 160, 89, 0.4);
-            max-width: 1250px; 
-            width: 100%; margin: 0 auto;
+            border: 1.5px solid transparent; /* Corrected: make static border transparent */
+            max-width: 1100px; width: 100%; margin: 0 auto;
             z-index: 10;
         }
 
@@ -170,6 +170,33 @@
             background-color: rgba(0, 18, 51, 0.95);
             color: var(--c-ivory-base);
             border: 1.5px solid rgba(197, 160, 89, 0.25);
+        }
+
+        /* 
+           THE ANIMATED REFLECTING GOLD BORDER
+           Pseudo-element creates a gold gradient and masks it to form the border 
+           animation: shimmerGold creates the light reflection effect
+        */
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            inset: -1.5px; /* Shorthand for top: -1.5px, etc. to overlap exact static border width */
+            z-index: 20; /* Keep it above content for clear view of reflective border */
+            border-radius: 12px; /* Match panel's radius */
+            padding: 1.5px; /* Thickness of the reflective border */
+            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%); /* Gold reflective gradient */
+            background-size: 300% 300%; /* Size the gradient larger for smooth animation */
+            animation: shimmerGold 5s linear infinite; /* Apply shimmer animation */
+            /* Mask to make it look like a border only, clipping the center content-box and letting border-box show through */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none; /* Let clicks pass through */
+        }
+
+        @keyframes shimmerGold {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 150% 50%; }
         }
 
         .silk-bg-container {
@@ -181,25 +208,6 @@
             position: absolute; background-image: url('static/silk-bg.png');
             background-size: cover; background-repeat: no-repeat; mix-blend-mode: multiply; 
         }
-
-        /* 
-           THE FLORAL PINS - UPSCALED
-           Width heavily increased. Top/Left/Right coordinates adjusted to fit the new size.
-        */
-        .floral-pin {
-            position: absolute;
-            width: clamp(100px, 18vw, 180px);
-            height: auto;
-            object-fit: contain;
-            z-index: 30;
-            filter: drop-shadow(0 15px 25px rgba(0, 31, 91, 0.25));
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .floral-pin:hover { transform: scale(1.1) rotate(5deg) !important; }
-
-        .pin-top-left { top: -25px; left: -25px; transform: rotate(-15deg); }
-        .pin-top-right { top: -25px; right: -25px; transform: rotate(15deg); }
 
         .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } 
         .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } 
@@ -240,7 +248,7 @@
         .date-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--c-gold-foil), transparent); }
 
         .scroll-indicator {
-            position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);
             display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 50;
         }
         .scroll-indicator span { font-family: var(--font-sans); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-dusty-blue-deep); }
@@ -254,7 +262,7 @@
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--s-kilo); position: relative; z-index: 10;}
         .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; position: relative; z-index: 10;}
         .prelude-floral-wrapper img {
-            width: 100%; max-width: 450px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15));
+            width: 100%; max-width: 400px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15));
             animation: floatFlower 6s ease-in-out infinite alternate;
         }
         @keyframes floatFlower { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-15px) rotate(3deg); } }
@@ -345,10 +353,10 @@
         /* ==========================================================================
            11. FOOTER
            ========================================================================== */
-        footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid var(--c-gold-bright); position: relative; z-index: 20; }
+        footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid rgba(197, 160, 89, 0.3); position: relative; z-index: 20; }
 
         /* ==========================================================================
-           12. MOBILE UI/UX MASTERY (PERFECTING THE CARD SCALES)
+           12. MEDIA QUERIES (MOBILE SWIPE MASTERY)
            ========================================================================== */
         @media (max-width: 1024px) {
             .story-grid { grid-template-columns: 1fr; }
@@ -361,36 +369,28 @@
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
 
-            .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
+            /* Mobile Background Flowers Opacity increased to 100% */
+            .floral-bg-image { opacity: 1 !important; width: 85vw; max-width: 450px; } /* Updated: 100% Opacity on Mobile */
 
             .editorial-section { padding: 4vh 4vw; }
-            
-            /* MOBILE CARD FIX: Card width shrunk to 82% */
-            .glass-panel { 
-                width: 82% !important; 
-                padding: 2rem 1.2rem !important; 
-                border-radius: 12px; 
-                margin: 0 auto; 
-            }
+            .glass-panel { padding: 2.5rem 1.5rem; border-radius: 12px; }
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
-            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.2rem; }
-            .hero-ampersand { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; }
-            
+            .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 4rem; }
+            .hero-ampersand { font-size: 5rem; }
+
+            /* Hide the prelude floral image on mobile to save space */
             .prelude-floral-wrapper { display: none !important; }
 
-            /* PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS */
+            /* PERFECT HORIZONTAL SWIPE CAROUSELS */
             .mobile-swipe-container {
                 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
                 scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
                 gap: 15px !important; padding-bottom: 15px; 
-                width: calc(100% + 2.4rem) !important;
-                margin-left: -1.2rem !important; margin-right: -1.2rem !important; 
-                padding-left: 1.2rem !important; padding-right: 1.2rem !important;
-                scrollbar-width: none; 
+                margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; scrollbar-width: none; 
             }
             .mobile-swipe-container::-webkit-scrollbar { display: none; }
-            .mobile-swipe-item { flex: 0 0 90% !important; scroll-snap-align: center; transform: none !important; }
+            .mobile-swipe-item { flex: 0 0 85% !important; scroll-snap-align: center; transform: none !important; }
 
             .block-parents { display: block; }
             .parent-side { border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center; }
@@ -404,9 +404,8 @@
             .party-grid-inner { grid-template-columns: 1fr; gap: 0.8rem; text-align: center; }
             .name-lux { text-align: center; }
 
-            .attire-cards-container { display: flex; }
+            .attire-cards-container { display: flex; width: 100vw; margin-left: 0; margin-right: 0;}
             .guideline-box { padding: 1.2rem; text-align: center; }
-
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
@@ -453,6 +452,8 @@
     <!-- 
       ==========================================================================
       MASSIVE 40% COVERAGE FLORALS
+      Placed in background layer (z-index: 0) so they NEVER block content.
+      Opacity: 100% on desktop and mobile.
       ========================================================================== 
     -->
     <div class="floral-background-container">
@@ -492,7 +493,7 @@
                 </div>
             </div>
 
-            <!-- Cinematic Scroll Down Indicator -->
+            <!-- Cinematic Scroll Down Indicator Restored & Re-positioned -->
             <div class="scroll-indicator">
                 <div class="mouse"><div class="wheel"></div></div>
                 <span>Scroll</span>
@@ -500,18 +501,17 @@
         </header>
 
         <!-- ==========================================================================
-             CHAPTER I: THE STORY 
+             CHAPTER I: THE STORY (GLASS CARD WITH PRELUDE-FLOWER.PNG)
              ========================================================================== -->
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid glass-panel k-reveal">
                 
+                <!-- THE DYNAMIC SILK BACKGROUND (Story Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v1"></div>
                 </div>
 
-                <!-- FLORAL PIN: TOP RIGHT -->
-                <img src="static/pin-1.png" class="floral-pin pin-top-right" alt="Decorative Pin">
-
+                <!-- The Transparent Background Flower -->
                 <div class="prelude-floral-wrapper k-reveal">
                     <img src="static/prelude-flower.png" alt="Floral Decoration">
                 </div>
@@ -531,12 +531,10 @@
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="glass-panel dark k-reveal">
 
+                <!-- THE DYNAMIC SILK BACKGROUND (Dark Mode Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v2"></div>
                 </div>
-
-                <!-- FLORAL PIN: TOP LEFT -->
-                <img src="static/pin-2.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="details-header">
                     <h2>The Celebration</h2>
@@ -573,12 +571,10 @@
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             <div class="glass-panel k-reveal">
 
+                <!-- THE DYNAMIC SILK BACKGROUND (Entourage Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v3"></div>
                 </div>
-
-                <!-- FLORAL PIN: TOP RIGHT -->
-                <img src="static/pin-3.png" class="floral-pin pin-top-right" alt="Decorative Pin">
 
                 <div class="editorial-spread-title">
                     <span class="chapter-label">Chapter III</span>
@@ -684,12 +680,10 @@
         <section id="chapter-attire" class="chapter-attire editorial-section">
             <div class="glass-panel k-reveal">
 
+                <!-- THE DYNAMIC SILK BACKGROUND (Attire Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v4"></div>
                 </div>
-
-                <!-- FLORAL PIN: TOP LEFT -->
-                <img src="static/pin-4.png" class="floral-pin pin-top-left" alt="Decorative Pin">
 
                 <div class="attire-text">
                     <span class="chapter-label">Chapter IV</span>
@@ -724,7 +718,8 @@
              ========================================================================== -->
         <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="glass-panel dark k-reveal rsvp-envelope">
-                
+
+                <!-- THE DYNAMIC SILK BACKGROUND (Dark RSVP Version) -->
                 <div class="silk-bg-container">
                     <div class="silk-accent silk-v5"></div>
                 </div>
@@ -734,6 +729,7 @@
                     <h2>Répondez s'il vous plaît</h2>
                 </div>
 
+                <!-- GOOGLE SHEETS APPS SCRIPT INTEGRATION -->
                 <form id="rsvpForm" onsubmit="handleRSVP(event)">
                     <div class="lux-form-group">
                         <input type="text" id="guestName" name="GuestName" class="lux-input" required>
@@ -790,6 +786,7 @@
             
             setTimeout(() => {
                 main.classList.add('active');
+                // Allow smooth anchor link scrolling after load
                 document.documentElement.classList.add('smooth-scroll');
                 checkReveals();
                 startPetalPhysics();
@@ -798,6 +795,7 @@
             document.body.style.overflowY = 'auto';
         }
 
+        // Lock scroll initially
         document.body.style.overflowY = 'hidden';
 
         // --- 2. KINETIC SCROLL REVEAL SYSTEM ---
@@ -881,6 +879,7 @@
             btn.innerHTML = "Sending...";
             btn.style.pointerEvents = "none";
 
+            // Live App Script URL Integrated
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwEgCBzascCcBdrmpEUFgXd7qrcT_8peJl6nKsqanl_Mgv1WzUChZ0OCZSBOOQbLvNE/exec';
 
             fetch(scriptURL, { 
