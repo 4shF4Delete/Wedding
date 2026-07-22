@@ -141,7 +141,7 @@ color: var(--c-gold-dark); opacity: 0; animation: etherealReveal 2s ease 1.5s fo
 @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 /* ==========================================================================
-          4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS (PC SIZES PERFECTED)
+          4. MAIN LAYOUT ARCHITECTURE & GLOWING CARDS 
           ========================================================================== */
 #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
 #main-experience.active { opacity: 1; pointer-events: auto; }
@@ -154,7 +154,7 @@ display: flex; flex-direction: column; justify-content: center; z-index: 10; bac
 /* PC Card size maintained at 1250px exactly as requested */
 .glass-panel {
 position: relative;
-background-color: rgba(253, 251, 247, 0.95);
+background-color: rgba(253, 251, 247, 0.95); /* Original Prelude Color */
 backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 padding: 4rem 5rem; border-radius: 12px;
 box-shadow: var(--shadow-elevated);
@@ -165,50 +165,66 @@ border: none;
 background-clip: padding-box;
 }
 
-/* Reflective Shimmer Border */
+/* --------------------------------------------------------------------------
+   THEME CLASSES & REFLECTIVE BORDERS
+   -------------------------------------------------------------------------- */
+/* Base Shared Animation for all cards */
 .glass-panel::before {
-content: '';
-position: absolute;
-inset: -1.5px;
-border-radius: 13.5px;
-background: linear-gradient(
-    110deg,
-    rgba(212, 175, 55, 0.2) 0%,
-    rgba(212, 175, 55, 0.2) 35%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(212, 175, 55, 0.8) 55%,
-    rgba(212, 175, 55, 0.2) 65%,
-    rgba(212, 175, 55, 0.2) 100%
-);
-background-size: 250% 250%;
-animation: borderLightStrike 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-z-index: -1;
-pointer-events: none;
+content: ''; position: absolute; inset: -1.5px; border-radius: 13.5px;
+z-index: -1; pointer-events: none;
+animation: borderLightStrike infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.glass-panel.dark {
-background-color: rgba(0, 18, 51, 0.95);
-color: var(--c-ivory-base);
-}
-
-.glass-panel.dark::before {
-background: linear-gradient(
-    110deg,
-    rgba(197, 160, 89, 0.2) 0%,
-    rgba(197, 160, 89, 0.2) 35%,
-    rgba(251, 245, 183, 0.9) 50%,
-    rgba(197, 160, 89, 0.8) 55%,
-    rgba(197, 160, 89, 0.2) 65%,
-    rgba(197, 160, 89, 0.2) 100%
-);
-background-size: 250% 250%;
-animation: borderLightStrike 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
 @keyframes borderLightStrike {
     0% { background-position: 100% 50%; }
     100% { background-position: -50% 50%; }
 }
+
+/* Original Prelude Reflection (Gold & White Glow) */
+#chapter-story .glass-panel::before {
+background: linear-gradient(110deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.2) 35%, rgba(255, 255, 255, 0.9) 50%, rgba(212, 175, 55, 0.8) 55%, rgba(212, 175, 55, 0.2) 65%, rgba(212, 175, 55, 0.2) 100%);
+background-size: 250% 250%;
+animation-duration: 10s; 
+animation-delay: 0s;
+}
+
+/* THEME: BLUE (Details & RSVP) */
+.glass-panel.theme-blue {
+background-color: rgba(0, 31, 91, 0.95);
+color: var(--c-ivory-base);
+}
+.glass-panel.theme-blue::before {
+background: linear-gradient(110deg, rgba(197, 160, 89, 0.2) 0%, rgba(197, 160, 89, 0.2) 35%, rgba(251, 245, 183, 0.9) 50%, rgba(197, 160, 89, 0.8) 55%, rgba(197, 160, 89, 0.2) 65%, rgba(197, 160, 89, 0.2) 100%);
+background-size: 250% 250%;
+}
+#chapter-details .glass-panel::before { animation-duration: 12.5s; animation-delay: -3.2s; }
+#chapter-rsvp .glass-panel::before { animation-duration: 14s; animation-delay: -7.8s; }
+
+/* THEME: WHITE (Entourage) */
+.glass-panel.theme-white {
+background-color: rgba(255, 255, 255, 0.95);
+color: var(--c-text-primary);
+}
+.glass-panel.theme-white::before {
+background: linear-gradient(110deg, rgba(0, 31, 91, 0.1) 0%, rgba(0, 31, 91, 0.2) 35%, rgba(212, 175, 55, 0.8) 50%, rgba(0, 31, 91, 0.6) 55%, rgba(0, 31, 91, 0.1) 65%, rgba(0, 31, 91, 0.1) 100%);
+background-size: 250% 250%;
+}
+#chapter-entourage .glass-panel::before { animation-duration: 11.5s; animation-delay: -5.4s; }
+
+/* THEME: GOLD (Attire) */
+.glass-panel.theme-gold {
+background-color: rgba(212, 175, 55, 0.88);
+color: var(--c-navy-abyss);
+}
+.glass-panel.theme-gold::before {
+background: linear-gradient(110deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 35%, rgba(0, 31, 91, 0.9) 50%, rgba(255, 255, 255, 0.8) 55%, rgba(255, 255, 255, 0.2) 65%, rgba(255, 255, 255, 0.2) 100%);
+background-size: 250% 250%;
+}
+/* Ensure text contrasts properly against the gold background */
+.glass-panel.theme-gold .attire-text p { color: rgba(0, 18, 51, 0.9); font-weight: 500; }
+.glass-panel.theme-gold .chapter-label { color: var(--c-ivory-base); }
+.glass-panel.theme-gold .guideline-box { background: rgba(255, 255, 255, 0.85); border-top: 2px solid var(--c-navy-ink); }
+#chapter-attire .glass-panel::before { animation-duration: 13s; animation-delay: -1.2s; }
+/* -------------------------------------------------------------------------- */
 
 .silk-bg-container {
 position: absolute; inset: 0; border-radius: inherit;
@@ -327,14 +343,14 @@ background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px);
           ========================================================================== */
 .attire-text { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
 .attire-text h2 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); color: var(--c-navy-abyss); margin-bottom: var(--s-nano); }
-.attire-text p { font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--c-text-muted); margin-bottom: var(--s-kilo); line-height: 1.8; max-width: 700px; margin: 0 auto 2rem; }
+.attire-text p { font-size: clamp(0.95rem, 2vw, 1.1rem); margin-bottom: var(--s-kilo); line-height: 1.8; max-width: 700px; margin: 0 auto 2rem; }
 
 .swatch-rack { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: var(--s-mega); }
 .fabric-swatch { width: clamp(45px, 8vw, 60px); height: clamp(60px, 12vw, 90px); border-radius: 30px; box-shadow: var(--shadow-contact); border: 2px solid #fff; transition: transform 0.3s ease; }
 .fabric-swatch:hover { transform: translateY(-5px); }
 
 .attire-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: var(--s-kilo); position: relative; z-index: 10;}
-.guideline-box { text-align: left; background: rgba(255, 255, 255, 0.7); border-top: 1px solid var(--c-gold-foil); padding: 1.5rem; border-radius: 8px; }
+.guideline-box { text-align: left; padding: 1.5rem; border-radius: 8px; }
 .guideline-box strong { font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--c-navy-ink); font-weight: 600; display: block; margin-top: 5px; }
 .guideline-box span { font-size: 0.7rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
@@ -358,7 +374,7 @@ background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(5px);
 .lux-radio-custom { width: 16px; height: 16px; border: 1px solid var(--c-gold-foil); border-radius: 50%; margin-right: 10px; position: relative; }
 .lux-radio-input:checked + .lux-radio-custom::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background-color: var(--c-gold-metallic); border-radius: 50%; }
 
-.lux-submit { width: 100%; background: var(--c-gold-dark); border: none; color: var(--c-white); padding: 15px; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; margin-top: 1rem; border-radius: 4px; transition: 0.3s; z-index: 10; position: relative;}
+.lux-submit { width: 100%; background: var(--c-gold-dark); border: none; color: var(--c-ivory-base); padding: 15px; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; margin-top: 1rem; border-radius: 4px; transition: 0.3s; z-index: 10; position: relative;}
 .lux-submit:hover { background-color: var(--c-gold-bright); }
 
 /* ==========================================================================
@@ -385,11 +401,6 @@ footer { background-color: var(--c-navy-abyss); color: var(--c-ivory-base); text
 
 .editorial-section { padding: 4vh 4vw; }
 
-            /* 
-               MOBILE CARD FIX: 
-               Card width shrunk to 82% to give beautiful negative space around edges 
-               padding heavily reduced to avoid feeling bulky 
-            */
             /* MOBILE CARD FIX: Card width shrunk to 82% */
 .glass-panel { 
 width: 82% !important; 
@@ -404,10 +415,6 @@ margin: 0 auto;
 
 .prelude-floral-wrapper { display: none !important; }
 
-            /* 
-               PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS 
-               Calculated to fit perfectly inside the new 82% width cards
-            */
             /* PERFECT HORIZONTAL SWIPE CAROUSELS FOR SHRUNK MOBILE CARDS */
 .mobile-swipe-container {
 display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
@@ -455,13 +462,13 @@ scrollbar-width: none;
 <g id="icon-church">
 <path d="M50 20 L20 50 L20 90 L80 90 L80 50 Z" fill="transparent" stroke="var(--c-gold-foil)" stroke-width="2"/>
 <path d="M50 10 L50 30 M40 20 L60 20" stroke="var(--c-gold-foil)" stroke-width="2"/>
-<path d="M40 90 L40 60 A10 10 0 0 1 60 60 L60 90" fill="var(--c-navy-ink)" stroke="var(--c-gold-foil)" stroke-width="2"/>
+<path d="M40 90 L40 60 A10 10 0 0 1 60 60 L60 90" fill="currentColor" stroke="var(--c-gold-foil)" stroke-width="2"/>
 <path d="M30 60 L30 75 M70 60 L70 75" stroke="var(--c-gold-foil)" stroke-width="2"/>
 </g>
 
 <g id="icon-reception">
 <path d="M10 50 L50 20 L90 50 L80 50 L80 90 L20 90 L20 50 Z" fill="transparent" stroke="var(--c-gold-foil)" stroke-width="2"/>
-<path d="M40 90 L40 70 L60 70 L60 90" fill="var(--c-navy-ink)" stroke="var(--c-gold-foil)" stroke-width="2"/>
+<path d="M40 90 L40 70 L60 70 L60 90" fill="currentColor" stroke="var(--c-gold-foil)" stroke-width="2"/>
 <rect x="25" y="60" width="10" height="15" fill="transparent" stroke="var(--c-gold-foil)" stroke-width="2"/>
 <rect x="65" y="60" width="10" height="15" fill="transparent" stroke="var(--c-gold-foil)" stroke-width="2"/>
 </g>
@@ -521,7 +528,6 @@ scrollbar-width: none;
 </div>
 </div>
 
-            <!-- Cinematic Scroll Down Indicator Restored & Re-positioned -->
             <!-- Cinematic Scroll Down Indicator -->
 <div class="scroll-indicator">
 <div class="mouse"><div class="wheel"></div></div>
@@ -530,7 +536,7 @@ scrollbar-width: none;
 </header>
 
 <!-- ==========================================================================
-            CHAPTER I: THE STORY 
+            CHAPTER I: THE STORY (Original Light/White Theme)
             ========================================================================== -->
 <section id="chapter-story" class="chapter-story editorial-section">
 <div class="story-grid glass-panel k-reveal">
@@ -553,10 +559,10 @@ scrollbar-width: none;
 </section>
 
 <!-- ==========================================================================
-            CHAPTER II: DETAILS (DARK GLASS CARD)
+            CHAPTER II: DETAILS (Blue Theme)
             ========================================================================== -->
 <section id="chapter-details" class="chapter-details editorial-section">
-<div class="glass-panel dark k-reveal">
+<div class="glass-panel theme-blue k-reveal">
 
 <div class="silk-bg-container">
 <div class="silk-accent silk-v2"></div>
@@ -592,10 +598,10 @@ Labo, Camarines Norte</p>
 </section>
 
 <!-- ==========================================================================
-            CHAPTER III: ENTOURAGE (LIGHT GLASS CARD)
+            CHAPTER III: ENTOURAGE (White Theme)
             ========================================================================== -->
 <section id="chapter-entourage" class="chapter-entourage editorial-section">
-<div class="glass-panel k-reveal">
+<div class="glass-panel theme-white k-reveal">
 
 <div class="silk-bg-container">
 <div class="silk-accent silk-v3"></div>
@@ -700,10 +706,10 @@ Labo, Camarines Norte</p>
 </section>
 
 <!-- ==========================================================================
-            CHAPTER IV: ATTIRE (LIGHT GLASS CARD)
+            CHAPTER IV: ATTIRE (Gold Theme)
             ========================================================================== -->
 <section id="chapter-attire" class="chapter-attire editorial-section">
-<div class="glass-panel k-reveal">
+<div class="glass-panel theme-gold k-reveal">
 
 <div class="silk-bg-container">
 <div class="silk-accent silk-v4"></div>
@@ -738,10 +744,10 @@ Labo, Camarines Norte</p>
 </section>
 
 <!-- ==========================================================================
-            CHAPTER V: THE RSVP (DARK GLASS CARD)
+            CHAPTER V: THE RSVP (Blue Theme)
             ========================================================================== -->
 <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
-<div class="glass-panel dark k-reveal rsvp-envelope">
+<div class="glass-panel theme-blue k-reveal rsvp-envelope">
 
 <div class="silk-bg-container">
 <div class="silk-accent silk-v5"></div>
