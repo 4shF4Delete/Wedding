@@ -33,7 +33,6 @@
             --c-gold-foil: #C5A059;
             --c-gold-metallic: #D4AF37;
             --c-gold-dark: #9E7D3F;
-            --c-gold-light: #FBF5B7;
             --c-text-primary: #1A1A1A;
             --c-text-muted: #555555;
             
@@ -47,8 +46,8 @@
             --s-tera: 10vw; 
             
             --shadow-contact: 0 4px 15px rgba(0, 0, 0, 0.03);
-            --shadow-elevated: 0 30px 60px rgba(0, 31, 91, 0.1);
-            --shadow-gold-glow: 0 0 25px rgba(212, 175, 55, 0.15);
+            --shadow-elevated: 0 40px 100px rgba(0, 31, 91, 0.08);
+            --shadow-gold-glow: 0 0 30px rgba(197, 160, 89, 0.15);
             
             --t-cinematic: opacity 1.5s ease;
             --t-fluid: all 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,73 +57,146 @@
         /* ==========================================================================
            1. RESET & CANVAS
            ========================================================================== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         html, body {
-            width: 100%; max-width: 100vw; overflow-x: hidden; 
-            background-color: var(--c-paper-texture); font-size: 16px;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden; 
+            background-color: var(--c-paper-texture);
+        }
+
+        html {
+            scroll-behavior: auto; 
+            font-size: 16px;
         }
 
         body {
-            font-family: var(--font-sans); color: var(--c-text-primary);
-            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.6;
+            font-family: var(--font-sans);
+            color: var(--c-text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
 
         html.smooth-scroll { scroll-behavior: smooth; }
 
         .global-noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
-            z-index: 9998; opacity: 0.35; mix-blend-mode: multiply;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.35;
+            mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
         }
 
         /* ==========================================================================
-           2. FLORAL BACKGROUND & PETALS 
+           2. FLORAL BACKGROUND, PETALS & THICK GOLD FRAME
            ========================================================================== */
+        /* Increased border to 3px for a bolder, premium edge */
+        .gold-border-frame {
+            position: fixed;
+            top: 1.5vw; left: 1.5vw; right: 1.5vw; bottom: 1.5vw;
+            border: 3px solid var(--c-gold-metallic);
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
+        }
+
         .floral-background-container {
-            position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0; 
+            overflow: hidden;
         }
 
         .floral-bg-image {
-            position: absolute; width: 45vw; max-width: 800px; min-width: 350px; object-fit: contain;
-            opacity: 0.7; filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
+            position: absolute;
+            width: 45vw;
+            max-width: 800px;
+            min-width: 350px;
+            object-fit: contain;
+            opacity: 0.7; 
+            filter: drop-shadow(0 20px 40px rgba(0, 18, 51, 0.15));
             animation: bouquetBreathe 12s ease-in-out infinite alternate;
         }
 
         .f-top-right { top: -10%; right: -10%; transform-origin: top right; }
         .f-bottom-left { bottom: -10%; left: -10%; transform-origin: bottom left; animation-delay: -6s; }
 
-        @keyframes bouquetBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+        @keyframes bouquetBreathe {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
 
-        #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9995; overflow: hidden; }
-        .falling-petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; will-change: transform, opacity; }
+        #petal-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; 
+            z-index: 9995; 
+            overflow: hidden;
+        }
+
+        .falling-petal {
+            position: absolute; background-size: contain; background-repeat: no-repeat;
+            pointer-events: none; will-change: transform, opacity;
+        }
 
         /* ==========================================================================
-           3. SPLASH SCREEN 
+           3. SPLASH SCREEN
            ========================================================================== */
         #splash-screen {
-            position: fixed; inset: 0; width: 100%; height: 100%; background-color: var(--c-paper-texture);
-            z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            cursor: pointer; transition: opacity 1.5s ease, visibility 1.5s ease;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--c-paper-texture);
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
         }
+
         #splash-screen.unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
-        
+
         .splash-image-wrapper {
-            position: relative; width: 80%; max-width: 400px; display: flex; justify-content: center; align-items: center;
-            opacity: 0; transform: translateY(20px); animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+            position: relative; width: 80%; max-width: 400px;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transform: translateY(20px);
+            animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
         }
+
         .splash-image-wrapper img {
-            width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+            width: 100%; height: auto; object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
             animation: goldPulse 4s infinite alternate ease-in-out;
         }
+
         .splash-image-wrapper::after {
             content: ''; position: absolute; top: -20%; left: -150%; width: 50%; height: 140%;
             background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-            transform: skewX(-25deg); animation: shineSweep 4s ease-in-out infinite; pointer-events: none; mix-blend-mode: color-dodge;
+            transform: skewX(-25deg); animation: shineSweep 4s ease-in-out infinite;
+            pointer-events: none; mix-blend-mode: color-dodge;
         }
+
         .splash-hint {
-            position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
-            color: var(--c-gold-dark); opacity: 0; animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
+            position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.65rem;
+            letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-gold-dark); opacity: 0;
+            animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
         }
 
         @keyframes etherealReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -133,74 +205,77 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. MAIN LAYOUT ARCHITECTURE & SHINING SILK CARDS
+           4. MAIN LAYOUT & EXPERT UI/UX SILK PANELS
            ========================================================================== */
-        #main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
+        #main-experience {
+            opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10;
+        }
         #main-experience.active { opacity: 1; pointer-events: auto; }
 
         .editorial-section {
             position: relative; width: 100%; padding: var(--s-tera) var(--s-mega);
-            display: flex; flex-direction: column; justify-content: center; z-index: 10; background-color: transparent !important;
+            display: flex; flex-direction: column; justify-content: center; z-index: 10;
+            background-color: transparent !important;
+        }
+
+        /* Increased border to 1.5px for stronger luxury definition */
+        .glass-panel {
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 3rem; border-radius: 12px;
+            box-shadow: var(--shadow-elevated);
+            border: 1.5px solid rgba(197, 160, 89, 0.4);
+            max-width: 1100px; width: 100%; margin: 0 auto;
+            position: relative; z-index: 10;
+        }
+
+        .glass-panel.dark {
+            background-color: rgba(0, 18, 51, 0.95);
+            color: var(--c-ivory-base);
+            border: 1.5px solid rgba(197, 160, 89, 0.25);
         }
 
         /* 
-           THE ADVANCED GLASS PANEL (CARD COMPONENT)
+           THE DYNAMIC SILK MASKING SYSTEM 
+           This clips the silk background perfectly to the rounded corners of the cards 
+           without breaking the mobile scroll layout.
         */
-        .glass-panel {
-            position: relative;
-            background-color: rgba(253, 251, 247, 0.92);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 3rem; border-radius: 12px;
-            box-shadow: var(--shadow-elevated), var(--shadow-gold-glow);
-            max-width: 1100px; width: 100%; margin: 0 auto;
-            z-index: 10;
+        .silk-bg-container {
+            position: absolute; inset: 0; border-radius: inherit;
+            overflow: hidden; z-index: -1; pointer-events: none;
         }
 
-        /* THE LEGIT SILK BACKGROUND INTEGRATION */
-        .silk-bg-layer {
-            position: absolute; inset: 0; border-radius: 12px;
-            background-image: url('static/silk-bg.png'); /* Reads your uploaded image */
-            background-size: cover; background-position: center;
-            opacity: 0.35; /* Blends perfectly without ruining text */
-            z-index: -1; pointer-events: none;
-            mix-blend-mode: multiply;
+        .silk-accent {
+            position: absolute;
+            background-image: url('static/silk-bg.png');
+            background-size: cover; background-repeat: no-repeat;
+            mix-blend-mode: multiply; /* Perfect for light cards */
         }
 
-        /* THE ANIMATED REFLECTING GOLD BORDER */
-        .glass-panel::before {
-            content: ""; position: absolute; inset: 0; border-radius: 12px;
-            padding: 2px; /* This dictates the border thickness */
-            background: linear-gradient(60deg, var(--c-gold-dark) 0%, var(--c-gold-metallic) 25%, #FFF 40%, var(--c-gold-light) 50%, var(--c-gold-foil) 75%, var(--c-gold-dark) 100%);
-            background-size: 300% 300%;
-            animation: shimmerGold 5s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none; z-index: 20;
+        /* Expert UI/UX Asymmetrical Placements */
+        .silk-v1 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(15deg); opacity: 0.3; } /* Story */
+        .silk-v2 { bottom: -30%; right: -20%; width: 150%; height: 150%; background-position: bottom right; transform: rotate(-15deg); opacity: 0.2; mix-blend-mode: screen; } /* Details Dark */
+        .silk-v3 { top: -10%; left: -10%; width: 120%; height: 120%; background-position: center; transform: rotate(-5deg); opacity: 0.25; } /* Entourage */
+        .silk-v4 { top: -20%; right: -20%; width: 140%; height: 140%; background-position: top right; transform: rotate(20deg); opacity: 0.35; } /* Attire */
+        .silk-v5 { top: -20%; left: -20%; width: 150%; height: 150%; background-position: top left; transform: rotate(10deg); opacity: 0.15; mix-blend-mode: screen; } /* RSVP Dark */
+
+        .k-reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+            will-change: opacity, transform;
         }
-
-        @keyframes shimmerGold {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 150% 50%; }
-        }
-
-        /* Dark Variation for Celebration and RSVP sections */
-        .glass-panel.dark { background-color: rgba(0, 18, 51, 0.95); color: var(--c-ivory-base); }
-        .glass-panel.dark .silk-bg-layer { opacity: 0.15; mix-blend-mode: screen; filter: grayscale(50%) sepia(20%) hue-rotate(180deg); }
-
-        .k-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1); will-change: opacity, transform; }
         .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
         /* ==========================================================================
-           5. HERO SECTION (NON-CARD, FLOATING TEXT)
+           5. HERO SECTION (NON-CARD)
            ========================================================================== */
         .hero-section {
-            min-height: 100vh; padding-top: 8vh; padding-bottom: 15vh; /* Added padding to protect scroll icon */
+            min-height: 100vh; padding-top: 8vh; padding-bottom: 15vh;
             display: flex; align-items: center; justify-content: center; position: relative;
         }
+        @supports (min-height: 100svh) { .hero-section { min-height: 100svh; } }
 
         .hero-composition { display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 20;}
-
         .hero-pretitle { font-family: var(--font-sans); font-size: clamp(0.6rem, 2vw, 0.8rem); letter-spacing: 0.5em; text-transform: uppercase; color: var(--c-dusty-blue-deep); margin-bottom: var(--s-kilo); }
         .hero-title-group { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         .name-bertwin, .name-mechele { font-family: var(--font-display); font-size: clamp(4rem, 12vw, 10rem); color: var(--c-navy-abyss); line-height: 0.9; z-index: 10; font-weight: 300; }
@@ -214,48 +289,26 @@
         }
 
         .hero-date {
-            margin-top: 4vh; font-family: var(--font-sans); font-size: clamp(0.7rem, 2vw, 0.9rem);
-            letter-spacing: 0.4em; color: var(--c-navy-ink); text-transform: uppercase; display: flex; align-items: center; gap: 20px;
+            margin-top: 6vh; font-family: var(--font-sans); font-size: clamp(0.7rem, 2vw, 0.9rem);
+            letter-spacing: 0.4em; color: var(--c-navy-ink); text-transform: uppercase; display: flex; align-items: center; gap: 20px; font-weight: 500;
         }
         .date-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--c-gold-foil), transparent); }
 
-        /* THE NEW, SAFE MOUSE SCROLL INDICATOR */
         .scroll-indicator {
-            position: absolute;
-            bottom: 6vh; /* Safely lifted from the absolute bottom */
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            z-index: 50;
+            position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 50;
         }
-        .scroll-indicator span {
-            font-family: var(--font-sans); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-dusty-blue-deep);
-        }
-        .mouse {
-            width: 24px; height: 38px; border: 1.5px solid var(--c-gold-foil); border-radius: 12px;
-            display: flex; justify-content: center; padding-top: 6px;
-        }
-        .wheel {
-            width: 3px; height: 6px; background: var(--c-gold-metallic); border-radius: 2px;
-            animation: scrollWheel 2s ease-in-out infinite;
-        }
-        @keyframes scrollWheel {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(12px); opacity: 0; }
-        }
+        .scroll-indicator span { font-family: var(--font-sans); font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--c-dusty-blue-deep); }
+        .mouse { width: 24px; height: 38px; border: 1.5px solid var(--c-gold-foil); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
+        .wheel { width: 3px; height: 6px; background: var(--c-gold-metallic); border-radius: 2px; animation: scrollWheel 2s ease-in-out infinite; }
+        @keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(12px); opacity: 0; } }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE 
+           6. CHAPTER I: THE STORY 
            ========================================================================== */
         .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--s-kilo); position: relative; z-index: 10;}
         .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; }
-        .prelude-floral-wrapper img {
-            width: 100%; max-width: 450px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15));
-            animation: floatFlower 6s ease-in-out infinite alternate;
-        }
+        .prelude-floral-wrapper img { width: 100%; max-width: 450px; height: auto; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0, 31, 91, 0.15)); animation: floatFlower 6s ease-in-out infinite alternate; }
         @keyframes floatFlower { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-15px) rotate(3deg); } }
         .story-text-content { text-align: left; position: relative; z-index: 10;}
         .chapter-label { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.4em; color: var(--c-gold-dark); text-transform: uppercase; margin-bottom: var(--s-nano); display: block; }
@@ -263,7 +316,7 @@
         .story-text-content p { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 2.2; color: var(--c-text-muted); margin-bottom: var(--s-nano); }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS 
+           7. CHAPTER II: DETAILS (DARK CARD)
            ========================================================================== */
         .details-header { text-align: center; margin-bottom: var(--s-kilo); width: 100%; position: relative; z-index: 10;}
         .details-header h2 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); color: var(--c-gold-foil); font-weight: 300; }
@@ -318,7 +371,7 @@
         .guideline-box span { font-size: 0.7rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* ==========================================================================
-           10. CHAPTER V: THE RSVP 
+           10. CHAPTER V: THE RSVP (DARK CARD)
            ========================================================================== */
         .chapter-rsvp .glass-panel { max-width: 800px; }
         .rsvp-title { text-align: center; margin-bottom: var(--s-kilo); position: relative; z-index: 10;}
@@ -329,7 +382,7 @@
         .lux-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(250, 249, 246, 0.3); padding: 10px 0; font-family: var(--font-display); font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--c-ivory-base); outline: none; transition: 0.3s; }
         .lux-input:focus { border-bottom-color: var(--c-gold-foil); }
         .lux-label { position: absolute; top: 15px; left: 0; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250, 249, 246, 0.5); pointer-events: none; transition: var(--t-snappy); }
-        .lux-input:focus ~ .lux-label, .lux-input:valid ~ .lux-label { top: -15px; font-size: 0.55rem; color: var(--c-gold-foil); }
+        .lux-input:focus ~ .lux-label, .lux-input:valid ~ .lux-label { top: -15px; font-size: 0.55rem; color: var(--c-gold-dark); }
 
         .lux-radio-group { display: flex; gap: 20px; margin-top: 15px; justify-content: center; }
         .lux-radio-label { display: flex; align-items: center; cursor: pointer; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250, 249, 246, 0.8); }
@@ -352,14 +405,15 @@
             .story-grid { grid-template-columns: 1fr; }
             .prelude-floral-wrapper { display: flex; justify-content: center; margin-bottom: 2rem; }
             .details-masonry { grid-template-columns: 1fr; gap: 2rem; }
+            .card-church, .card-reception { grid-column: 1 / -1; transform: none; }
             .magazine-grid { grid-template-columns: 1fr; }
             .block-parents, .block-sponsors-groom, .block-sponsors-bride, .block-bridal, .block-grooms { grid-column: 1 / -1; }
         }
 
         @media (max-width: 768px) {
             :root { --s-mega: 4vw; }
-            
-            /* Highly visible mobile background flowers */
+
+            /* On mobile, flowers are highly visible (50%) but still behind cards */
             .floral-bg-image { opacity: 0.50 !important; width: 85vw; max-width: 450px; }
 
             .editorial-section { padding: 4vh 4vw; }
@@ -367,15 +421,19 @@
 
             .hero-title-group { transform: none; gap: 5px; padding: 1rem 0; }
             .name-bertwin, .name-mechele { transform: none; margin: 0; text-align: center; line-height: 1.1; font-size: 3.5rem; }
-            .hero-ampersand { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; }
-            
+            .hero-ampersand { font-size: 4.5rem; }
+
+            /* Hide the prelude floral image on mobile to save space */
             .prelude-floral-wrapper { display: none !important; }
 
             /* PERFECT HORIZONTAL SWIPE CAROUSELS */
             .mobile-swipe-container {
-                display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch; gap: 15px !important; padding-bottom: 15px; 
-                margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; scrollbar-width: none; 
+                display: flex !important; flex-wrap: nowrap !important; overflow-x: auto;
+                scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+                gap: 15px !important; padding-bottom: 15px; 
+                margin-left: -1.5rem; margin-right: -1.5rem;
+                padding-left: 1.5rem; padding-right: 1.5rem;
+                scrollbar-width: none; 
             }
             .mobile-swipe-container::-webkit-scrollbar { display: none; }
             .mobile-swipe-item { flex: 0 0 85% !important; scroll-snap-align: center; transform: none !important; }
@@ -390,17 +448,19 @@
             .lux-list li::before { display: none; }
             
             .party-grid-inner { grid-template-columns: 1fr; gap: 0.8rem; text-align: center; }
+            .party-member-lux { margin-bottom: 0; }
             .name-lux { text-align: center; }
 
-            .attire-cards-container { display: flex; width: 100%; margin-left: 0; margin-right: 0;}
+            .attire-cards-container { display: flex; width: 100vw; margin-left: 0; margin-right: 0;}
             .guideline-box { padding: 1.2rem; text-align: center; }
+
             .lux-radio-group { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SVG DEFINITIONS -->
+    <!-- SVG DEFINITIONS FOR ICONS AND DIVIDERS -->
     <svg style="display: none;">
         <defs>
             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -433,11 +493,17 @@
         </defs>
     </svg>
 
-    <!-- ATMOSPHERIC BACKGROUNDS -->
+    <!-- ATMOSPHERIC BACKGROUNDS & FRAMES -->
     <div class="global-noise"></div>
     <div class="gold-border-frame"></div>
     
-    <!-- FLORAL BACKGROUND LAYER -->
+    <!-- 
+      ==========================================================================
+      MASSIVE 40% COVERAGE FLORALS
+      Placed in background layer (z-index: 0) so they NEVER block content.
+      Desktop Opacity: 70% | Mobile Opacity: 50%
+      ========================================================================== 
+    -->
     <div class="floral-background-container">
         <img src="static/flowers-top-right.png" class="floral-bg-image f-top-right" alt="Decorative Floral Top Right">
         <img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Decorative Floral Bottom Left">
@@ -446,7 +512,7 @@
     <!-- PETAL PHYSICS CONTAINER -->
     <div id="petal-container"></div>
 
-    <!-- SPLASH SCREEN -->
+    <!-- SPLASH SCREEN REVEAL -->
     <div id="splash-screen" onclick="unlockExperience()">
         <div class="splash-image-wrapper">
             <img src="static/2.png" alt="M & B Monogram Splash">
@@ -454,10 +520,12 @@
         <div class="splash-hint">Tap to Enter</div>
     </div>
 
-    <!-- MAIN EXPERIENCE -->
+    <!-- MAIN LUXURY EXPERIENCE -->
     <main id="main-experience">
 
-        <!-- HERO SECTION -->
+        <!-- ==========================================================================
+             HERO SECTION (NON-CARD)
+             ========================================================================== -->
         <header class="hero-section">
             <div class="hero-composition k-reveal">
                 <div class="hero-pretitle">Joyfully invite you</div>
@@ -466,26 +534,32 @@
                     <span class="hero-ampersand">&</span>
                     <span class="name-mechele">Mechele</span>
                 </div>
-                <div class="hero-date">
+                <div class="hero-date" style="margin-top: 5vh;">
                     <div class="date-line"></div>
                     <span>September 26, 2026</span>
                     <div class="date-line"></div>
                 </div>
             </div>
 
-            <!-- SAFE SCROLL MOUSE INDICATOR -->
+            <!-- Cinematic Scroll Down Indicator Restored & Re-positioned -->
             <div class="scroll-indicator">
                 <div class="mouse"><div class="wheel"></div></div>
                 <span>Scroll</span>
             </div>
         </header>
 
-        <!-- CHAPTER I: THE STORY -->
+        <!-- ==========================================================================
+             CHAPTER I: THE STORY (GLASS CARD WITH PRELUDE-FLOWER.PNG)
+             ========================================================================== -->
         <section id="chapter-story" class="chapter-story editorial-section">
             <div class="story-grid glass-panel k-reveal">
-                <!-- NEW: Silk Background Layer Component -->
-                <div class="silk-bg-layer"></div>
                 
+                <!-- NEW: Silk Background Layer Component -->
+                <div class="silk-bg-container">
+                    <div class="silk-accent silk-v1"></div>
+                </div>
+
+                <!-- The Transparent Background Flower -->
                 <div class="prelude-floral-wrapper k-reveal">
                     <img src="static/prelude-flower.png" alt="Floral Decoration">
                 </div>
@@ -499,18 +573,23 @@
             </div>
         </section>
 
-        <!-- CHAPTER II: DETAILS (DARK) -->
+        <!-- ==========================================================================
+             CHAPTER II: DETAILS (DARK GLASS CARD)
+             ========================================================================== -->
         <section id="chapter-details" class="chapter-details editorial-section">
             <div class="glass-panel dark k-reveal">
+
                 <!-- NEW: Silk Background Layer Component -->
-                <div class="silk-bg-layer"></div>
+                <div class="silk-bg-container">
+                    <div class="silk-accent silk-v2"></div>
+                </div>
 
                 <div class="details-header">
                     <h2>The Celebration</h2>
                 </div>
 
                 <div class="details-masonry mobile-swipe-container">
-                    <div class="detail-card-inner mobile-swipe-item">
+                    <div class="detail-card-inner card-church mobile-swipe-item">
                         <svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-church"/></svg>
                         <h3>Church Ceremony</h3>
                         <span class="lux-time">8:30 am</span>
@@ -520,7 +599,7 @@
                         Labo, Camarines Norte</p>
                     </div>
 
-                    <div class="detail-card-inner mobile-swipe-item">
+                    <div class="detail-card-inner card-reception mobile-swipe-item" style="transition-delay: 0.2s;">
                         <svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-reception"/></svg>
                         <h3>The Reception</h3>
                         <span class="lux-time">To Follow</span>
@@ -534,11 +613,16 @@
             </div>
         </section>
 
-        <!-- CHAPTER III: ENTOURAGE -->
+        <!-- ==========================================================================
+             CHAPTER III: ENTOURAGE (LIGHT GLASS CARD)
+             ========================================================================== -->
         <section id="chapter-entourage" class="chapter-entourage editorial-section">
             <div class="glass-panel k-reveal">
+
                 <!-- NEW: Silk Background Layer Component -->
-                <div class="silk-bg-layer"></div>
+                <div class="silk-bg-container">
+                    <div class="silk-accent silk-v3"></div>
+                </div>
 
                 <div class="editorial-spread-title">
                     <span class="chapter-label">Chapter III</span>
@@ -638,11 +722,16 @@
             </div>
         </section>
 
-        <!-- CHAPTER IV: ATTIRE -->
+        <!-- ==========================================================================
+             CHAPTER IV: ATTIRE (LIGHT GLASS CARD)
+             ========================================================================== -->
         <section id="chapter-attire" class="chapter-attire editorial-section">
             <div class="glass-panel k-reveal">
+                
                 <!-- NEW: Silk Background Layer Component -->
-                <div class="silk-bg-layer"></div>
+                <div class="silk-bg-container">
+                    <div class="silk-accent silk-v4"></div>
+                </div>
 
                 <div class="attire-text">
                     <span class="chapter-label">Chapter IV</span>
@@ -664,7 +753,7 @@
                         <strong>Gentlemen: Barong</strong>
                         <strong>Ladies: Dusty Blue or Beige Gown</strong>
                     </div>
-                    <div class="guideline-box mobile-swipe-item">
+                    <div class="guideline-box mobile-swipe-item" style="transition-delay: 0.2s;">
                         <span>Guests</span>
                         <strong>Semi-Formal Attire</strong>
                     </div>
@@ -672,11 +761,16 @@
             </div>
         </section>
 
-        <!-- CHAPTER V: THE RSVP (DARK) -->
+        <!-- ==========================================================================
+             CHAPTER V: THE RSVP (DARK GLASS CARD)
+             ========================================================================== -->
         <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
             <div class="glass-panel dark k-reveal rsvp-envelope">
+                
                 <!-- NEW: Silk Background Layer Component -->
-                <div class="silk-bg-layer"></div>
+                <div class="silk-bg-container">
+                    <div class="silk-accent silk-v5"></div>
+                </div>
 
                 <div class="rsvp-title">
                     <p>Kindly reply by September 1, 2026</p>
@@ -695,11 +789,13 @@
                         <div class="lux-radio-group">
                             <label class="lux-radio-label">
                                 <input type="radio" name="Attendance" value="Accepts with Pleasure" class="lux-radio-input" required>
-                                <div class="lux-radio-custom"></div> Accepts with Pleasure
+                                <div class="lux-radio-custom"></div>
+                                Accepts with Pleasure
                             </label>
                             <label class="lux-radio-label">
                                 <input type="radio" name="Attendance" value="Declines with Regret" class="lux-radio-input" required>
-                                <div class="lux-radio-custom"></div> Declines with Regret
+                                <div class="lux-radio-custom"></div>
+                                Declines with Regret
                             </label>
                         </div>
                     </div>
@@ -714,7 +810,9 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
+        <!-- ==========================================================================
+             FOOTER
+             ========================================================================== -->
         <footer>
             <div style="font-family: var(--font-display); font-size: 3rem; color: var(--c-gold-metallic); margin-bottom: 10px;">B & M</div>
             <p style="font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: rgba(250, 249, 246, 0.7);">Together with their families</p>
@@ -723,25 +821,35 @@
 
     </main>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
     <script>
+        // --- 1. SPLASH SCREEN LOGIC ---
         function unlockExperience() {
             const splash = document.getElementById('splash-screen');
             const main = document.getElementById('main-experience');
+            
             splash.classList.add('unlocked');
+            
             setTimeout(() => {
                 main.classList.add('active');
+                // Allow smooth anchor link scrolling after load
                 document.documentElement.classList.add('smooth-scroll');
                 checkReveals();
                 startPetalPhysics();
             }, 1000);
+            
             document.body.style.overflowY = 'auto';
         }
 
+        // Lock scroll initially
         document.body.style.overflowY = 'hidden';
 
+        // --- 2. KINETIC SCROLL REVEAL SYSTEM ---
         const revealElements = document.querySelectorAll('.k-reveal');
         const revealOptions = { threshold: 0.05, rootMargin: "0px 0px 0px 0px" };
+
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -755,9 +863,11 @@
             revealElements.forEach(el => revealObserver.observe(el));
         }
 
+        // --- 3. IMMERSIVE 3D PETAL PHYSICS ENGINE ---
         function startPetalPhysics() {
             const container = document.getElementById('petal-container');
             const MAX_PETALS = 15;
+            
             const petalDataURI = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,15 10,20 C0,15 5,5 10,0 Z" fill="%234A5A69" opacity="0.6"/></svg>`;
 
             class Petal {
@@ -765,44 +875,66 @@
                     this.el = document.createElement('div');
                     this.el.classList.add('falling-petal');
                     this.el.style.backgroundImage = `url('${petalDataURI}')`;
+                    
                     this.reset();
                     container.appendChild(this.el);
                 }
+
                 reset() {
                     this.size = Math.random() * 15 + 10;
                     this.x = Math.random() * window.innerWidth;
                     this.y = -50;
+                    
                     this.speed = Math.random() * 1 + 0.5;
                     this.swaySpeed = Math.random() * 0.02 + 0.01;
                     this.swayAmplitude = Math.random() * 50 + 20;
                     this.angle = Math.random() * 360;
                     this.spinSpeed = Math.random() * 2 - 1;
                     this.time = Math.random() * 100;
+                    
                     this.el.style.width = `${this.size}px`;
                     this.el.style.height = `${this.size}px`;
                     this.update();
                 }
+
                 update() {
-                    this.time += this.swaySpeed; this.y += this.speed; this.angle += this.spinSpeed;
+                    this.time += this.swaySpeed;
+                    this.y += this.speed;
+                    this.angle += this.spinSpeed;
+                    
                     const currentX = this.x + Math.sin(this.time) * this.swayAmplitude;
                     this.el.style.transform = `translate3d(${currentX}px, ${this.y}px, 0) rotate(${this.angle}deg)`;
+                    
                     if (this.y > window.innerHeight + 50) this.reset();
                 }
             }
 
             const petals = Array.from({ length: MAX_PETALS }, () => new Petal());
-            function animate() { petals.forEach(p => p.update()); requestAnimationFrame(animate); }
+
+            function animate() {
+                petals.forEach(p => p.update());
+                requestAnimationFrame(animate);
+            }
             animate();
         }
 
+        // --- 4. THE RSVP GOOGLE SHEETS HANDLER ---
         function handleRSVP(e) {
             e.preventDefault();
             const form = document.getElementById('rsvpForm');
             const btn = form.querySelector('.lux-submit');
+            
             btn.innerHTML = "Sending...";
             btn.style.pointerEvents = "none";
+
+            // Live App Script URL Integrated
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwEgCBzascCcBdrmpEUFgXd7qrcT_8peJl6nKsqanl_Mgv1WzUChZ0OCZSBOOQbLvNE/exec';
-            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: new FormData(form) })
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                body: new FormData(form)
+            })
             .then(response => {
                 form.parentElement.innerHTML = `
                     <div style="text-align: center; padding: 40px 0; animation: etherealReveal 1s forwards;">
