@@ -16,56 +16,41 @@
     <!-- LUXURY TYPOGRAPHY -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Great Vibes for the script, Montserrat for the clean modern text -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================================================
-           0. GLOBAL TOKENS (PDF MATCHING THEME)
+           0. GLOBAL TOKENS
            ========================================================================== */
         :root {
-            /* Structural Colors */
             --c-white: #FFFFFF;
             --c-offwhite: #FDFBF7;
-            
-            /* The PDF Palette */
             --c-navy-deep: #000B1F;
             --c-navy-ink: #001F5B;
-            --c-navy-light: #1A3A75;
             --c-dusty-blue-dark: #4A5A69;
             --c-dusty-blue: #708090;
             --c-dusty-blue-light: #A0B0C0;
-            --c-soft-blue-wash: #E1EBF5;
             --c-watercolor-blue: #9EC0E6;
             
-            /* Gold Accents */
             --c-gold-bright: #D4AF37;
             --c-gold-foil: #C5A059;
             --c-gold-dark: #9E7D3F;
-            --c-gold-light: #FBF5B7;
             
-            /* Text Hierarchy */
             --c-text-main: #2C3E50;
             --c-text-muted: #555555;
             
-            /* Typographic Scales */
             --font-sans: 'Montserrat', sans-serif;
             --font-script: 'Great Vibes', cursive;
             
-            /* Bespoke Spacing */
             --s-nano: 1rem;
             --s-kilo: 2.5rem;
             --s-mega: 6vw;
             --s-tera: 10vw;
             
-            /* Atmospheric Shadows */
-            --shadow-subtle: 0 10px 30px rgba(0, 31, 91, 0.05);
             --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04);
             --shadow-floral: 0 15px 40px rgba(0, 11, 31, 0.25);
             
-            /* Kinetic Transitions */
             --t-cinematic: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-            --t-fluid: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* ==========================================================================
@@ -89,14 +74,14 @@
             line-height: 1.6;
         }
 
-        /* Continuous Gold Frame (Exactly like the PDF) */
+        /* Continuous Gold Frame */
         .gold-border-frame {
             position: fixed; top: 1.5vw; left: 1.5vw; right: 1.5vw; bottom: 1.5vw;
             border: 2px solid var(--c-gold-bright); pointer-events: none;
             z-index: 5; box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
         }
 
-        /* The Deep Watercolor Background Overlay */
+        /* Watercolor Background Overlay */
         .watercolor-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0;
@@ -108,7 +93,7 @@
         }
 
         /* ==========================================================================
-           2. SPLASH SCREEN (SHINING GOLD + STATIC/2.PNG)
+           2. SPLASH SCREEN
            ========================================================================== */
         #splash-screen {
             position: fixed; inset: 0; width: 100%; height: 100vh;
@@ -147,21 +132,22 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           3. MASSIVE 40% COVERAGE FLORAL CORNERS
+           3. YOUR EXPORTED FLORAL IMAGES
            ========================================================================== */
         .master-bouquet {
-            position: fixed; pointer-events: none; z-index: 20; /* Sits ABOVE the gold frame */
-            width: 55vw; max-width: 900px; min-width: 400px; /* Absolutely massive */
+            position: fixed; pointer-events: none; z-index: 20; 
+            width: 45vw; max-width: 800px; min-width: 350px; 
             filter: drop-shadow(var(--shadow-floral));
             animation: bouquetBreathe 10s ease-in-out infinite alternate;
+            object-fit: contain;
         }
-        /* Exact placements matching image_7c553d.jpg */
-        .bouquet-top-right { top: -10%; right: -10%; transform: rotate(0deg); }
-        .bouquet-bottom-left { bottom: -10%; left: -10%; transform: rotate(180deg); animation-delay: -5s; }
+        
+        .bouquet-top-right { top: -5%; right: -5%; transform: rotate(0deg); }
+        .bouquet-bottom-left { bottom: -5%; left: -5%; transform: rotate(0deg); animation-delay: -5s; }
 
         @keyframes bouquetBreathe {
-            0% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1.02) rotate(2deg); }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
         }
 
         /* Petal Physics Engine Container */
@@ -188,11 +174,11 @@
         .k-reveal { opacity: 0; transform: translateY(40px); transition: var(--t-cinematic); will-change: opacity, transform; }
         .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
-        .bg-light { background-color: transparent; } /* Lets watercolor show through */
+        .bg-light { background-color: transparent; }
         .bg-white-panel { background-color: var(--c-white); position: relative; z-index: 15; border-top: 1px solid var(--c-gold-bright); border-bottom: 1px solid var(--c-gold-bright); }
 
         /* ==========================================================================
-           5. HERO SECTION (EXACT REPLICA OF THE PDF IMAGE)
+           5. HERO SECTION
            ========================================================================== */
         .hero-section {
             position: relative; min-height: 100vh;
@@ -217,7 +203,6 @@
 
         .hero-subtitle { font-family: var(--font-sans); font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--c-navy-ink); margin-bottom: 30px; font-weight: 400; }
 
-        /* Date Row */
         .hero-date-row {
             display: flex; align-items: center; justify-content: center; gap: 20px;
             font-family: var(--font-sans); font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -229,7 +214,6 @@
         .hero-date-row .v-line { width: 1.5px; height: 30px; background-color: var(--c-gold-bright); }
         .hero-heart-icon { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; color: var(--c-gold-bright); background: var(--c-white); padding: 0 5px; }
 
-        /* Details Row (Church & Reception Side-by-Side) */
         .hero-details-row {
             display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px;
             width: 100%; max-width: 900px; align-items: start;
@@ -241,9 +225,7 @@
         .detail-branch-divider { width: 180px; height: auto; margin-bottom: 15px; }
         .detail-column p { font-size: 0.9rem; color: var(--c-navy-ink); line-height: 1.6; font-weight: 400; }
         
-        .hero-vertical-divider {
-            display: flex; flex-direction: column; align-items: center;
-        }
+        .hero-vertical-divider { display: flex; flex-direction: column; align-items: center; }
         .hero-vertical-divider .line { width: 1.5px; height: 100px; background-color: var(--c-gold-bright); }
         .hero-vertical-divider svg { width: 20px; height: auto; margin: 5px 0; color: var(--c-gold-bright); }
 
@@ -370,14 +352,13 @@
         @media (max-width: 768px) {
             :root { --s-mega: 6vw; --s-tera: 12vw; }
 
-            /* Scale down massive corners for mobile to keep text readable */
-            .master-bouquet { width: 85vw; opacity: 0.85; }
+            .master-bouquet { width: 75vw; opacity: 0.85; }
 
             .hero-names-stack { font-size: 6rem; }
             .hero-date-row { flex-direction: column; gap: 10px; border: none; }
             .hero-date-row .v-line { width: 80px; height: 1.5px; }
             .hero-details-row { grid-template-columns: 1fr; gap: 40px; }
-            .hero-vertical-divider { display: none; } /* Hide vertical divider on mobile stack */
+            .hero-vertical-divider { display: none; } 
 
             /* PERFECT HORIZONTAL SWIPE CAROUSELS FOR MOBILE */
             .mobile-swipe-container {
@@ -410,12 +391,9 @@
 </head>
 <body>
 
-    <!-- ==========================================================================
-         MASSIVE INLINE SVG LIBRARY (PDF-ACCURATE BLUE ROSES & GOLD STEMS)
-         ========================================================================== -->
+    <!-- SVG DEFINITIONS FOR ICONS AND DIVIDERS -->
     <svg style="display: none;">
         <defs>
-            <!-- Gradients based precisely on image_7c553d.jpg -->
             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#FBF5B7" />
                 <stop offset="30%" stop-color="#D4AF37" />
@@ -423,85 +401,6 @@
                 <stop offset="100%" stop-color="#9E7D3F" />
             </linearGradient>
 
-            <linearGradient id="rose-navy-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#001F5B" />
-                <stop offset="60%" stop-color="#000B1F" />
-                <stop offset="100%" stop-color="#000000" />
-            </linearGradient>
-
-            <linearGradient id="rose-dusty-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#9EC0E6" />
-                <stop offset="50%" stop-color="#4A5A69" />
-                <stop offset="100%" stop-color="#1A2A3A" />
-            </linearGradient>
-
-            <linearGradient id="rose-white-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF" />
-                <stop offset="100%" stop-color="#E1EBF5" />
-            </linearGradient>
-
-            <!-- Massive Dense Bouquet Composite (Used for Top Right and Bottom Left) -->
-            <g id="massive-floral-cluster">
-                <!-- Massive Background Leaf Shadow -->
-                <path d="M 100 100 C 150 -50 350 -50 450 150 C 550 350 400 550 250 500 C 50 450 -50 350 100 100 Z" fill="rgba(0,11,31,0.3)" filter="blur(30px)"/>
-                
-                <!-- Sprawling Dusty Blue Hydrangea/Leaves Base -->
-                <circle cx="250" cy="250" r="180" fill="#4A5A69"/>
-                <circle cx="150" cy="350" r="120" fill="#1A2A3A"/>
-                <circle cx="400" cy="150" r="140" fill="#708090"/>
-
-                <!-- Giant Deep Navy Rose 1 (Center-Right) -->
-                <g transform="translate(180, 80) scale(2)">
-                    <path d="M50,10 C70,5 95,20 90,45 C110,55 100,85 70,90 C55,105 25,95 15,70 C-5,50 10,20 40,20 Z" fill="url(#rose-navy-grad)"/>
-                    <path d="M55,20 C70,15 85,30 80,50 C95,60 85,80 60,80 C45,95 25,80 20,60 C5,45 20,25 45,25 Z" fill="#000B1F"/>
-                    <path d="M60,30 C70,25 80,35 75,50 C85,60 75,70 55,70 C45,80 30,70 25,55 C15,40 30,30 50,35 Z" fill="#000000"/>
-                    <path d="M50,10 Q60,30 55,45 M90,45 Q75,50 70,55 M70,90 Q60,65 55,70 M15,70 Q30,60 25,55 M40,20 Q45,35 50,35" stroke="#1A3A75" stroke-width="1.5" fill="none"/>
-                </g>
-
-                <!-- Giant Deep Navy Rose 2 (Bottom-Left) -->
-                <g transform="translate(20, 200) scale(1.8) rotate(45)">
-                    <path d="M50,10 C70,5 95,20 90,45 C110,55 100,85 70,90 C55,105 25,95 15,70 C-5,50 10,20 40,20 Z" fill="url(#rose-navy-grad)"/>
-                    <path d="M55,20 C70,15 85,30 80,50 C95,60 85,80 60,80 C45,95 25,80 20,60 C5,45 20,25 45,25 Z" fill="#000B1F"/>
-                    <path d="M60,30 C70,25 80,35 75,50 C85,60 75,70 55,70 C45,80 30,70 25,55 C15,40 30,30 50,35 Z" fill="#000000"/>
-                </g>
-
-                <!-- Dusty Blue Rose (Top-Left) -->
-                <g transform="translate(80, 20) scale(1.4) rotate(-30)">
-                    <path d="M50,10 C70,5 95,20 90,45 C110,55 100,85 70,90 C55,105 25,95 15,70 C-5,50 10,20 40,20 Z" fill="url(#rose-dusty-grad)"/>
-                    <path d="M55,20 C70,15 85,30 80,50 C95,60 85,80 60,80 C45,95 25,80 20,60 C5,45 20,25 45,25 Z" fill="#4A5A69"/>
-                    <path d="M60,30 C70,25 80,35 75,50 C85,60 75,70 55,70 C45,80 30,70 25,55 C15,40 30,30 50,35 Z" fill="#1A2A3A"/>
-                </g>
-
-                <!-- White Rose (Middle-Right edge) -->
-                <g transform="translate(350, 250) scale(1.5) rotate(70)">
-                    <path d="M50,10 C70,5 95,20 90,45 C110,55 100,85 70,90 C55,105 25,95 15,70 C-5,50 10,20 40,20 Z" fill="url(#rose-white-grad)"/>
-                    <path d="M55,20 C70,15 85,30 80,50 C95,60 85,80 60,80 C45,95 25,80 20,60 C5,45 20,25 45,25 Z" fill="#FDFBF7" stroke="#A0B0C0" stroke-width="1"/>
-                    <path d="M60,30 C70,25 80,35 75,50 C85,60 75,70 55,70 C45,80 30,70 25,55 C15,40 30,30 50,35 Z" fill="#FFFFFF" stroke="#E1EBF5" stroke-width="1"/>
-                </g>
-
-                <!-- Long Sprawling Gold Leaves & Branches -->
-                <g stroke="url(#gold-grad)" stroke-width="3" fill="none">
-                    <!-- Branch down and right -->
-                    <path d="M 250 250 Q 400 400 500 650" stroke-width="5"/>
-                    <path d="M 300 320 Q 380 300 450 350 Q 390 380 320 370" fill="rgba(212, 175, 55, 0.1)"/>
-                    <path d="M 350 420 Q 450 400 520 450 Q 440 480 370 470" fill="rgba(212, 175, 55, 0.1)"/>
-                    <path d="M 400 520 Q 500 500 570 550 Q 490 580 420 570" fill="rgba(212, 175, 55, 0.1)"/>
-                    
-                    <!-- Branch up and right -->
-                    <path d="M 250 250 Q 450 150 650 50" stroke-width="4"/>
-                    <path d="M 320 210 Q 350 120 400 100 Q 420 160 360 190" fill="rgba(212, 175, 55, 0.1)"/>
-                    <path d="M 420 160 Q 450 70 500 50 Q 520 110 460 140" fill="rgba(212, 175, 55, 0.1)"/>
-                </g>
-
-                <!-- Solid Blue Eucalyptus Leaves spilling out -->
-                <g fill="#4A5A69" opacity="0.9">
-                    <path d="M 100 350 C 50 380 10 450 30 500 C 60 480 80 420 120 380 Z"/>
-                    <path d="M 150 400 C 120 450 100 520 140 560 C 180 520 180 460 190 420 Z"/>
-                    <path d="M 50 280 C -10 300 -60 350 -40 390 C -10 360 20 320 60 300 Z"/>
-                </g>
-            </g>
-
-            <!-- EXACT PDF ICONS -->
             <!-- Heart Icon -->
             <g id="icon-heart">
                 <path d="M50,30 C30,10 0,30 20,60 L50,90 L80,60 C100,30 70,10 50,30 Z" fill="url(#gold-grad)"/>
@@ -521,7 +420,7 @@
                 <circle cx="50" cy="50" r="4" fill="var(--c-white)" stroke="url(#gold-grad)" stroke-width="1.5"/>
             </g>
 
-            <!-- Branch Divider for Details -->
+            <!-- Branch Divider -->
             <g id="icon-branch">
                 <path d="M10 50 Q 50 50 90 50" stroke="var(--c-navy-deep)" stroke-width="1.5" fill="none"/>
                 <path d="M25 50 Q 30 35 40 50 Q 30 65 25 50" fill="none" stroke="var(--c-navy-deep)" stroke-width="1.5"/>
@@ -555,24 +454,14 @@
     <div class="watercolor-canvas"></div>
     <div class="gold-border-frame"></div>
     
-    <!-- 40% COVERAGE FLORAL CLUSTERS (OVERLAPPING THE GOLD FRAME) -->
-    <!-- Top Right -->
-    <svg class="master-bouquet bouquet-top-right" viewBox="0 0 600 600">
-        <use href="#massive-floral-cluster" />
-    </svg>
-    <!-- Bottom Left -->
-    <svg class="master-bouquet bouquet-bottom-left" viewBox="0 0 600 600">
-        <use href="#massive-floral-cluster" />
-    </svg>
+    <!-- YOUR EXPORTED FLORAL IMAGES -->
+    <img src="static/flowers-top-right.png" class="master-bouquet bouquet-top-right" alt="Floral decor top right">
+    <img src="static/flowers-bottom-left.png" class="master-bouquet bouquet-bottom-left" alt="Floral decor bottom left">
 
     <!-- PETAL PHYSICS CONTAINER -->
     <div id="petal-container"></div>
 
-    <!-- 
-      ==========================================================================
-      SPLASH SCREEN REVEAL
-      ========================================================================== 
-    -->
+    <!-- SPLASH SCREEN REVEAL -->
     <div id="splash-screen" onclick="unlockExperience()">
         <div class="splash-image-wrapper">
             <img src="static/2.png" alt="M & B Monogram Splash">
@@ -580,21 +469,13 @@
         <div class="splash-hint">Tap to Enter</div>
     </div>
 
-    <!-- 
-      ==========================================================================
-      MAIN LUXURY EXPERIENCE
-      ========================================================================== 
-    -->
+    <!-- MAIN LUXURY EXPERIENCE -->
     <main id="main-experience">
 
-        <!-- ==========================================================================
-             HERO SECTION (EXACT REPLICA OF image_7c553d.jpg)
-             ========================================================================== -->
+        <!-- HERO SECTION -->
         <header class="hero-section">
-            
             <div class="hero-pretitle k-reveal" style="transition-delay: 0.1s;">Together with their families</div>
             
-            <!-- Horizontal Gold Flourish -->
             <svg class="hero-flourish k-reveal" viewBox="0 0 100 100" style="transition-delay: 0.2s;"><use href="#icon-flourish-h"/></svg>
             
             <div class="hero-names-stack k-reveal" style="transition-delay: 0.3s; transform: none; opacity: 1;">
@@ -616,7 +497,6 @@
                 <span>8:30 AM</span>
             </div>
 
-            <!-- Details inline with Hero (Church & Reception) -->
             <div class="hero-details-row k-reveal" style="transition-delay: 0.6s;">
                 <!-- Left: Church -->
                 <div class="detail-column">
@@ -641,12 +521,9 @@
                     <p>Labo Convention Center<br><br>Hillcrest Subdivision, Brgy Bulhao,<br>Labo, Camarines Norte</p>
                 </div>
             </div>
-
         </header>
 
-        <!-- ==========================================================================
-             CHAPTER I: THE STORY (WITH STATIC/1.PNG)
-             ========================================================================== -->
+        <!-- CHAPTER I: PRELUDE -->
         <section id="chapter-story" class="editorial-section bg-white-panel">
             <div class="story-grid">
                 <div class="story-image-canvas k-reveal">
@@ -663,16 +540,13 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-             CHAPTER III: ENTOURAGE (MAGAZINE SPREAD)
-             ========================================================================== -->
+        <!-- CHAPTER III: ENTOURAGE -->
         <section id="chapter-entourage" class="editorial-section bg-light">
             <div class="editorial-spread-title k-reveal">
                 <h2>The Entourage</h2>
             </div>
 
             <div class="magazine-grid mobile-swipe-container">
-                
                 <!-- PARENTS -->
                 <div class="mag-block block-parents k-reveal mobile-swipe-item">
                     <div class="parent-side">
@@ -761,17 +635,13 @@
                         <div class="party-member-lux" style="grid-column: 1 / -1;"><span class="name-lux" style="font-size: 1.1rem;">Abegail Balce</span></div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- ==========================================================================
-             CHAPTER IV: ATTIRE & GIFTS
-             ========================================================================== -->
+        <!-- CHAPTER IV: ATTIRE & GIFTS -->
         <section id="chapter-attire" class="editorial-section bg-white-panel">
             <div class="attire-text k-reveal">
                 <h2>Attire</h2>
-                
                 <div class="swatch-rack">
                     <div class="fabric-swatch" style="background-color: var(--c-navy-ink);" title="Navy Blue"></div>
                     <div class="fabric-swatch" style="background-color: var(--c-dusty-blue-dark);" title="Dusty Blue"></div>
@@ -799,9 +669,7 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-             CHAPTER V: THE RSVP
-             ========================================================================== -->
+        <!-- CHAPTER V: THE RSVP -->
         <section id="chapter-rsvp" class="editorial-section bg-light">
             <div class="rsvp-envelope k-reveal">
                 <div class="rsvp-title">
@@ -809,7 +677,6 @@
                     <h2>RSVP</h2>
                 </div>
 
-                <!-- GOOGLE SHEETS APPS SCRIPT / FORMSPREE INTEGRATION -->
                 <form id="rsvpForm" onsubmit="handleRSVP(event)">
                     <div class="lux-form-group">
                         <input type="text" id="guestName" name="GuestName" class="lux-input" placeholder="Name(s) of Guest(s) *" required>
@@ -835,20 +702,16 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-             FOOTER
-             ========================================================================== -->
+        <!-- FOOTER -->
         <footer>
             <div style="font-family: var(--font-script); font-size: 3rem; color: var(--c-gold-bright); margin-bottom: 10px;">B & M</div>
-            <p style="font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--c-navy-ink);">Together with their families</p>
+            <p style="font-family: var(--font-sans); font-style: italic; font-size: 1.2rem; color: var(--c-navy-ink);">Together with their families</p>
             <p style="font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 40px; color: var(--c-text-muted);">© 2026 Bertwin & Mechele</p>
         </footer>
 
     </main>
 
-    <!-- ==========================================================================
-         JAVASCRIPT LOGIC
-         ========================================================================== -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         // --- 1. SPLASH SCREEN LOGIC ---
         function unlockExperience() {
@@ -861,7 +724,7 @@
                 main.classList.add('active');
                 document.documentElement.classList.add('smooth-scroll');
                 checkReveals();
-                startPetalPhysics(); // Ignite the immersive 3D petals
+                startPetalPhysics();
             }, 1000);
             
             document.body.style.overflowY = 'auto';
@@ -889,7 +752,7 @@
         // --- 3. ADVANCED 3D PETAL PHYSICS ENGINE ---
         function startPetalPhysics() {
             const container = document.getElementById('petal-container');
-            const MAX_PETALS = 15; // Balanced for 60fps
+            const MAX_PETALS = 15;
             
             const petalDataURI = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,15 10,20 C0,15 5,5 10,0 Z" fill="%234A5A69" opacity="0.6"/></svg>`;
 
@@ -915,8 +778,8 @@
                     this.spinSpeed = Math.random() * 2 - 1;
                     this.time = Math.random() * 100;
                     
-                    this.el.style.width = `${this.size}px`;
-                    this.el.style.height = `${this.size}px`;
+                    this.el.style.width = \`\${this.size}px\`;
+                    this.el.style.height = \`\${this.size}px\`;
                     this.update();
                 }
 
@@ -926,7 +789,7 @@
                     this.angle += this.spinSpeed;
                     
                     const currentX = this.x + Math.sin(this.time) * this.swayAmplitude;
-                    this.el.style.transform = `translate3d(${currentX}px, ${this.y}px, 0) rotate(${this.angle}deg)`;
+                    this.el.style.transform = \`translate3d(\${currentX}px, \${this.y}px, 0) rotate(\${this.angle}deg)\`;
                     
                     if (this.y > window.innerHeight + 50) this.reset();
                 }
@@ -941,7 +804,7 @@
             animate();
         }
 
-        // --- 4. THE RSVP GOOGLE SHEETS / FORMSPREE HANDLER ---
+        // --- 4. THE RSVP GOOGLE SHEETS APP SCRIPT HANDLER ---
         function handleRSVP(e) {
             e.preventDefault();
             const form = document.getElementById('rsvpForm');
@@ -950,8 +813,8 @@
             btn.innerHTML = "Sending...";
             btn.style.pointerEvents = "none";
 
-            // PASTE YOUR GOOGLE SCRIPT WEB APP URL OR FORMSPREE ID BELOW:
-            const scriptURL = 'YOUR_GOOGLE_WEB_APP_URL_HERE';
+            // Live App Script URL Integrated
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwEgCBzascCcBdrmpEUFgXd7qrcT_8peJl6nKsqanl_Mgv1WzUChZ0OCZSBOOQbLvNE/exec';
 
             fetch(scriptURL, { 
                 method: 'POST', 
