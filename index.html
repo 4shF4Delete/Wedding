@@ -169,13 +169,15 @@
         
         .detail-block { display: flex; flex-direction: column; width: 100%; max-width: 400px; }
         
+        /* THE DYNAMIC ALIGNMENT FIX: 
+           Height is strictly locked to reserve space for exactly two lines of text. 
+           The items below it will now naturally align perfectly on every screen size. */
         .detail-block h3 { 
             font-size: 2rem; 
             margin-bottom: 1rem; 
-            min-height: 2.5em; 
-            display: flex; 
-            align-items: flex-end; 
-            line-height: 1.1; 
+            height: 2.4em; 
+            line-height: 1.2; 
+            display: block; 
         }
         
         .detail-block .lux-time { font-family: var(--font-script); font-size: 4rem; color: var(--c-gold-pure); line-height: 0.8; margin-bottom: 1rem; display: block; }
@@ -276,26 +278,23 @@
 
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
-            /* Detail blocks naturally align baselines now, so margin hack is removed */
-
             /* 
-               THE ULTIMATE PEEK MATH FIX:
-               Browsers routinely ignore padding inside horizontally overflowing flex 
-               containers, which results in the first element getting "cut" or pressed 
-               hard against the screen edge.
-               
-               The fix is to strip the internal padding entirely and force explicit margins
-               onto the first and last elements themselves.
+               THE CLIPPING FIX:
+               Adding 'justify-content: flex-start !important' stops the browser from 
+               trying to center the overflowing items, which is what pushed the left 
+               side off the screen.
             */
             .horizontal-track, .mobile-swipe-track {
                 display: flex !important; 
                 flex-direction: row !important; 
                 flex-wrap: nowrap !important;
+                justify-content: flex-start !important; /* Fixes left-side clipping */
                 
                 width: 100vw !important; 
-                margin-left: -6vw !important; /* Pull out of section padding */
+                margin-left: -6vw !important; 
+                margin-right: -6vw !important;
                 
-                padding-left: 0 !important; /* Removed to fix Safari/Chrome clipping bug */
+                padding-left: 0 !important; 
                 padding-right: 0 !important; 
                 padding-bottom: 2rem !important;
                 gap: 5vw !important; 
@@ -309,7 +308,7 @@
                 scroll-padding-left: 6vw !important;
             }
             
-            /* FORCE the gap on the edges so it never gets cropped */
+            /* Apply explicit margins to the edges so they never get trimmed */
             .horizontal-track > :first-child,
             .mobile-swipe-track > :first-child {
                 margin-left: 6vw !important;
