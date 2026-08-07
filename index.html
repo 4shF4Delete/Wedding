@@ -179,7 +179,7 @@
             display: flex; gap: 8vw; padding: 0 5vw 5vh 5vw;
             overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
-            align-items: stretch; /* Fixes wobbly vertical jumping */
+            align-items: stretch;
         }
         .horizontal-track::-webkit-scrollbar { display: none; }
 
@@ -252,6 +252,16 @@
         /* ==========================================================================
            12. MOBILE REFINEMENTS & SWIPE TRACKS
            ========================================================================== */
+        
+        .mobile-swipe-hint { display: none; } /* Hidden entirely on desktop */
+
+        /* Animation for the mobile swipe arrow */
+        @keyframes elegantSwipe {
+            0% { transform: translateX(0) rotate(45deg); opacity: 0.2; }
+            50% { transform: translateX(8px) rotate(45deg); opacity: 1; }
+            100% { transform: translateX(0) rotate(45deg); opacity: 0.2; }
+        }
+
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
             .name-mechele { padding-right: 0; align-self: center; }
@@ -260,14 +270,48 @@
             .chapter-story { align-items: flex-start; }
             .lux-list { grid-template-columns: 1fr; }
 
-            /* Fix wobble in main entourage track */
+            /* Refine spacing to make room for swipe hint */
+            .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
+
+            /* The Swipe Hint UI */
+            .mobile-swipe-hint {
+                display: flex !important;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 1.5rem;
+                padding-left: 6vw; /* Aligns with the track padding */
+            }
+            /* Center the hint for the attire section */
+            .chapter-attire .mobile-swipe-hint {
+                justify-content: center;
+                padding-left: 0;
+            }
+            .mobile-swipe-hint span {
+                font-family: var(--font-sans);
+                font-size: 0.6rem;
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--c-gold-pure);
+            }
+            .swipe-arrow-anim {
+                width: 35px;
+                height: 1px;
+                background: var(--c-gold-pure);
+                position: relative;
+            }
+            .swipe-arrow-anim::after {
+                content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px;
+                border-top: 1px solid var(--c-gold-pure); border-right: 1px solid var(--c-gold-pure);
+                transform: rotate(45deg); animation: elegantSwipe 2s infinite ease-in-out;
+            }
+
+            /* Horizontal Tracks */
             .horizontal-track {
                 width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw;
                 scroll-padding: 0 6vw; align-items: stretch;
             }
             .mag-block { flex: 0 0 85vw; scroll-snap-align: center; }
 
-            /* New Dedicated Swipe Track Logic for Details & Attire */
             .mobile-swipe-track {
                 display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
                 width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw; padding-bottom: 2rem;
@@ -280,7 +324,6 @@
                 flex: 0 0 85vw !important; max-width: none !important; scroll-snap-align: center;
             }
 
-            /* Resets for swipe items so they flow nicely inside their new mobile boxes */
             .detail-block.reception { align-self: auto; text-align: left; }
         }
     </style>
@@ -330,13 +373,19 @@
             </div>
         </section>
 
-        <!-- CHAPTER II (NOW HORIZONTAL SWIPE ON MOBILE) -->
+        <!-- CHAPTER II -->
         <section class="chapter-details editorial-section">
             <div class="details-header k-reveal">
                 <span class="k-label">Chapter II</span>
                 <h2>The Celebration</h2>
             </div>
-            <!-- Added mobile-swipe-track -->
+            
+            <!-- NEW MOBILE SWIPE HINT -->
+            <div class="mobile-swipe-hint k-reveal">
+                <span>Swipe to explore</span>
+                <div class="swipe-arrow-anim"></div>
+            </div>
+
             <div class="details-wrapper mobile-swipe-track">
                 <div class="detail-block mobile-swipe-item k-reveal">
                     <h3>Church Ceremony</h3>
@@ -358,8 +407,13 @@
                 <h2>The Entourage</h2>
             </div>
             
+            <!-- NEW MOBILE SWIPE HINT -->
+            <div class="mobile-swipe-hint k-reveal">
+                <span>Swipe to explore</span>
+                <div class="swipe-arrow-anim"></div>
+            </div>
+
             <div class="horizontal-track">
-                
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Parents of the Groom</span>
                     <span class="name-lux" style="margin-bottom: 2rem;">Alberto & Chona Ponce</span>
@@ -367,7 +421,6 @@
                     <span class="name-lux">Edgardo & Ma. Cecilia Taupo</span>
                 </div>
 
-                <!-- Combined Aesthetic / Removed Groom Label -->
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
@@ -385,7 +438,6 @@
                     </ul>
                 </div>
 
-                <!-- Combined Aesthetic / Removed Bride Label -->
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
@@ -444,7 +496,7 @@
             </div>
         </section>
 
-        <!-- CHAPTER IV (NOW HORIZONTAL SWIPE ON MOBILE) -->
+        <!-- CHAPTER IV -->
         <section class="chapter-attire editorial-section">
             <span class="k-label k-reveal">Chapter IV</span>
             <h2 class="k-reveal">Aesthetic</h2>
@@ -457,7 +509,12 @@
                 <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
             </div>
 
-            <!-- Added mobile-swipe-track -->
+            <!-- NEW MOBILE SWIPE HINT -->
+            <div class="mobile-swipe-hint k-reveal">
+                <span>Swipe to explore</span>
+                <div class="swipe-arrow-anim"></div>
+            </div>
+
             <div class="attire-rules mobile-swipe-track">
                 <div class="rule-box mobile-swipe-item k-reveal">
                     <span>Principal Sponsors</span>
