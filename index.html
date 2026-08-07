@@ -144,7 +144,7 @@
         .date-line { width: 80px; height: 1px; background: var(--c-gold-pure); }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE (RESTORED FLORAL GRID)
+           6. CHAPTER I: PRELUDE
            ========================================================================== */
         .chapter-story { align-items: center; text-align: left; }
         
@@ -159,7 +159,7 @@
         .story-content p { font-size: 1rem; color: var(--c-navy-light); line-height: 2; }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS (SYMMETRICAL DESKTOP LAYOUT)
+           7. CHAPTER II: DETAILS 
            ========================================================================== */
         .chapter-details { align-items: center; text-align: center; }
         .details-header { margin-bottom: 8vh; width: 100%; }
@@ -169,7 +169,16 @@
         
         .detail-block { display: flex; flex-direction: column; width: 100%; max-width: 400px; }
         
-        .detail-block h3 { font-size: 2rem; margin-bottom: 1rem; }
+        /* DYNAMIC ALIGNMENT FIX: Forces headers to share exactly the same baseline */
+        .detail-block h3 { 
+            font-size: 2rem; 
+            margin-bottom: 1rem; 
+            min-height: 2.5em; 
+            display: flex; 
+            align-items: flex-end; 
+            line-height: 1.1; 
+        }
+        
         .detail-block .lux-time { font-family: var(--font-script); font-size: 4rem; color: var(--c-gold-pure); line-height: 0.8; margin-bottom: 1rem; display: block; }
         .detail-block p { color: var(--c-navy-light); font-size: 1rem; line-height: 2; }
 
@@ -197,10 +206,8 @@
         .name-lux { font-family: var(--font-display); font-size: 1.5rem; display: block; color: var(--c-navy-deep); line-height: 1.3; }
         .role-lux { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-gold-pure); margin-bottom: 0.5rem; display: block; }
         
-        .lux-list { list-style: none; margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .lux-list { list-style: none; margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .lux-list li { font-family: var(--font-display); font-size: 1.2rem; color: var(--c-navy-light); }
-
-        .party-member { margin-top: 2rem; }
 
         /* ==========================================================================
            9. CHAPTER IV: ATTIRE
@@ -255,7 +262,7 @@
         .footer-copyright { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-navy-light); }
 
         /* ==========================================================================
-           12. MOBILE REFINEMENTS & SWIPE TRACKS (FADED PEEKING UI)
+           12. MOBILE REFINEMENTS & UNIVERSAL SWIPE TRACKS
            ========================================================================== */
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
@@ -263,41 +270,50 @@
             .hero-ampersand { left: 50%; top: 50%; }
             
             .story-grid { grid-template-columns: 1fr; gap: 5vh; }
-            .prelude-floral-wrapper { display: none; } /* Hide flower on mobile to keep layout clean */
+            .prelude-floral-wrapper { display: none; }
             .story-content { text-align: left; }
             
             .lux-list { grid-template-columns: 1fr; }
 
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
-            /* Align the Reception down exactly one space to match the wrapped Church text */
-            .detail-block.reception { margin-top: 2.2rem; }
-
+            /* 
+               UNIVERSAL PEEK MATH (Fixes the "cut" edge issue):
+               By avoiding mask-images and complex negative margins, we use simple 
+               scroll-padding. The track starts with 5vw padding. The cards take up 
+               80vw. This leaves exactly enough room for the gap (5vw) and the next 
+               card to peak naturally into the viewport without glitching on resize.
+            */
             .horizontal-track, .mobile-swipe-track {
-                display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+                display: flex !important; 
+                flex-direction: row !important; 
+                flex-wrap: nowrap !important;
+                
                 width: 100vw !important; 
-                margin-left: -6vw !important; 
-                margin-right: -6vw !important; 
-                padding-left: 15vw !important; 
-                padding-right: 15vw !important; 
+                margin-left: -6vw !important; /* Pull out of section padding */
+                margin-right: -6vw !important;
+                
+                padding-left: 6vw !important; /* Internal padding for snapping */
+                padding-right: 6vw !important; 
                 padding-bottom: 2rem !important;
                 gap: 5vw !important; 
+                
                 overflow-x: auto !important; 
                 scroll-snap-type: x mandatory !important; 
                 scrollbar-width: none !important; 
                 -webkit-overflow-scrolling: touch !important; 
                 align-items: stretch !important; 
-                scroll-padding: 0 15vw !important;
                 
-                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-                mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+                /* Ensures the card locks exactly to the internal padding line */
+                scroll-padding-left: 6vw !important;
             }
+            
             .horizontal-track::-webkit-scrollbar, .mobile-swipe-track::-webkit-scrollbar { display: none; }
             
             .mag-block, .mobile-swipe-item {
-                flex: 0 0 65vw !important; 
+                flex: 0 0 80vw !important; 
                 max-width: none !important; 
-                scroll-snap-align: center !important;
+                scroll-snap-align: start !important;
             }
 
             .chapter-attire p { margin-bottom: 2vh; }
@@ -400,7 +416,7 @@
                         <li>Mario Nopre</li><li>Nilo Diliman</li>
                         <li>Felix M. Canaria</li><li>Col. Jomar Daquiaog</li>
                         <li>Atty. William Mamanteo</li><li>Col. Fedil I. Macatangay</li>
-                        <li>PO2 Napoleon Mendoza</li><li>PO2 Abner Angue</li>
+                        <li>IS2 Napoleon Mendoza</li><li>IS2 Abner Angue</li>
                         <li>CPO John D Domingo</li><li>TSgt Anthony Lo</li>
                         <li>Benito R. Namoro</li><li>Christian Villa</li>
                         <li>Ruben Balicbic</li>
@@ -424,42 +440,43 @@
                     </ul>
                 </div>
 
+                <!-- NEW BRIDESMAIDS & GROOMSMEN BLOCK -->
                 <div class="mag-block">
-                    <span class="role-lux">Secondary Sponsors</span>
-                    <div class="party-member">
-                        <span class="role-lux">Maid of Honor / Best Man</span>
-                        <span class="name-lux">Shiela Taupo & Ariel Nataño</span>
-                    </div>
-                    <div class="party-member">
-                        <span class="role-lux">Veil</span>
-                        <span class="name-lux">Rose Ann Villamar & Ismael Taupo</span>
-                    </div>
-                    <div class="party-member">
-                        <span class="role-lux">Cord</span>
-                        <span class="name-lux">Rosebelle Anunciacion & Joseph Paul Oira</span>
-                    </div>
-                    <div class="party-member">
-                        <span class="role-lux">Candle</span>
-                        <span class="name-lux">Lyka Madi & Ryan Muncada</span>
+                    <span class="role-lux">Bridesmaids & Groomsmen</span>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <ul class="lux-list" style="margin-top: 0; display: block;">
+                                <li style="margin-bottom: 0.5rem;">Shiela Taupo</li>
+                                <li style="margin-bottom: 0.5rem;">Rose Ann Villamar</li>
+                                <li style="margin-bottom: 0.5rem;">Rosebelle Anunciacion</li>
+                                <li style="margin-bottom: 0.5rem;">Lyka Madi</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="lux-list" style="margin-top: 0; display: block;">
+                                <li style="margin-bottom: 0.5rem;">Ariel Nataño</li>
+                                <li style="margin-bottom: 0.5rem;">Ismael Taupo</li>
+                                <li style="margin-bottom: 0.5rem;">Joseph Paul Oira</li>
+                                <li style="margin-bottom: 0.5rem;">Ryan Muncada</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
+                <!-- NEW BEARERS & FLOWER GIRLS BLOCK -->
                 <div class="mag-block">
-                    <span class="role-lux">Bearers & Flower Girls</span>
-                    <div class="party-member">
-                        <span class="role-lux">Ring & Coin</span>
-                        <span class="name-lux">Cxian Jeff Anastacio & Zain Sky Corporal</span>
-                    </div>
-                    <div class="party-member">
-                        <span class="role-lux">Bible Bearer</span>
-                        <span class="name-lux">Xian Gail De Leon</span>
-                    </div>
-                    <div class="party-member" style="margin-top: 3rem;">
-                        <span class="role-lux">Flower Girls</span>
-                        <span class="name-lux">Precious Jhade Nala</span>
-                        <span class="name-lux">Celyn Taupo</span>
-                        <span class="name-lux">Abegail Balce</span>
-                    </div>
+                    <span class="role-lux">Bearers</span>
+                    <ul class="lux-list" style="display: block; column-count: 1; margin-top: 1rem;">
+                        <li style="margin-bottom: 0.5rem;">Cxian Jeff Anastacio</li>
+                        <li style="margin-bottom: 0.5rem;">Zain Sky Corporal</li>
+                        <li style="margin-bottom: 0.5rem;">Xian Gail De Leon</li>
+                    </ul>
+                    <span class="role-lux" style="margin-top: 2.5rem;">Flower Girls</span>
+                    <ul class="lux-list" style="display: block; column-count: 1; margin-top: 1rem;">
+                        <li style="margin-bottom: 0.5rem;">Precious Jhade Nala</li>
+                        <li style="margin-bottom: 0.5rem;">Celyn Taupo</li>
+                        <li style="margin-bottom: 0.5rem;">Abegail Balce</li>
+                    </ul>
                 </div>
 
             </div>
@@ -471,11 +488,13 @@
             <h2 class="k-reveal">Aesthetic</h2>
             <p class="k-reveal">We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
             
+            <!-- EXACT COLORS EXTRACTED FROM image_e46641.jpg -->
             <div class="swatch-rack k-reveal">
-                <div class="fabric-swatch" style="background-color: var(--c-navy-deep);" title="Navy Blue"></div>
-                <div class="fabric-swatch" style="background-color: #5A6B7A;" title="Dusty Blue"></div>
-                <div class="fabric-swatch" style="background-color: #FAFAFA;" title="White"></div>
-                <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
+                <div class="fabric-swatch" style="background-color: #214C72;" title="Dark Blue"></div>
+                <div class="fabric-swatch" style="background-color: #6388A5;" title="Medium Dusty Blue"></div>
+                <div class="fabric-swatch" style="background-color: #9BB6CA;" title="Light Dusty Blue"></div>
+                <div class="fabric-swatch" style="background-color: #C8AD8D;" title="Beige / Sand"></div>
+                <div class="fabric-swatch" style="background-color: #EADFD1;" title="Cream"></div>
             </div>
 
             <div class="attire-rules mobile-swipe-track k-reveal">
@@ -494,7 +513,8 @@
         <!-- CHAPTER V -->
         <section class="chapter-rsvp editorial-section">
             <div class="rsvp-container">
-                <span class="k-label k-reveal" style="text-align: center;">Kindly reply by September 1, 2026</span>
+                <!-- RSVP DATE UPDATED TO AUGUST 26 -->
+                <span class="k-label k-reveal" style="text-align: center;">Kindly reply by August 26, 2026</span>
                 <h2 class="k-reveal">Répondez s'il vous plaît</h2>
                 
                 <form id="rsvpForm" onsubmit="handleRSVP(event)" class="k-reveal">
