@@ -159,6 +159,7 @@
         .details-header { margin-bottom: 10vh; padding-left: 5vw; }
         .details-header h2 { font-size: clamp(3rem, 7vw, 6rem); }
 
+        /* Wrapper controls horizontal overflow for desktop, mobile handles it differently */
         .details-wrapper { display: flex; flex-direction: column; gap: 15vh; width: 100%; padding: 0 5vw; }
         
         .detail-block { display: flex; flex-direction: column; position: relative; width: 100%; max-width: 500px; }
@@ -250,7 +251,7 @@
         .footer-copyright { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-navy-light); }
 
         /* ==========================================================================
-           12. MOBILE REFINEMENTS & SWIPE TRACKS (PEEKING UI)
+           12. MOBILE REFINEMENTS & SWIPE TRACKS (FADED PEEKING UI)
            ========================================================================== */
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
@@ -263,38 +264,44 @@
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
             /* 
-               THE PEEK MATH:
-               Items are exactly 80vw wide. They are snapped strictly to the center.
-               This guarantees 10vw of space on either side.
-               We use a 5vw gap between items.
-               Therefore, the next item begins exactly 95vw into the screen, meaning 
-               5vw of it will cleanly peek in from the right edge, intuitively inviting a swipe.
+               THE FADED PEEK MATH:
+               - Screen = 100vw
+               - Active Card = 65vw (shrunk for elegance)
+               - Gap = 5vw
+               - Padding Left = 15vw (Perfectly centers the 65vw card)
+               - The next card peeks precisely into the fade gradient (15vw on the edges)
             */
             
-            .horizontal-track {
-                width: 100vw; margin-left: -6vw; margin-right: -6vw; 
-                padding-left: 10vw; padding-right: 10vw; /* Perfect padding to allow first/last items to center */
-                gap: 5vw; align-items: stretch; scroll-padding: 0;
-            }
-            .mag-block { 
-                flex: 0 0 80vw; max-width: none; scroll-snap-align: center; 
-            }
-
-            .mobile-swipe-track {
+            .horizontal-track, .mobile-swipe-track {
                 display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
-                width: 100vw; margin-left: -6vw; margin-right: -6vw; 
-                padding-left: 10vw; padding-right: 10vw; padding-bottom: 2rem;
-                gap: 5vw !important; overflow-x: auto; scroll-snap-type: x mandatory; 
-                scrollbar-width: none; -webkit-overflow-scrolling: touch; 
-                align-items: stretch; scroll-padding: 0;
+                width: 100vw !important; 
+                margin-left: -6vw !important; 
+                margin-right: -6vw !important; 
+                padding-left: 15vw !important; 
+                padding-right: 15vw !important; 
+                padding-bottom: 2rem !important;
+                gap: 5vw !important; 
+                overflow-x: auto !important; 
+                scroll-snap-type: x mandatory !important; 
+                scrollbar-width: none !important; 
+                -webkit-overflow-scrolling: touch !important; 
+                align-items: stretch !important; 
+                scroll-padding: 0 15vw !important;
+                
+                /* This creates the beautiful fade on the left and right edges */
+                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
             }
-            .mobile-swipe-track::-webkit-scrollbar { display: none; }
+            .horizontal-track::-webkit-scrollbar, .mobile-swipe-track::-webkit-scrollbar { display: none; }
             
-            .mobile-swipe-item {
-                flex: 0 0 80vw !important; max-width: none !important; scroll-snap-align: center;
+            .mag-block, .mobile-swipe-item {
+                flex: 0 0 65vw !important; 
+                max-width: none !important; 
+                scroll-snap-align: center !important;
             }
 
             .detail-block.reception { align-self: auto; text-align: left; }
+            .chapter-attire p { margin-bottom: 2vh; }
         }
     </style>
 </head>
@@ -350,13 +357,15 @@
                 <h2>The Celebration</h2>
             </div>
             
-            <div class="details-wrapper mobile-swipe-track">
-                <div class="detail-block mobile-swipe-item k-reveal">
+            <!-- k-reveal moved to wrapper to fix visibility bug -->
+            <div class="details-wrapper mobile-swipe-track k-reveal">
+                <!-- k-reveal removed from items so they don't break observer -->
+                <div class="detail-block mobile-swipe-item">
                     <h3>Church Ceremony</h3>
                     <span class="lux-time">8:30 am</span>
                     <p>Saturday, September 26, 2026<br><strong>St. John the Apostle & Evangelist Church</strong><br>Labo, Camarines Norte</p>
                 </div>
-                <div class="detail-block reception mobile-swipe-item k-reveal">
+                <div class="detail-block reception mobile-swipe-item">
                     <h3>The Reception</h3>
                     <span class="lux-time">to follow</span>
                     <p>Immediately after the ceremony<br><strong>Labo Convention Center</strong><br>Hillcrest Subdivision, Brgy Bulhao<br>Labo, Camarines Norte</p>
@@ -370,16 +379,17 @@
                 <span class="k-label">Chapter III</span>
                 <h2>The Entourage</h2>
             </div>
-            
-            <div class="horizontal-track">
-                <div class="mag-block k-reveal">
+
+            <!-- k-reveal moved to wrapper -->
+            <div class="horizontal-track k-reveal">
+                <div class="mag-block">
                     <span class="role-lux">Parents of the Groom</span>
                     <span class="name-lux" style="margin-bottom: 2rem;">Alberto & Chona Ponce</span>
                     <span class="role-lux">Parents of the Bride</span>
                     <span class="name-lux">Edgardo & Ma. Cecilia Taupo</span>
                 </div>
 
-                <div class="mag-block k-reveal">
+                <div class="mag-block">
                     <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
                         <li>Alex G. Garfin</li><li>Grant A. Bonum</li>
@@ -396,7 +406,7 @@
                     </ul>
                 </div>
 
-                <div class="mag-block k-reveal">
+                <div class="mag-block">
                     <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
                         <li>Marites O. Cariño</li><li>Concepcion S. Gerio</li>
@@ -413,7 +423,7 @@
                     </ul>
                 </div>
 
-                <div class="mag-block k-reveal">
+                <div class="mag-block">
                     <span class="role-lux">Secondary Sponsors</span>
                     <div class="party-member">
                         <span class="role-lux">Maid of Honor / Best Man</span>
@@ -433,7 +443,7 @@
                     </div>
                 </div>
 
-                <div class="mag-block k-reveal">
+                <div class="mag-block">
                     <span class="role-lux">Bearers & Flower Girls</span>
                     <div class="party-member">
                         <span class="role-lux">Ring & Coin</span>
@@ -467,13 +477,14 @@
                 <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
             </div>
 
-            <div class="attire-rules mobile-swipe-track">
-                <div class="rule-box mobile-swipe-item k-reveal">
+            <!-- k-reveal moved to wrapper -->
+            <div class="attire-rules mobile-swipe-track k-reveal">
+                <div class="rule-box mobile-swipe-item">
                     <span>Principal Sponsors</span>
                     <strong>Gentlemen: Barong</strong>
                     <strong>Ladies: Dusty Blue or Beige Gown</strong>
                 </div>
-                <div class="rule-box mobile-swipe-item k-reveal">
+                <div class="rule-box mobile-swipe-item">
                     <span>Guests</span>
                     <strong>Semi-Formal Attire</strong>
                 </div>
