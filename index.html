@@ -65,7 +65,7 @@ z-index: 9998; opacity: 0.25; mix-blend-mode: multiply;
 background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
 }
 
-/* Removed heavy gold border, replacing with an ultra-thin 1px gold frame */
+/* 1px gold frame */
 .gold-border-frame {
 position: fixed;
 top: 2vw; left: 2vw; right: 2vw; bottom: 2vw;
@@ -75,7 +75,7 @@ z-index: 5;
 }
 
 /* ==========================================================================
-          2. ATMOSPHERIC FLORAL INTEGRATION
+          2. ATMOSPHERIC FLORAL INTEGRATION (ENHANCED MOVEMENT)
           ========================================================================== */
 .floral-background-container {
 position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
@@ -85,14 +85,18 @@ position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-in
 position: absolute; width: 50vw; max-width: 800px; min-width: 350px; object-fit: contain;
 opacity: 0.85; 
 mix-blend-mode: multiply; /* Blends perfectly into the ivory background */
-animation: bouquetBreathe 15s ease-in-out infinite alternate;
+animation: bouquetBreathe 9s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 /* Anchored to corners for soft framing */
 .f-top-right { top: -5%; right: -5%; transform-origin: top right; }
-.f-bottom-left { bottom: -5%; left: -5%; transform-origin: bottom left; animation-delay: -7.5s; }
+.f-bottom-left { bottom: -5%; left: -5%; transform-origin: bottom left; animation-delay: -4.5s; }
 
-@keyframes bouquetBreathe { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.03) translate(-10px, 10px); } }
+/* Dramatically increased amplitude for noticeable, dynamic floating */
+@keyframes bouquetBreathe { 
+0% { transform: scale(1) translate(0, 0) rotate(0deg); } 
+100% { transform: scale(1.12) translate(-35px, 25px) rotate(6deg); } 
+}
 
 /* Petals strictly gold and pushed back to z-index 2 */
 #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: hidden; opacity: 0.6; }
@@ -325,7 +329,7 @@ footer p:first-of-type { font-family: var(--font-display); font-style: italic; f
 footer p:last-of-type { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 40px; color: var(--c-navy-light); }
 
 /* ==========================================================================
-          12. MOBILE REFINEMENTS
+          12. MOBILE REFINEMENTS & HORIZONTAL SWIPE LOGIC
           ========================================================================== */
 @media (max-width: 1024px) {
 .story-grid, .details-masonry, .magazine-grid, .attire-cards-container { grid-template-columns: 1fr; gap: 10vw; }
@@ -345,6 +349,37 @@ footer p:last-of-type { font-family: var(--font-sans); font-size: 0.75rem; lette
 .lux-list { column-count: 1; text-align: center; }
 .guideline-box { text-align: center; }
 .lux-radio-group { flex-direction: column; gap: 20px; align-items: flex-start; }
+
+/* 
+   ==========================================================================
+   HORIZONTAL SWIPE CAROUSELS FOR MOBILE
+   Transforms heavy vertical grids into sleek horizontal scrollers
+   ========================================================================== 
+*/
+.mobile-swipe-container {
+display: flex !important; 
+flex-wrap: nowrap !important; 
+overflow-x: auto;
+scroll-snap-type: x mandatory; 
+-webkit-overflow-scrolling: touch;
+gap: 20px !important; 
+padding-bottom: 20px; 
+/* Overrides standard padding to let cards bleed to the screen edge */
+width: calc(100% + 16vw) !important;
+margin-left: -8vw !important; 
+margin-right: -8vw !important; 
+padding-left: 8vw !important; 
+padding-right: 8vw !important;
+scrollbar-width: none; 
+}
+
+.mobile-swipe-container::-webkit-scrollbar { display: none; }
+
+.mobile-swipe-item { 
+flex: 0 0 85% !important; 
+scroll-snap-align: center; 
+transform: none !important; 
+}
 }
 </style>
 </head>
