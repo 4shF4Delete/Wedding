@@ -13,10 +13,10 @@ history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 </script>
 
-<!-- EDITORIAL TYPOGRAPHY: Elegant Serif & Tracked-Out Tiny Sans -->
+<!-- EDITORIAL TYPOGRAPHY: Elegant Serif, Tiny Sans, & Calligraphy Accent -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================================
@@ -32,6 +32,7 @@ window.scrollTo(0, 0);
 
 --font-display: 'Playfair Display', serif;
 --font-sans: 'Montserrat', sans-serif;
+--font-script: 'Pinyon Script', cursive;
 
 --s-nano: 1rem;
 --s-kilo: 2.5rem;
@@ -75,7 +76,7 @@ z-index: 5;
 }
 
 /* ==========================================================================
-          2. ATMOSPHERIC FLORAL INTEGRATION (ENHANCED MOVEMENT)
+          2. ATMOSPHERIC FLORAL INTEGRATION (FIXED CORNERS)
           ========================================================================== */
 .floral-background-container {
 position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
@@ -84,18 +85,29 @@ position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-in
 .floral-bg-image {
 position: absolute; width: 50vw; max-width: 800px; min-width: 350px; object-fit: contain;
 opacity: 0.85; 
-mix-blend-mode: multiply; /* Blends perfectly into the ivory background */
-animation: bouquetBreathe 9s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+mix-blend-mode: multiply;
 }
 
-/* Anchored to corners for soft framing */
-.f-top-right { top: -5%; right: -5%; transform-origin: top right; }
-.f-bottom-left { bottom: -5%; left: -5%; transform-origin: bottom left; animation-delay: -4.5s; }
+/* Anchored exactly outside the viewport to hide cut edges, using scale/rotate ONLY */
+.f-top-right { 
+top: -15px; right: -15px; 
+transform-origin: top right; 
+animation: breatheTR 12s ease-in-out infinite alternate; 
+}
+.f-bottom-left { 
+bottom: -15px; left: -15px; 
+transform-origin: bottom left; 
+animation: breatheBL 12s ease-in-out infinite alternate; 
+animation-delay: -6s; 
+}
 
-/* Dramatically increased amplitude for noticeable, dynamic floating */
-@keyframes bouquetBreathe { 
-0% { transform: scale(1) translate(0, 0) rotate(0deg); } 
-100% { transform: scale(1.12) translate(-35px, 25px) rotate(6deg); } 
+@keyframes breatheTR { 
+0% { transform: scale(1) rotate(0deg); } 
+100% { transform: scale(1.1) rotate(-3deg); } 
+}
+@keyframes breatheBL { 
+0% { transform: scale(1) rotate(0deg); } 
+100% { transform: scale(1.1) rotate(3deg); } 
 }
 
 /* Petals strictly gold and pushed back to z-index 2 */
@@ -103,33 +115,36 @@ animation: bouquetBreathe 9s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 .falling-petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
-          3. SPLASH SCREEN (RESTORED EXACTLY, STYLED EDITORIALLY)
+          3. SPLASH SCREEN (THEATRICAL DARK-TO-LIGHT REVEAL)
           ========================================================================== */
 #splash-screen {
-position: fixed; inset: 0; width: 100%; height: 100%; background-color: var(--c-ivory-base);
+position: fixed; inset: 0; width: 100%; height: 100%; 
+background-color: var(--c-navy-deep); /* Dramatic high-contrast entry */
 z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center;
 cursor: pointer; transition: opacity 1.5s ease, visibility 1.5s ease;
 }
 #splash-screen.unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
 
 .splash-image-wrapper {
-position: relative; width: 80%; max-width: 400px; display: flex; justify-content: center; align-items: center;
+position: relative; width: 80%; max-width: 350px; display: flex; justify-content: center; align-items: center;
 opacity: 0; transform: translateY(20px); animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+/* Soft gold glow against the dark navy */
+filter: drop-shadow(0 10px 40px rgba(212, 175, 55, 0.2)); 
 }
-.splash-image-wrapper img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.splash-image-wrapper img { width: 100%; height: auto; object-fit: contain; }
 
 .splash-hint {
-position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
 color: var(--c-gold-metallic); opacity: 0; animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
 }
 
 @keyframes etherealReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
 /* ==========================================================================
-          4. TRANSPARENT AIRY CONTAINERS (REMOVING BOXES)
+          4. TRANSPARENT AIRY CONTAINERS & STAGGERED REVEALS
           ========================================================================== */
-#main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
+#main-experience { opacity: 0; transition: opacity 1.5s ease; pointer-events: none; position: relative; z-index: 10; }
 #main-experience.active { opacity: 1; pointer-events: auto; }
 
 .editorial-section {
@@ -138,40 +153,27 @@ display: flex; flex-direction: column; justify-content: center; z-index: 10;
 background-color: transparent !important;
 }
 
-/* Completely strip all colors, filters, borders, and shadows from glass panels */
+/* Strip all legacy card styling */
 .glass-panel, .glass-panel.theme-blue, .glass-panel.theme-white, .glass-panel.theme-gold {
-background: transparent !important;
-backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
-padding: 0; 
-border: none !important;
-box-shadow: none !important;
-max-width: 1200px; 
-width: 100%; margin: 0 auto;
+background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+padding: 0; border: none !important; box-shadow: none !important; max-width: 1200px; width: 100%; margin: 0 auto;
 color: var(--c-navy-deep) !important;
 }
-
 .glass-panel::before { display: none !important; }
 .silk-bg-container { display: none !important; }
 
-/* Global Typography Overrides for the transparent text containers */
-h2, h3, .name-bertwin, .name-mechele, .hero-ampersand, .lux-time, .name-lux {
+/* Global Typography Overrides */
+h2, h3, .name-bertwin, .name-mechele, .hero-ampersand, .name-lux {
 font-family: var(--font-display) !important; color: var(--c-navy-deep) !important;
 }
 
 /* Tiny tracked-out sans-serif for labels */
 .chapter-label, .mag-block-title, .hero-pretitle, .scroll-indicator span, .role, .lux-label, .guideline-box span, .rsvp-title p {
-font-family: var(--font-sans) !important;
-font-size: 0.75rem !important;
-letter-spacing: 0.2em !important;
-text-transform: uppercase !important;
-color: var(--c-navy-light) !important;
+font-family: var(--font-sans) !important; font-size: 0.75rem !important; letter-spacing: 0.2em !important; text-transform: uppercase !important; color: var(--c-navy-light) !important;
 }
 
-/* Specific Gold Accents */
-.hero-ampersand { color: var(--c-gold-pure) !important; opacity: 0.6; font-style: italic; font-weight: 300;}
-.lux-time { color: var(--c-gold-metallic) !important; font-style: italic; }
-
-.k-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1); will-change: opacity, transform; }
+/* Base Reveal Class for JS Staggering */
+.k-reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); will-change: opacity, transform; }
 .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
 /* ==========================================================================
@@ -183,7 +185,6 @@ display: flex; align-items: center; justify-content: center; position: relative;
 }
 
 .hero-composition { display: flex; flex-direction: column; align-items: center; text-align: center; }
-
 .hero-pretitle { margin-bottom: var(--s-kilo); }
 .hero-title-group { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
 .name-bertwin, .name-mechele { font-size: clamp(4rem, 10vw, 9rem); line-height: 1; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em;}
@@ -192,7 +193,7 @@ display: flex; align-items: center; justify-content: center; position: relative;
 
 .hero-ampersand {
 position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-font-size: clamp(6rem, 15vw, 12rem); z-index: -1;
+font-size: clamp(6rem, 15vw, 12rem); z-index: -1; color: var(--c-gold-pure) !important; opacity: 0.6; font-style: italic; font-weight: 300;
 }
 
 .hero-date {
@@ -210,7 +211,7 @@ display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 
 @keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(8px); opacity: 0; } }
 
 /* ==========================================================================
-          6. CHAPTER I: PRELUDE (STRICT LEFT ALIGNMENT)
+          6. CHAPTER I: PRELUDE
           ========================================================================== */
 .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8vw; }
 .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; mix-blend-mode: multiply; opacity: 0.8;}
@@ -219,20 +220,11 @@ display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 
 .story-text-content { text-align: left; }
 .chapter-label { display: block; margin-bottom: 2rem; }
 .story-text-content h2 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 2rem; font-weight: 400; text-transform: uppercase;}
-
-/* Specific Gold Italicized Subheading */
-.story-text-content p:first-of-type {
-font-family: var(--font-display);
-font-size: clamp(1.2rem, 2vw, 1.5rem);
-font-style: italic;
-color: var(--c-gold-pure) !important;
-line-height: 1.6;
-margin-bottom: 2rem;
-}
+.story-text-content p:first-of-type { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; color: var(--c-gold-pure) !important; line-height: 1.6; margin-bottom: 2rem; }
 .story-text-content p:last-child { font-size: 1rem; line-height: 2; max-width: 500px; }
 
 /* ==========================================================================
-          7. CHAPTER II: DETAILS (CENTER AXIS ALIGNMENT)
+          7. CHAPTER II: DETAILS (CALLIGRAPHY ACCENT ADDED)
           ========================================================================== */
 .details-header { text-align: center; margin-bottom: 6vw; width: 100%; }
 .details-header h2 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; text-transform: uppercase;}
@@ -241,17 +233,28 @@ margin-bottom: 2rem;
 .detail-card-inner { padding: 0; background: transparent; border: none; }
 .detail-icon-svg { width: 50px; height: 50px; margin: 0 auto 20px; color: var(--c-gold-metallic); }
 .detail-card-inner h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; font-weight: 400; text-transform: uppercase; }
-.detail-card-inner .lux-time { display: block; margin-bottom: 20px; }
+
+/* Updated Elegant Script Typography for Times */
+.detail-card-inner .lux-time { 
+font-family: var(--font-script) !important; 
+font-size: clamp(3rem, 5vw, 4rem); 
+color: var(--c-gold-pure) !important; 
+line-height: 1; 
+margin-bottom: 10px; 
+display: block; 
+text-transform: lowercase; /* Script reads best in sentence/lowercase */
+font-weight: 400;
+}
+
 .detail-card-inner p { font-size: 0.9rem; letter-spacing: 0.05em; line-height: 2; color: var(--c-navy-light) !important; }
 
 /* ==========================================================================
-          8. CHAPTER III: ENTOURAGE (CLEAN GRID)
+          8. CHAPTER III: ENTOURAGE
           ========================================================================== */
 .editorial-spread-title { text-align: left; margin-bottom: 6vw; }
 .editorial-spread-title h2 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; text-transform: uppercase;}
 
 .magazine-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 5vw; row-gap: 5vw; }
-/* Delicate 1px gold dividing lines */
 .mag-block { border-top: 1px solid var(--c-gold-metallic); padding-top: 2rem; text-align: left; }
 .mag-block-title { display: block; margin-bottom: 2rem; }
 
@@ -260,7 +263,6 @@ margin-bottom: 2rem;
 
 .lux-list { list-style: none; column-count: 2; column-gap: 3vw; }
 .lux-list li { font-family: var(--font-display); font-size: 1rem; color: var(--c-navy-deep); margin-bottom: 10px; break-inside: avoid; }
-.lux-list li::before { display: none; } /* Removed decorative hearts for a cleaner editorial look */
 
 .party-grid-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 .party-member-lux { margin-bottom: 10px; }
@@ -271,22 +273,13 @@ margin-bottom: 2rem;
           ========================================================================== */
 .attire-text { text-align: center; margin-bottom: 5vw; }
 .attire-text h2 { font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 2rem; font-weight: 400; text-transform: uppercase; }
-
-/* Specific Gold Italicized Subheading */
-.attire-text p {
-font-family: var(--font-display);
-font-style: italic;
-font-size: clamp(1.2rem, 2vw, 1.5rem);
-color: var(--c-gold-pure) !important;
-margin: 0 auto 3rem;
-max-width: 600px;
-}
+.attire-text p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--c-gold-pure) !important; margin: 0 auto 3rem; max-width: 600px; }
 
 .swatch-rack { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.fabric-swatch { width: 50px; height: 70px; border-radius: 0; box-shadow: none; border: 1px solid var(--c-gold-light); }
+.fabric-swatch { width: 50px; height: 70px; border-radius: 0; border: 1px solid var(--c-gold-light); }
 
 .attire-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-top: 5vw; }
-.guideline-box { text-align: left; padding: 0; background: transparent; border: none; border-top: 1px solid var(--c-gold-metallic); padding-top: 2rem; }
+.guideline-box { text-align: left; padding: 0; border-top: 1px solid var(--c-gold-metallic); padding-top: 2rem; }
 .guideline-box strong { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 400; display: block; margin-top: 10px; color: var(--c-navy-deep) !important; text-transform: uppercase;}
 .guideline-box span { display: block; }
 
@@ -309,16 +302,11 @@ max-width: 600px;
 .lux-radio-custom { width: 14px; height: 14px; border: 1px solid var(--c-gold-metallic); border-radius: 50%; margin-right: 15px; position: relative; }
 .lux-radio-input:checked + .lux-radio-custom::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; background-color: var(--c-gold-metallic); border-radius: 50%; }
 
-/* Elegant Button Border */
 .lux-submit { 
-width: 100%; 
-background: transparent; 
-border: 1px solid var(--c-gold-pure); 
-color: var(--c-gold-pure); 
-padding: 20px; 
-font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; margin-top: 2rem; border-radius: 0; transition: 0.3s; 
+width: 100%; background: transparent; border: 1px solid var(--c-gold-pure); color: var(--c-gold-pure); padding: 20px; 
+font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; margin-top: 2rem; transition: 0.4s ease; 
 }
-.lux-submit:hover { background-color: var(--c-gold-pure); color: var(--c-ivory-base); }
+.lux-submit:hover { background-color: var(--c-gold-pure); color: var(--c-ivory-base); letter-spacing: 0.4em; }
 
 /* ==========================================================================
           11. FOOTER
@@ -333,13 +321,12 @@ footer p:last-of-type { font-family: var(--font-sans); font-size: 0.75rem; lette
           ========================================================================== */
 @media (max-width: 1024px) {
 .story-grid, .details-masonry, .magazine-grid, .attire-cards-container { grid-template-columns: 1fr; gap: 10vw; }
-.prelude-floral-wrapper { display: none; } /* Kept hidden on mobile as per original */
+.prelude-floral-wrapper { display: none; }
 .block-parents { grid-column: 1 / -1; grid-template-columns: 1fr; gap: 8vw; }
 }
 
 @media (max-width: 768px) {
 .editorial-section { padding: 10vh 8vw; }
-
 .hero-title-group { transform: none; padding: 2rem 0; }
 .name-bertwin, .name-mechele { transform: none; text-align: center; }
 .hero-ampersand { position: relative; transform: none; top: auto; left: auto; margin: 1rem 0; font-size: 5rem;}
@@ -350,36 +337,12 @@ footer p:last-of-type { font-family: var(--font-sans); font-size: 0.75rem; lette
 .guideline-box { text-align: center; }
 .lux-radio-group { flex-direction: column; gap: 20px; align-items: flex-start; }
 
-/* 
-   ==========================================================================
-   HORIZONTAL SWIPE CAROUSELS FOR MOBILE
-   Transforms heavy vertical grids into sleek horizontal scrollers
-   ========================================================================== 
-*/
 .mobile-swipe-container {
-display: flex !important; 
-flex-wrap: nowrap !important; 
-overflow-x: auto;
-scroll-snap-type: x mandatory; 
--webkit-overflow-scrolling: touch;
-gap: 20px !important; 
-padding-bottom: 20px; 
-/* Overrides standard padding to let cards bleed to the screen edge */
-width: calc(100% + 16vw) !important;
-margin-left: -8vw !important; 
-margin-right: -8vw !important; 
-padding-left: 8vw !important; 
-padding-right: 8vw !important;
-scrollbar-width: none; 
+display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+gap: 20px !important; padding-bottom: 20px; width: calc(100% + 16vw) !important; margin-left: -8vw !important; margin-right: -8vw !important; padding-left: 8vw !important; padding-right: 8vw !important; scrollbar-width: none; 
 }
-
 .mobile-swipe-container::-webkit-scrollbar { display: none; }
-
-.mobile-swipe-item { 
-flex: 0 0 85% !important; 
-scroll-snap-align: center; 
-transform: none !important; 
-}
+.mobile-swipe-item { flex: 0 0 85% !important; scroll-snap-align: center; transform: none !important; }
 }
 </style>
 </head>
@@ -422,11 +385,7 @@ transform: none !important;
 <div class="global-noise"></div>
 <div class="gold-border-frame"></div>
 
-<!-- 
-     ==========================================================================
-     MASSIVE 40% COVERAGE FLORALS
-     ========================================================================== 
-   -->
+<!-- MASSIVE FLORALS -->
 <div class="floral-background-container">
 <img src="static/flowers-top-right.png" class="floral-bg-image f-top-right" alt="Decorative Floral Top Right">
 <img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Decorative Floral Bottom Left">
@@ -446,9 +405,6 @@ transform: none !important;
 <!-- MAIN LUXURY EXPERIENCE -->
 <main id="main-experience">
 
-<!-- ==========================================================================
-            HERO SECTION (NON-CARD)
-            ========================================================================== -->
 <header class="hero-section">
 <div class="hero-composition k-reveal">
 <div class="hero-pretitle">Joyfully invite you</div>
@@ -463,94 +419,58 @@ transform: none !important;
 <div class="date-line"></div>
 </div>
 </div>
-
-            <!-- Cinematic Scroll Down Indicator -->
-<div class="scroll-indicator">
+<div class="scroll-indicator k-reveal">
 <div class="mouse"><div class="wheel"></div></div>
 <span>Scroll</span>
 </div>
 </header>
 
-<!-- ==========================================================================
-            CHAPTER I: THE STORY (Original Light/White Theme)
-            ========================================================================== -->
 <section id="chapter-story" class="chapter-story editorial-section">
-<div class="story-grid glass-panel k-reveal">
-
-<div class="silk-bg-container">
-<div class="silk-accent silk-v1"></div>
-</div>
-
+<div class="story-grid glass-panel">
 <div class="prelude-floral-wrapper k-reveal">
 <img src="static/prelude-flower.png" alt="Floral Decoration">
 </div>
-
-<div class="story-text-content k-reveal">
-<span class="chapter-label">Chapter I</span>
-<h2>The Prelude</h2>
-<p>What began as a quiet understanding has blossomed into a magnificent journey. Every shared glance, whispered dream, and unspoken promise has led us to this defining moment.</p>
-<p>Our love is a tapestry woven with patience, grace, and an unbreakable bond. We are profoundly honored to invite you to bear witness as we exchange vows and step into our forever. Your presence will add immeasurable joy to our celebration.</p>
+<div class="story-text-content">
+<span class="chapter-label k-reveal">Chapter I</span>
+<h2 class="k-reveal">The Prelude</h2>
+<p class="k-reveal">What began as a quiet understanding has blossomed into a magnificent journey. Every shared glance, whispered dream, and unspoken promise has led us to this defining moment.</p>
+<p class="k-reveal">Our love is a tapestry woven with patience, grace, and an unbreakable bond. We are profoundly honored to invite you to bear witness as we exchange vows and step into our forever. Your presence will add immeasurable joy to our celebration.</p>
 </div>
 </div>
 </section>
 
-<!-- ==========================================================================
-            CHAPTER II: DETAILS (Blue Theme)
-            ========================================================================== -->
 <section id="chapter-details" class="chapter-details editorial-section">
-<div class="glass-panel theme-blue k-reveal">
-
-<div class="silk-bg-container">
-<div class="silk-accent silk-v2"></div>
-</div>
-
-<div class="details-header">
+<div class="glass-panel theme-blue">
+<div class="details-header k-reveal">
 <h2>The Celebration</h2>
 </div>
-
 <div class="details-masonry mobile-swipe-container">
-<div class="detail-card-inner card-church mobile-swipe-item">
+<div class="detail-card-inner card-church mobile-swipe-item k-reveal">
 <svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-church"/></svg>
 <h3>Church Ceremony</h3>
 <span class="lux-time">8:30 am</span>
 <svg class="floral-divider" viewBox="0 0 100 100" style="height: 30px;"><use href="#icon-branch-light"/></svg>
-<p>Saturday, September 26, 2026<br>
-<strong>St. John the Apostle & Evangelist Church</strong><br>
-Labo, Camarines Norte</p>
+<p>Saturday, September 26, 2026<br><strong>St. John the Apostle & Evangelist Church</strong><br>Labo, Camarines Norte</p>
 </div>
-
-<div class="detail-card-inner card-reception mobile-swipe-item" style="transition-delay: 0.2s;">
+<div class="detail-card-inner card-reception mobile-swipe-item k-reveal">
 <svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-reception"/></svg>
 <h3>The Reception</h3>
-<span class="lux-time">To Follow</span>
+<span class="lux-time">to follow</span>
 <svg class="floral-divider" viewBox="0 0 100 100" style="height: 30px;"><use href="#icon-branch-light" transform="scale(-1, 1) translate(-100, 0)"/></svg>
-<p>Immediately after the ceremony<br>
-<strong>Labo Convention Center</strong><br>
-Hillcrest Subdivision, Brgy Bulhao<br>
-Labo, Camarines Norte</p>
+<p>Immediately after the ceremony<br><strong>Labo Convention Center</strong><br>Hillcrest Subdivision, Brgy Bulhao<br>Labo, Camarines Norte</p>
 </div>
 </div>
 </div>
 </section>
 
-<!-- ==========================================================================
-            CHAPTER III: ENTOURAGE (White Theme)
-            ========================================================================== -->
 <section id="chapter-entourage" class="chapter-entourage editorial-section">
-<div class="glass-panel theme-white k-reveal">
-
-<div class="silk-bg-container">
-<div class="silk-accent silk-v3"></div>
-</div>
-
-<div class="editorial-spread-title">
+<div class="glass-panel theme-white">
+<div class="editorial-spread-title k-reveal">
 <span class="chapter-label">Chapter III</span>
 <h2>The Entourage</h2>
 </div>
-
 <div class="magazine-grid mobile-swipe-container">
-
-<div class="mag-block block-parents mobile-swipe-item">
+<div class="mag-block block-parents mobile-swipe-item k-reveal">
 <div class="parent-side">
 <span class="mag-block-title">Parents of the Groom</span>
 <span class="name-lux">Alberto D. Ponce</span>
@@ -563,7 +483,7 @@ Labo, Camarines Norte</p>
 </div>
 </div>
 
-<div class="mag-block block-sponsors-groom mobile-swipe-item">
+<div class="mag-block block-sponsors-groom mobile-swipe-item k-reveal">
 <span class="mag-block-title">Principal Sponsors (Groom)</span>
 <ul class="lux-list">
 <li>Alex G. Garfin</li><li>Grant A. Bonum</li>
@@ -580,7 +500,7 @@ Labo, Camarines Norte</p>
 </ul>
 </div>
 
-<div class="mag-block block-sponsors-bride mobile-swipe-item">
+<div class="mag-block block-sponsors-bride mobile-swipe-item k-reveal">
 <span class="mag-block-title">Principal Sponsors (Bride)</span>
 <ul class="lux-list">
 <li>Marites O. Cariño</li><li>Concepcion S. Gerio</li>
@@ -597,7 +517,7 @@ Labo, Camarines Norte</p>
 </ul>
 </div>
 
-<div class="mag-block block-secondary-1 mobile-swipe-item">
+<div class="mag-block block-secondary-1 mobile-swipe-item k-reveal">
 <span class="mag-block-title">Secondary Sponsors</span>
 <div class="party-grid-inner">
 <div class="party-member-lux"><span class="role">Maid of Honor</span><span class="name-lux" style="font-size: 1.4rem;">Shiela Taupo</span></div>
@@ -608,7 +528,7 @@ Labo, Camarines Norte</p>
 </div>
 </div>
 
-<div class="mag-block block-secondary-2 mobile-swipe-item">
+<div class="mag-block block-secondary-2 mobile-swipe-item k-reveal">
 <span class="mag-block-title">Secondary Sponsors</span>
 <div class="party-grid-inner">
 <div class="party-member-lux"><span class="role">Best Man</span><span class="name-lux" style="font-size: 1.4rem;">Ariel Nataño</span></div>
@@ -619,7 +539,7 @@ Labo, Camarines Norte</p>
 </div>
 </div>
 
-<div class="mag-block block-bearers mobile-swipe-item">
+<div class="mag-block block-bearers mobile-swipe-item k-reveal">
 <span class="mag-block-title">Bearers of Faith & Love</span>
 <div class="party-grid-inner">
 <div class="party-member-lux"><span class="role">Ring Bearer</span><span class="name-lux">Cxian Jeff Anastacio</span></div>
@@ -628,7 +548,7 @@ Labo, Camarines Norte</p>
 </div>
 </div>
 
-<div class="mag-block block-flower-girls mobile-swipe-item">
+<div class="mag-block block-flower-girls mobile-swipe-item k-reveal">
 <span class="mag-block-title">Flower Girls</span>
 <div class="party-grid-inner">
 <div class="party-member-lux"><span class="name-lux" style="margin-top: 15px;">Precious Jhade Nala</span></div>
@@ -641,22 +561,13 @@ Labo, Camarines Norte</p>
 </div>
 </section>
 
-<!-- ==========================================================================
-            CHAPTER IV: ATTIRE (Gold Theme)
-            ========================================================================== -->
 <section id="chapter-attire" class="chapter-attire editorial-section">
-<div class="glass-panel theme-gold k-reveal">
-
-<div class="silk-bg-container">
-<div class="silk-accent silk-v4"></div>
-</div>
-
+<div class="glass-panel theme-gold">
 <div class="attire-text">
-<span class="chapter-label">Chapter IV</span>
-<h2>Aesthetic</h2>
-<p>We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
-
-<div class="swatch-rack">
+<span class="chapter-label k-reveal">Chapter IV</span>
+<h2 class="k-reveal">Aesthetic</h2>
+<p class="k-reveal">We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
+<div class="swatch-rack k-reveal">
 <div class="fabric-swatch" style="background-color: var(--c-navy-deep);" title="Navy Blue"></div>
 <div class="fabric-swatch" style="background-color: #5A6B7A;" title="Dusty Blue"></div>
 <div class="fabric-swatch" style="background-color: #ADD8E6;" title="Soft Blue"></div>
@@ -664,14 +575,13 @@ Labo, Camarines Norte</p>
 <div class="fabric-swatch" style="background-color: #F5F5DC;" title="Beige"></div>
 </div>
 </div>
-
 <div class="attire-cards-container mobile-swipe-container">
-<div class="guideline-box mobile-swipe-item">
+<div class="guideline-box mobile-swipe-item k-reveal">
 <span>Principal Sponsors</span>
 <strong>Gentlemen: Barong</strong>
 <strong>Ladies: Dusty Blue or Beige Gown</strong>
 </div>
-<div class="guideline-box mobile-swipe-item" style="transition-delay: 0.2s;">
+<div class="guideline-box mobile-swipe-item k-reveal">
 <span>Guests</span>
 <strong>Semi-Formal Attire</strong>
 </div>
@@ -679,56 +589,39 @@ Labo, Camarines Norte</p>
 </div>
 </section>
 
-<!-- ==========================================================================
-            CHAPTER V: THE RSVP (Blue Theme)
-            ========================================================================== -->
 <section id="chapter-rsvp" class="chapter-rsvp editorial-section">
-<div class="glass-panel theme-blue k-reveal rsvp-envelope">
-
-<div class="silk-bg-container">
-<div class="silk-accent silk-v5"></div>
-</div>
-
-<div class="rsvp-title">
+<div class="glass-panel theme-blue rsvp-envelope">
+<div class="rsvp-title k-reveal">
 <p>Kindly reply by September 1, 2026</p>
 <h2>Répondez s'il vous plaît</h2>
 </div>
-
-<form id="rsvpForm" onsubmit="handleRSVP(event)">
+<form id="rsvpForm" onsubmit="handleRSVP(event)" class="k-reveal">
 <div class="lux-form-group">
 <input type="text" id="guestName" name="GuestName" class="lux-input" required>
 <label for="guestName" class="lux-label">Name(s) of Guest(s) *</label>
 </div>
-
 <div class="lux-form-group" style="margin-top: 40px;">
 <span class="lux-label" style="position: relative; top: 0; font-size: 0.6rem; color: var(--c-navy-light);">Will you attend? *</span>
 <div class="lux-radio-group">
 <label class="lux-radio-label">
 <input type="radio" name="Attendance" value="Accepts with Pleasure" class="lux-radio-input" required>
-<div class="lux-radio-custom"></div>
-Accepts with Pleasure
+<div class="lux-radio-custom"></div> Accepts with Pleasure
 </label>
 <label class="lux-radio-label">
 <input type="radio" name="Attendance" value="Declines with Regret" class="lux-radio-input" required>
-<div class="lux-radio-custom"></div>
-Declines with Regret
+<div class="lux-radio-custom"></div> Declines with Regret
 </label>
 </div>
 </div>
-
 <div class="lux-form-group" style="margin-top: 40px;">
 <input type="text" id="dietary" name="Dietary" class="lux-input">
 <label for="dietary" class="lux-label">Dietary Restrictions (Optional)</label>
 </div>
-
 <button type="submit" class="lux-submit">Send Response</button>
 </form>
 </div>
 </section>
 
-<!-- ==========================================================================
-            FOOTER
-            ========================================================================== -->
 <footer>
 <div>B & M</div>
 <p>Together with their families</p>
@@ -737,9 +630,6 @@ Declines with Regret
 
 </main>
 
-<!-- ==========================================================================
-        JAVASCRIPT LOGIC
-        ========================================================================== -->
 <script>
 // --- 1. SPLASH SCREEN LOGIC ---
 function unlockExperience() {
@@ -760,17 +650,21 @@ document.body.style.overflowY = 'auto';
 
 document.body.style.overflowY = 'hidden';
 
-// --- 2. KINETIC SCROLL REVEAL SYSTEM ---
+// --- 2. KINETIC SCROLL REVEAL SYSTEM (UPDATED STAGGERED LOGIC) ---
 const revealElements = document.querySelectorAll('.k-reveal');
-const revealOptions = { threshold: 0.05, rootMargin: "0px 0px 0px 0px" };
+const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 
 const revealObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('is-in-view');
-revealObserver.unobserve(entry.target);
-}
-});
+    const intersecting = entries.filter(e => e.isIntersecting);
+    
+    // Create the cinematic stagger for elements entering the screen at the same time
+    intersecting.forEach((entry, index) => {
+        setTimeout(() => {
+            entry.target.classList.add('is-in-view');
+        }, index * 200); // 200ms delay between sibling reveals
+        
+        revealObserver.unobserve(entry.target);
+    });
 }, revealOptions);
 
 function checkReveals() {
@@ -789,7 +683,6 @@ constructor() {
 this.el = document.createElement('div');
 this.el.classList.add('falling-petal');
 this.el.style.backgroundImage = `url('${petalDataURI}')`;
-
 this.reset();
 container.appendChild(this.el);
 }
@@ -798,14 +691,12 @@ reset() {
 this.size = Math.random() * 15 + 10;
 this.x = Math.random() * window.innerWidth;
 this.y = -50;
-
 this.speed = Math.random() * 1 + 0.5;
 this.swaySpeed = Math.random() * 0.02 + 0.01;
 this.swayAmplitude = Math.random() * 50 + 20;
 this.angle = Math.random() * 360;
 this.spinSpeed = Math.random() * 2 - 1;
 this.time = Math.random() * 100;
-
 this.el.style.width = `${this.size}px`;
 this.el.style.height = `${this.size}px`;
 this.update();
@@ -815,10 +706,8 @@ update() {
 this.time += this.swaySpeed;
 this.y += this.speed;
 this.angle += this.spinSpeed;
-
 const currentX = this.x + Math.sin(this.time) * this.swayAmplitude;
 this.el.style.transform = `translate3d(${currentX}px, ${this.y}px, 0) rotate(${this.angle}deg)`;
-
 if (this.y > window.innerHeight + 50) this.reset();
 }
 }
