@@ -13,14 +13,14 @@
         window.scrollTo(0, 0);
     </script>
 
-    <!-- HIGH-END EDITORIAL TYPOGRAPHY: Cormorant Garamond, Jost, & WindSong -->
+    <!-- HIGH-END EDITORIAL TYPOGRAPHY -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=WindSong&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================================================
-           0. LUXURY TOKENS & PALETTE (Blue, White, Gold)
+           0. LUXURY TOKENS & PALETTE
            ========================================================================== */
         :root {
             --c-white-pure: #FFFFFF;
@@ -35,8 +35,6 @@
             --font-sans: 'Jost', sans-serif;
             --font-script: 'WindSong', cursive;
 
-            --s-nano: 1rem;
-            --s-kilo: 2.5rem;
             --s-mega: 6vw;
             --s-tera: 15vh; 
 
@@ -58,17 +56,13 @@
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.8;
         }
 
-        /* Subtle 1px delicate framing */
         .gold-border-frame {
-            position: fixed;
-            top: 2vw; left: 2vw; right: 2vw; bottom: 2vw;
-            border: 1px solid var(--c-gold-light);
-            pointer-events: none;
-            z-index: 999;
+            position: fixed; top: 2vw; left: 2vw; right: 2vw; bottom: 2vw;
+            border: 1px solid var(--c-gold-light); pointer-events: none; z-index: 999;
         }
 
         /* ==========================================================================
-           2. FLORAL INTEGRATION (Blue & White Theme)
+           2. FLORAL INTEGRATION
            ========================================================================== */
         .floral-background-container {
             position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
@@ -110,7 +104,7 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* ==========================================================================
-           4. GLOBAL EDITORIAL TYPOGRAPHY & ASYMMETRY
+           4. GLOBAL EDITORIAL TYPOGRAPHY
            ========================================================================== */
         #main-experience { opacity: 0; transition: opacity 1.5s ease; position: relative; z-index: 10; }
         #main-experience.active { opacity: 1; }
@@ -122,25 +116,22 @@
 
         h2, h3 { font-family: var(--font-display); color: var(--c-navy-deep); font-weight: 300; text-transform: uppercase; line-height: 1.1; }
         
-        /* Tiny tracked-out labels */
         .k-label {
             font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.3em; 
             text-transform: uppercase; color: var(--c-gold-pure); margin-bottom: 1rem; display: block;
         }
 
-        /* Staggered Reveal Logic */
         .k-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); will-change: opacity, transform; }
         .k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
         /* ==========================================================================
-           5. HERO SECTION (OVERLAPPING & BREATHING ROOM)
+           5. HERO SECTION
            ========================================================================== */
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
         
         .hero-title-group { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 5vh; }
         .name-bertwin, .name-mechele { font-family: var(--font-display); font-size: clamp(5rem, 12vw, 11rem); font-weight: 300; text-transform: uppercase; letter-spacing: -0.03em; color: var(--c-navy-deep); line-height: 0.85; z-index: 2; }
         
-        /* Asymmetrical stagger */
         .name-bertwin { align-self: flex-start; padding-left: 10vw; }
         .name-mechele { align-self: flex-end; padding-right: 10vw; }
 
@@ -153,17 +144,16 @@
         .date-line { width: 80px; height: 1px; background: var(--c-gold-pure); }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE (OFF-CENTERED)
+           6. CHAPTER I: PRELUDE
            ========================================================================== */
         .chapter-story { align-items: flex-end; text-align: right; }
         .story-content { max-width: 600px; padding-right: 5vw; }
-        
         .story-content h2 { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 2rem; }
         .story-content .lead-text { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-style: italic; color: var(--c-navy-deep); line-height: 1.4; margin-bottom: 2rem; }
         .story-content p { font-size: 1rem; color: var(--c-navy-light); line-height: 2; }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS (ASYMMETRICAL LAYOUT)
+           7. CHAPTER II: DETAILS
            ========================================================================== */
         .chapter-details { align-items: flex-start; }
         .details-header { margin-bottom: 10vh; padding-left: 5vw; }
@@ -172,7 +162,6 @@
         .details-wrapper { display: flex; flex-direction: column; gap: 15vh; width: 100%; padding: 0 5vw; }
         
         .detail-block { display: flex; flex-direction: column; position: relative; width: 100%; max-width: 500px; }
-        /* Push the second block to the right */
         .detail-block.reception { align-self: flex-end; text-align: right; }
         
         .detail-block h3 { font-size: 2rem; margin-bottom: 1rem; }
@@ -180,23 +169,24 @@
         .detail-block p { color: var(--c-navy-light); font-size: 1rem; line-height: 2; }
 
         /* ==========================================================================
-           8. CHAPTER III: ENTOURAGE (HORIZONTAL SCROLL DISRUPTION)
+           8. CHAPTER III: ENTOURAGE
            ========================================================================== */
         .chapter-entourage { padding-left: 0; padding-right: 0; overflow: hidden; }
         .entourage-header { padding: 0 5vw 5vh 5vw; }
         .entourage-header h2 { font-size: clamp(3rem, 7vw, 6rem); }
 
-        /* Native Horizontal Scroll */
         .horizontal-track {
             display: flex; gap: 8vw; padding: 0 5vw 5vh 5vw;
             overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
+            align-items: stretch; /* Fixes wobbly vertical jumping */
         }
         .horizontal-track::-webkit-scrollbar { display: none; }
 
         .mag-block {
             flex: 0 0 70vw; max-width: 500px; scroll-snap-align: start;
             border-left: 1px solid var(--c-gold-light); padding-left: 3vw;
+            display: flex; flex-direction: column;
         }
 
         .name-lux { font-family: var(--font-display); font-size: 1.5rem; display: block; color: var(--c-navy-deep); line-height: 1.3; }
@@ -208,7 +198,7 @@
         .party-member { margin-top: 2rem; }
 
         /* ==========================================================================
-           9. CHAPTER IV: ATTIRE (FLOATING ELEMENTS)
+           9. CHAPTER IV: ATTIRE
            ========================================================================== */
         .chapter-attire { align-items: center; text-align: center; }
         .chapter-attire h2 { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 2vh; }
@@ -217,12 +207,12 @@
         .swatch-rack { display: flex; justify-content: center; gap: 2vw; margin-bottom: 10vh; }
         .fabric-swatch { width: 40px; height: 60px; border: 1px solid var(--c-gold-light); }
 
-        .attire-rules { display: flex; gap: 10vw; justify-content: center; width: 100%; text-align: left;}
+        .attire-rules { display: flex; gap: 10vw; justify-content: center; width: 100%; text-align: left; }
         .rule-box strong { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; display: block; color: var(--c-navy-deep); }
         .rule-box span { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-gold-pure); }
 
         /* ==========================================================================
-           10. CHAPTER V: THE RSVP (MINIMALIST FORM)
+           10. CHAPTER V: THE RSVP
            ========================================================================== */
         .chapter-rsvp { align-items: center; }
         .rsvp-container { width: 100%; max-width: 600px; }
@@ -260,7 +250,7 @@
         .footer-copyright { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-navy-light); }
 
         /* ==========================================================================
-           12. MOBILE REFINEMENTS
+           12. MOBILE REFINEMENTS & SWIPE TRACKS
            ========================================================================== */
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
@@ -268,16 +258,35 @@
             .hero-ampersand { left: 50%; top: 50%; }
             .story-content { padding-right: 0; text-align: left; }
             .chapter-story { align-items: flex-start; }
-            .detail-block.reception { align-self: flex-start; text-align: left; }
-            .attire-rules { flex-direction: column; gap: 5vh; text-align: center; }
-            .mag-block { flex: 0 0 85vw; }
             .lux-list { grid-template-columns: 1fr; }
+
+            /* Fix wobble in main entourage track */
+            .horizontal-track {
+                width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw;
+                scroll-padding: 0 6vw; align-items: stretch;
+            }
+            .mag-block { flex: 0 0 85vw; scroll-snap-align: center; }
+
+            /* New Dedicated Swipe Track Logic for Details & Attire */
+            .mobile-swipe-track {
+                display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+                width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw; padding-bottom: 2rem;
+                overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+                -webkit-overflow-scrolling: touch; align-items: stretch; scroll-padding: 0 6vw;
+            }
+            .mobile-swipe-track::-webkit-scrollbar { display: none; }
+            
+            .mobile-swipe-item {
+                flex: 0 0 85vw !important; max-width: none !important; scroll-snap-align: center;
+            }
+
+            /* Resets for swipe items so they flow nicely inside their new mobile boxes */
+            .detail-block.reception { align-self: auto; text-align: left; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ATMOSPHERIC FRAMING & FLORALS -->
     <div class="gold-border-frame"></div>
 
     <div class="floral-background-container">
@@ -285,10 +294,8 @@
         <img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Blue and White Florals">
     </div>
 
-    <!-- PETAL PHYSICS CONTAINER -->
     <div id="petal-container"></div>
 
-    <!-- SPLASH SCREEN REVEAL -->
     <div id="splash-screen" onclick="unlockExperience()">
         <div class="splash-image-wrapper">
             <img src="static/2.png" alt="M & B Monogram Splash">
@@ -296,7 +303,6 @@
         <div class="splash-hint">Tap to Enter</div>
     </div>
 
-    <!-- MAIN LUXURY EXPERIENCE -->
     <main id="main-experience">
 
         <!-- HERO -->
@@ -324,19 +330,20 @@
             </div>
         </section>
 
-        <!-- CHAPTER II -->
+        <!-- CHAPTER II (NOW HORIZONTAL SWIPE ON MOBILE) -->
         <section class="chapter-details editorial-section">
             <div class="details-header k-reveal">
                 <span class="k-label">Chapter II</span>
                 <h2>The Celebration</h2>
             </div>
-            <div class="details-wrapper">
-                <div class="detail-block k-reveal">
+            <!-- Added mobile-swipe-track -->
+            <div class="details-wrapper mobile-swipe-track">
+                <div class="detail-block mobile-swipe-item k-reveal">
                     <h3>Church Ceremony</h3>
                     <span class="lux-time">8:30 am</span>
                     <p>Saturday, September 26, 2026<br><strong>St. John the Apostle & Evangelist Church</strong><br>Labo, Camarines Norte</p>
                 </div>
-                <div class="detail-block reception k-reveal">
+                <div class="detail-block reception mobile-swipe-item k-reveal">
                     <h3>The Reception</h3>
                     <span class="lux-time">to follow</span>
                     <p>Immediately after the ceremony<br><strong>Labo Convention Center</strong><br>Hillcrest Subdivision, Brgy Bulhao<br>Labo, Camarines Norte</p>
@@ -344,7 +351,7 @@
             </div>
         </section>
 
-        <!-- CHAPTER III (HORIZONTAL SCROLL) -->
+        <!-- CHAPTER III -->
         <section class="chapter-entourage editorial-section">
             <div class="entourage-header k-reveal">
                 <span class="k-label">Chapter III</span>
@@ -353,7 +360,6 @@
             
             <div class="horizontal-track">
                 
-                <!-- Block 1 -->
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Parents of the Groom</span>
                     <span class="name-lux" style="margin-bottom: 2rem;">Alberto & Chona Ponce</span>
@@ -361,9 +367,9 @@
                     <span class="name-lux">Edgardo & Ma. Cecilia Taupo</span>
                 </div>
 
-                <!-- Block 2 -->
+                <!-- Combined Aesthetic / Removed Groom Label -->
                 <div class="mag-block k-reveal">
-                    <span class="role-lux">Principal Sponsors (Groom)</span>
+                    <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
                         <li>Alex G. Garfin</li><li>Grant A. Bonum</li>
                         <li>Alex Oira</li><li>Cesar V. Alaon Jr</li>
@@ -379,9 +385,9 @@
                     </ul>
                 </div>
 
-                <!-- Block 3 -->
+                <!-- Combined Aesthetic / Removed Bride Label -->
                 <div class="mag-block k-reveal">
-                    <span class="role-lux">Principal Sponsors (Bride)</span>
+                    <span class="role-lux">Principal Sponsors</span>
                     <ul class="lux-list">
                         <li>Marites O. Cariño</li><li>Concepcion S. Gerio</li>
                         <li>Theresa C. Herradura</li><li>Maila N. Galero</li>
@@ -397,7 +403,6 @@
                     </ul>
                 </div>
 
-                <!-- Block 4 -->
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Secondary Sponsors</span>
                     <div class="party-member">
@@ -418,7 +423,6 @@
                     </div>
                 </div>
 
-                <!-- Block 5 -->
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Bearers & Flower Girls</span>
                     <div class="party-member">
@@ -440,7 +444,7 @@
             </div>
         </section>
 
-        <!-- CHAPTER IV -->
+        <!-- CHAPTER IV (NOW HORIZONTAL SWIPE ON MOBILE) -->
         <section class="chapter-attire editorial-section">
             <span class="k-label k-reveal">Chapter IV</span>
             <h2 class="k-reveal">Aesthetic</h2>
@@ -453,13 +457,14 @@
                 <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
             </div>
 
-            <div class="attire-rules">
-                <div class="rule-box k-reveal">
+            <!-- Added mobile-swipe-track -->
+            <div class="attire-rules mobile-swipe-track">
+                <div class="rule-box mobile-swipe-item k-reveal">
                     <span>Principal Sponsors</span>
                     <strong>Gentlemen: Barong</strong>
                     <strong>Ladies: Dusty Blue or Beige Gown</strong>
                 </div>
-                <div class="rule-box k-reveal">
+                <div class="rule-box mobile-swipe-item k-reveal">
                     <span>Guests</span>
                     <strong>Semi-Formal Attire</strong>
                 </div>
@@ -511,7 +516,6 @@
     </main>
 
     <script>
-        // --- SPLASH SCREEN LOGIC ---
         function unlockExperience() {
             const splash = document.getElementById('splash-screen');
             const main = document.getElementById('main-experience');
@@ -528,7 +532,6 @@
         }
         document.body.style.overflowY = 'hidden';
 
-        // --- STAGGERED REVEAL SYSTEM ---
         const revealElements = document.querySelectorAll('.k-reveal');
         const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 
@@ -546,11 +549,10 @@
             revealElements.forEach(el => revealObserver.observe(el));
         }
 
-        // --- SUBTLE PETAL PHYSICS ---
         function startPetalPhysics() {
             const container = document.getElementById('petal-container');
-            const MAX_PETALS = 10; // Reduced for elegance
-            const petalDataURI = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,15 10,20 C0,15 5,5 10,0 Z" fill="%231A2B4C" opacity="0.15"/></svg>`; // Blue-tinted shadow petals
+            const MAX_PETALS = 10;
+            const petalDataURI = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,15 10,20 C0,15 5,5 10,0 Z" fill="%231A2B4C" opacity="0.15"/></svg>`;
 
             class Petal {
                 constructor() {
@@ -592,7 +594,6 @@
             animate();
         }
 
-        // --- RSVP HANDLER ---
         function handleRSVP(e) {
             e.preventDefault();
             const form = document.getElementById('rsvpForm');
