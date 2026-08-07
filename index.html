@@ -250,18 +250,8 @@
         .footer-copyright { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-navy-light); }
 
         /* ==========================================================================
-           12. MOBILE REFINEMENTS & SWIPE TRACKS
+           12. MOBILE REFINEMENTS & SWIPE TRACKS (PEEKING UI)
            ========================================================================== */
-        
-        .mobile-swipe-hint { display: none; } /* Hidden entirely on desktop */
-
-        /* Animation for the mobile swipe arrow */
-        @keyframes elegantSwipe {
-            0% { transform: translateX(0) rotate(45deg); opacity: 0.2; }
-            50% { transform: translateX(8px) rotate(45deg); opacity: 1; }
-            100% { transform: translateX(0) rotate(45deg); opacity: 0.2; }
-        }
-
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
             .name-mechele { padding-right: 0; align-self: center; }
@@ -270,58 +260,38 @@
             .chapter-story { align-items: flex-start; }
             .lux-list { grid-template-columns: 1fr; }
 
-            /* Refine spacing to make room for swipe hint */
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
-            /* The Swipe Hint UI */
-            .mobile-swipe-hint {
-                display: flex !important;
-                align-items: center;
-                gap: 15px;
-                margin-bottom: 1.5rem;
-                padding-left: 6vw; /* Aligns with the track padding */
-            }
-            /* Center the hint for the attire section */
-            .chapter-attire .mobile-swipe-hint {
-                justify-content: center;
-                padding-left: 0;
-            }
-            .mobile-swipe-hint span {
-                font-family: var(--font-sans);
-                font-size: 0.6rem;
-                letter-spacing: 0.3em;
-                text-transform: uppercase;
-                color: var(--c-gold-pure);
-            }
-            .swipe-arrow-anim {
-                width: 35px;
-                height: 1px;
-                background: var(--c-gold-pure);
-                position: relative;
-            }
-            .swipe-arrow-anim::after {
-                content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px;
-                border-top: 1px solid var(--c-gold-pure); border-right: 1px solid var(--c-gold-pure);
-                transform: rotate(45deg); animation: elegantSwipe 2s infinite ease-in-out;
-            }
-
-            /* Horizontal Tracks */
+            /* 
+               THE PEEK MATH:
+               Items are exactly 80vw wide. They are snapped strictly to the center.
+               This guarantees 10vw of space on either side.
+               We use a 5vw gap between items.
+               Therefore, the next item begins exactly 95vw into the screen, meaning 
+               5vw of it will cleanly peek in from the right edge, intuitively inviting a swipe.
+            */
+            
             .horizontal-track {
-                width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw;
-                scroll-padding: 0 6vw; align-items: stretch;
+                width: 100vw; margin-left: -6vw; margin-right: -6vw; 
+                padding-left: 10vw; padding-right: 10vw; /* Perfect padding to allow first/last items to center */
+                gap: 5vw; align-items: stretch; scroll-padding: 0;
             }
-            .mag-block { flex: 0 0 85vw; scroll-snap-align: center; }
+            .mag-block { 
+                flex: 0 0 80vw; max-width: none; scroll-snap-align: center; 
+            }
 
             .mobile-swipe-track {
                 display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
-                width: 100vw; margin-left: -6vw; padding-left: 6vw; padding-right: 6vw; padding-bottom: 2rem;
-                overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-                -webkit-overflow-scrolling: touch; align-items: stretch; scroll-padding: 0 6vw;
+                width: 100vw; margin-left: -6vw; margin-right: -6vw; 
+                padding-left: 10vw; padding-right: 10vw; padding-bottom: 2rem;
+                gap: 5vw !important; overflow-x: auto; scroll-snap-type: x mandatory; 
+                scrollbar-width: none; -webkit-overflow-scrolling: touch; 
+                align-items: stretch; scroll-padding: 0;
             }
             .mobile-swipe-track::-webkit-scrollbar { display: none; }
             
             .mobile-swipe-item {
-                flex: 0 0 85vw !important; max-width: none !important; scroll-snap-align: center;
+                flex: 0 0 80vw !important; max-width: none !important; scroll-snap-align: center;
             }
 
             .detail-block.reception { align-self: auto; text-align: left; }
@@ -380,12 +350,6 @@
                 <h2>The Celebration</h2>
             </div>
             
-            <!-- NEW MOBILE SWIPE HINT -->
-            <div class="mobile-swipe-hint k-reveal">
-                <span>Swipe to explore</span>
-                <div class="swipe-arrow-anim"></div>
-            </div>
-
             <div class="details-wrapper mobile-swipe-track">
                 <div class="detail-block mobile-swipe-item k-reveal">
                     <h3>Church Ceremony</h3>
@@ -407,12 +371,6 @@
                 <h2>The Entourage</h2>
             </div>
             
-            <!-- NEW MOBILE SWIPE HINT -->
-            <div class="mobile-swipe-hint k-reveal">
-                <span>Swipe to explore</span>
-                <div class="swipe-arrow-anim"></div>
-            </div>
-
             <div class="horizontal-track">
                 <div class="mag-block k-reveal">
                     <span class="role-lux">Parents of the Groom</span>
@@ -507,12 +465,6 @@
                 <div class="fabric-swatch" style="background-color: #5A6B7A;" title="Dusty Blue"></div>
                 <div class="fabric-swatch" style="background-color: #FAFAFA;" title="White"></div>
                 <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
-            </div>
-
-            <!-- NEW MOBILE SWIPE HINT -->
-            <div class="mobile-swipe-hint k-reveal">
-                <span>Swipe to explore</span>
-                <div class="swipe-arrow-anim"></div>
             </div>
 
             <div class="attire-rules mobile-swipe-track">
