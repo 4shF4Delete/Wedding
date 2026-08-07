@@ -144,26 +144,30 @@
         .date-line { width: 80px; height: 1px; background: var(--c-gold-pure); }
 
         /* ==========================================================================
-           6. CHAPTER I: PRELUDE
+           6. CHAPTER I: PRELUDE (RESTORED FLORAL GRID)
            ========================================================================== */
-        .chapter-story { align-items: flex-end; text-align: right; }
-        .story-content { max-width: 600px; padding-right: 5vw; }
+        .chapter-story { align-items: center; text-align: left; }
+        
+        .story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8vw; width: 100%; }
+        
+        .prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; mix-blend-mode: multiply; opacity: 0.8; }
+        .prelude-floral-wrapper img { width: 100%; max-width: 450px; height: auto; object-fit: contain; }
+        
+        .story-content { max-width: 600px; }
         .story-content h2 { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 2rem; }
         .story-content .lead-text { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-style: italic; color: var(--c-navy-deep); line-height: 1.4; margin-bottom: 2rem; }
         .story-content p { font-size: 1rem; color: var(--c-navy-light); line-height: 2; }
 
         /* ==========================================================================
-           7. CHAPTER II: DETAILS
+           7. CHAPTER II: DETAILS (SYMMETRICAL DESKTOP LAYOUT)
            ========================================================================== */
-        .chapter-details { align-items: flex-start; }
-        .details-header { margin-bottom: 10vh; padding-left: 5vw; }
+        .chapter-details { align-items: center; text-align: center; }
+        .details-header { margin-bottom: 8vh; width: 100%; }
         .details-header h2 { font-size: clamp(3rem, 7vw, 6rem); }
 
-        /* Wrapper controls horizontal overflow for desktop, mobile handles it differently */
-        .details-wrapper { display: flex; flex-direction: column; gap: 15vh; width: 100%; padding: 0 5vw; }
+        .details-wrapper { display: flex; gap: 10vw; justify-content: center; width: 100%; text-align: left; }
         
-        .detail-block { display: flex; flex-direction: column; position: relative; width: 100%; max-width: 500px; }
-        .detail-block.reception { align-self: flex-end; text-align: right; }
+        .detail-block { display: flex; flex-direction: column; width: 100%; max-width: 400px; }
         
         .detail-block h3 { font-size: 2rem; margin-bottom: 1rem; }
         .detail-block .lux-time { font-family: var(--font-script); font-size: 4rem; color: var(--c-gold-pure); line-height: 0.8; margin-bottom: 1rem; display: block; }
@@ -257,21 +261,18 @@
             .name-bertwin { padding-left: 0; align-self: center; }
             .name-mechele { padding-right: 0; align-self: center; }
             .hero-ampersand { left: 50%; top: 50%; }
-            .story-content { padding-right: 0; text-align: left; }
-            .chapter-story { align-items: flex-start; }
+            
+            .story-grid { grid-template-columns: 1fr; gap: 5vh; }
+            .prelude-floral-wrapper { display: none; } /* Hide flower on mobile to keep layout clean */
+            .story-content { text-align: left; }
+            
             .lux-list { grid-template-columns: 1fr; }
 
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
-            /* 
-               THE FADED PEEK MATH:
-               - Screen = 100vw
-               - Active Card = 65vw (shrunk for elegance)
-               - Gap = 5vw
-               - Padding Left = 15vw (Perfectly centers the 65vw card)
-               - The next card peeks precisely into the fade gradient (15vw on the edges)
-            */
-            
+            /* Align the Reception down exactly one space to match the wrapped Church text */
+            .detail-block.reception { margin-top: 2.2rem; }
+
             .horizontal-track, .mobile-swipe-track {
                 display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
                 width: 100vw !important; 
@@ -288,7 +289,6 @@
                 align-items: stretch !important; 
                 scroll-padding: 0 15vw !important;
                 
-                /* This creates the beautiful fade on the left and right edges */
                 -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
                 mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
             }
@@ -300,7 +300,6 @@
                 scroll-snap-align: center !important;
             }
 
-            .detail-block.reception { align-self: auto; text-align: left; }
             .chapter-attire p { margin-bottom: 2vh; }
         }
     </style>
@@ -342,11 +341,16 @@
 
         <!-- CHAPTER I -->
         <section class="chapter-story editorial-section">
-            <div class="story-content">
-                <span class="k-label k-reveal">Chapter I</span>
-                <h2 class="k-reveal">The Prelude</h2>
-                <p class="lead-text k-reveal">What began as a quiet understanding has blossomed into a magnificent journey.</p>
-                <p class="k-reveal">Our love is a tapestry woven with patience, grace, and an unbreakable bond. We are profoundly honored to invite you to bear witness as we exchange vows and step into our forever. Your presence will add immeasurable joy to our celebration.</p>
+            <div class="story-grid">
+                <div class="prelude-floral-wrapper k-reveal">
+                    <img src="static/prelude-flower.png" alt="Floral Decoration">
+                </div>
+                <div class="story-content">
+                    <span class="k-label k-reveal">Chapter I</span>
+                    <h2 class="k-reveal">The Prelude</h2>
+                    <p class="lead-text k-reveal">What began as a quiet understanding has blossomed into a magnificent journey.</p>
+                    <p class="k-reveal">Our love is a tapestry woven with patience, grace, and an unbreakable bond. We are profoundly honored to invite you to bear witness as we exchange vows and step into our forever. Your presence will add immeasurable joy to our celebration.</p>
+                </div>
             </div>
         </section>
 
@@ -357,9 +361,7 @@
                 <h2>The Celebration</h2>
             </div>
             
-            <!-- k-reveal moved to wrapper to fix visibility bug -->
             <div class="details-wrapper mobile-swipe-track k-reveal">
-                <!-- k-reveal removed from items so they don't break observer -->
                 <div class="detail-block mobile-swipe-item">
                     <h3>Church Ceremony</h3>
                     <span class="lux-time">8:30 am</span>
@@ -380,7 +382,6 @@
                 <h2>The Entourage</h2>
             </div>
 
-            <!-- k-reveal moved to wrapper -->
             <div class="horizontal-track k-reveal">
                 <div class="mag-block">
                     <span class="role-lux">Parents of the Groom</span>
@@ -477,7 +478,6 @@
                 <div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
             </div>
 
-            <!-- k-reveal moved to wrapper -->
             <div class="attire-rules mobile-swipe-track k-reveal">
                 <div class="rule-box mobile-swipe-item">
                     <span>Principal Sponsors</span>
