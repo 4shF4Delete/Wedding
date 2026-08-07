@@ -169,7 +169,6 @@
         
         .detail-block { display: flex; flex-direction: column; width: 100%; max-width: 400px; }
         
-        /* DYNAMIC ALIGNMENT FIX: Forces headers to share exactly the same baseline */
         .detail-block h3 { 
             font-size: 2rem; 
             margin-bottom: 1rem; 
@@ -262,7 +261,7 @@
         .footer-copyright { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-navy-light); }
 
         /* ==========================================================================
-           12. MOBILE REFINEMENTS & UNIVERSAL SWIPE TRACKS
+           12. MOBILE REFINEMENTS & UNIVERSAL SWIPE TRACKS (BUG FIX)
            ========================================================================== */
         @media (max-width: 768px) {
             .name-bertwin { padding-left: 0; align-self: center; }
@@ -277,12 +276,16 @@
 
             .entourage-header, .details-header { margin-bottom: 2vh; padding-bottom: 0; }
 
+            /* Detail blocks naturally align baselines now, so margin hack is removed */
+
             /* 
-               UNIVERSAL PEEK MATH (Fixes the "cut" edge issue):
-               By avoiding mask-images and complex negative margins, we use simple 
-               scroll-padding. The track starts with 5vw padding. The cards take up 
-               80vw. This leaves exactly enough room for the gap (5vw) and the next 
-               card to peak naturally into the viewport without glitching on resize.
+               THE ULTIMATE PEEK MATH FIX:
+               Browsers routinely ignore padding inside horizontally overflowing flex 
+               containers, which results in the first element getting "cut" or pressed 
+               hard against the screen edge.
+               
+               The fix is to strip the internal padding entirely and force explicit margins
+               onto the first and last elements themselves.
             */
             .horizontal-track, .mobile-swipe-track {
                 display: flex !important; 
@@ -291,10 +294,9 @@
                 
                 width: 100vw !important; 
                 margin-left: -6vw !important; /* Pull out of section padding */
-                margin-right: -6vw !important;
                 
-                padding-left: 6vw !important; /* Internal padding for snapping */
-                padding-right: 6vw !important; 
+                padding-left: 0 !important; /* Removed to fix Safari/Chrome clipping bug */
+                padding-right: 0 !important; 
                 padding-bottom: 2rem !important;
                 gap: 5vw !important; 
                 
@@ -304,8 +306,18 @@
                 -webkit-overflow-scrolling: touch !important; 
                 align-items: stretch !important; 
                 
-                /* Ensures the card locks exactly to the internal padding line */
                 scroll-padding-left: 6vw !important;
+            }
+            
+            /* FORCE the gap on the edges so it never gets cropped */
+            .horizontal-track > :first-child,
+            .mobile-swipe-track > :first-child {
+                margin-left: 6vw !important;
+            }
+            
+            .horizontal-track > :last-child,
+            .mobile-swipe-track > :last-child {
+                margin-right: 6vw !important;
             }
             
             .horizontal-track::-webkit-scrollbar, .mobile-swipe-track::-webkit-scrollbar { display: none; }
@@ -440,7 +452,6 @@
                     </ul>
                 </div>
 
-                <!-- NEW BRIDESMAIDS & GROOMSMEN BLOCK -->
                 <div class="mag-block">
                     <span class="role-lux">Bridesmaids & Groomsmen</span>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
@@ -463,7 +474,6 @@
                     </div>
                 </div>
 
-                <!-- NEW BEARERS & FLOWER GIRLS BLOCK -->
                 <div class="mag-block">
                     <span class="role-lux">Bearers</span>
                     <ul class="lux-list" style="display: block; column-count: 1; margin-top: 1rem;">
@@ -488,7 +498,6 @@
             <h2 class="k-reveal">Aesthetic</h2>
             <p class="k-reveal">We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
             
-            <!-- EXACT COLORS EXTRACTED FROM image_e46641.jpg -->
             <div class="swatch-rack k-reveal">
                 <div class="fabric-swatch" style="background-color: #214C72;" title="Dark Blue"></div>
                 <div class="fabric-swatch" style="background-color: #6388A5;" title="Medium Dusty Blue"></div>
@@ -513,7 +522,6 @@
         <!-- CHAPTER V -->
         <section class="chapter-rsvp editorial-section">
             <div class="rsvp-container">
-                <!-- RSVP DATE UPDATED TO AUGUST 26 -->
                 <span class="k-label k-reveal" style="text-align: center;">Kindly reply by August 26, 2026</span>
                 <h2 class="k-reveal">Répondez s'il vous plaît</h2>
                 
