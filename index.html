@@ -3,542 +3,832 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Bertwin & Mechele | Editorial Celebration</title>
+<title>Bertwin & Mechele | An Unforgettable Celebration</title>
 
-<!-- HIGH-FASHION EDITORIAL TYPOGRAPHY -->
+<!-- SCRIPT FOR INSTANT TOP-SCROLL ON RELOAD -->
+<script>
+if ('scrollRestoration' in history) {
+history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+</script>
+
+<!-- EDITORIAL TYPOGRAPHY: Elegant Serif & Tracked-Out Tiny Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================================
-   0. LUXURY TOKENS & RESET
-   ========================================================================== */
+          0. EDITORIAL TOKENS
+          ========================================================================== */
 :root {
-    --c-ivory: #FDFBF7;
-    --c-navy-deep: #0A1424;
-    --c-navy-light: #1A2B4C;
-    --c-gold-pure: #D4AF37;
-    --c-gold-muted: rgba(212, 175, 55, 0.4);
-    
-    --font-display: 'Cinzel', serif;
-    --font-body: 'Jost', sans-serif;
+--c-ivory-base: #FDFBF7;
+--c-navy-deep: #0A1424;
+--c-navy-light: #1A2B4C;
+--c-gold-pure: #C5A059;
+--c-gold-metallic: #D4AF37;
+--c-gold-light: rgba(212, 175, 55, 0.3);
 
-    /* Hairline borders for editorial feel */
-    --border-hairline: 1px solid var(--c-gold-muted); 
+--font-display: 'Playfair Display', serif;
+--font-sans: 'Montserrat', sans-serif;
+
+--s-nano: 1rem;
+--s-kilo: 2.5rem;
+--s-mega: 6vw;
+--s-tera: 10vw; 
+
+--t-snappy: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* ==========================================================================
+          1. RESET & CANVAS
+          ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+width: 100%; max-width: 100vw; overflow-x: hidden; 
+background-color: var(--c-ivory-base); font-size: 16px;
+}
+
 body {
-    background-color: var(--c-ivory);
-    color: var(--c-navy-deep);
-    font-family: var(--font-body);
-    font-weight: 300;
-    line-height: 1.8;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+font-family: var(--font-sans); color: var(--c-navy-deep);
+-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.8;
+}
+
+html.smooth-scroll { scroll-behavior: smooth; }
+
+/* Subtle paper texture */
+.global-noise {
+position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+z-index: 9998; opacity: 0.25; mix-blend-mode: multiply;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
+}
+
+/* Removed heavy gold border, replacing with an ultra-thin 1px gold frame */
+.gold-border-frame {
+position: fixed;
+top: 2vw; left: 2vw; right: 2vw; bottom: 2vw;
+border: 1px solid var(--c-gold-light);
+pointer-events: none;
+z-index: 5;
 }
 
 /* ==========================================================================
-   1. ORGANIC PARALLAX FLORALS (THE Z-AXIS)
-   ========================================================================== */
-/* 
-   These elements sit OVER the layout. 
-   mix-blend-mode: multiply ensures the blue/white florals blend seamlessly 
-   into the typography and backgrounds, creating a printed-paper effect. 
-*/
-.floral-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none;
-    z-index: 50; 
-    overflow: hidden;
+          2. ATMOSPHERIC FLORAL INTEGRATION
+          ========================================================================== */
+.floral-background-container {
+position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
 }
 
-.f-layer {
-    position: absolute;
-    will-change: transform;
-    opacity: 0.85;
-    mix-blend-mode: multiply;
-    filter: drop-shadow(0 20px 30px rgba(10, 20, 36, 0.05));
+.floral-bg-image {
+position: absolute; width: 50vw; max-width: 800px; min-width: 350px; object-fit: contain;
+opacity: 0.85; 
+mix-blend-mode: multiply; /* Blends perfectly into the ivory background */
+animation: bouquetBreathe 15s ease-in-out infinite alternate;
 }
 
-/* <!-- INSERT YOUR SPECIFIC BLUE FLOWER PNGS HERE --> */
-.f-1 { top: -10%; left: -5%; width: 45vw; max-width: 600px; transform-origin: center; }
-.f-2 { bottom: -15%; right: -10%; width: 55vw; max-width: 800px; }
-.f-3 { top: 40%; left: -20%; width: 40vw; opacity: 0.6; filter: blur(4px); }
+/* Anchored to corners for soft framing */
+.f-top-right { top: -5%; right: -5%; transform-origin: top right; }
+.f-bottom-left { bottom: -5%; left: -5%; transform-origin: bottom left; animation-delay: -7.5s; }
+
+@keyframes bouquetBreathe { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.03) translate(-10px, 10px); } }
+
+/* Petals strictly gold and pushed back to z-index 2 */
+#petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: hidden; opacity: 0.6; }
+.falling-petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
-   2. ASYMMETRICAL EDITORIAL GRID
-   ========================================================================== */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    padding: 0 5vw;
-    position: relative;
-    z-index: 10; /* Sits below florals */
+          3. SPLASH SCREEN (RESTORED EXACTLY, STYLED EDITORIALLY)
+          ========================================================================== */
+#splash-screen {
+position: fixed; inset: 0; width: 100%; height: 100%; background-color: var(--c-ivory-base);
+z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+cursor: pointer; transition: opacity 1.5s ease, visibility 1.5s ease;
 }
+#splash-screen.unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.splash-image-wrapper {
+position: relative; width: 80%; max-width: 400px; display: flex; justify-content: center; align-items: center;
+opacity: 0; transform: translateY(20px); animation: etherealReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+}
+.splash-image-wrapper img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+
+.splash-hint {
+position: absolute; bottom: 8vh; font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+color: var(--c-gold-metallic); opacity: 0; animation: etherealReveal 2s ease 1.5s forwards, flash 3s infinite 3.5s;
+}
+
+@keyframes etherealReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 /* ==========================================================================
-   3. HERO: THE MAGAZINE COVER
-   ========================================================================== */
-.hero {
-    height: 100vh;
-    min-height: 800px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: var(--border-hairline);
+          4. TRANSPARENT AIRY CONTAINERS (REMOVING BOXES)
+          ========================================================================== */
+#main-experience { opacity: 0; transition: opacity 1s ease; pointer-events: none; position: relative; z-index: 10; }
+#main-experience.active { opacity: 1; pointer-events: auto; }
+
+.editorial-section {
+position: relative; width: 100%; padding: var(--s-tera) var(--s-mega);
+display: flex; flex-direction: column; justify-content: center; z-index: 10; 
+background-color: transparent !important;
 }
 
-.hero-names {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0 10vw;
-    position: relative;
+/* Completely strip all colors, filters, borders, and shadows from glass panels */
+.glass-panel, .glass-panel.theme-blue, .glass-panel.theme-white, .glass-panel.theme-gold {
+background: transparent !important;
+backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+padding: 0; 
+border: none !important;
+box-shadow: none !important;
+max-width: 1200px; 
+width: 100%; margin: 0 auto;
+color: var(--c-navy-deep) !important;
 }
 
-.name-primary {
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 12vw, 14rem);
-    line-height: 0.8;
-    color: var(--c-navy-deep);
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
+.glass-panel::before { display: none !important; }
+.silk-bg-container { display: none !important; }
+
+/* Global Typography Overrides for the transparent text containers */
+h2, h3, .name-bertwin, .name-mechele, .hero-ampersand, .lux-time, .name-lux {
+font-family: var(--font-display) !important; color: var(--c-navy-deep) !important;
 }
 
-.name-b { align-self: flex-start; }
-.name-m { align-self: flex-end; padding-right: 5vw; margin-top: -2vw; }
-
-.ampersand {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 8vw, 10rem);
-    color: var(--c-gold-pure);
-    font-weight: 300;
+/* Tiny tracked-out sans-serif for labels */
+.chapter-label, .mag-block-title, .hero-pretitle, .scroll-indicator span, .role, .lux-label, .guideline-box span, .rsvp-title p {
+font-family: var(--font-sans) !important;
+font-size: 0.75rem !important;
+letter-spacing: 0.2em !important;
+text-transform: uppercase !important;
+color: var(--c-navy-light) !important;
 }
 
-.hero-meta {
-    position: absolute;
-    bottom: 5vh; left: 10vw;
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c-navy-light);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-.hero-meta::after { content: ''; width: 100px; height: 1px; background: var(--c-gold-pure); }
+/* Specific Gold Accents */
+.hero-ampersand { color: var(--c-gold-pure) !important; opacity: 0.6; font-style: italic; font-weight: 300;}
+.lux-time { color: var(--c-gold-metallic) !important; font-style: italic; }
+
+.k-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1); will-change: opacity, transform; }
+.k-reveal.is-in-view { opacity: 1; transform: translateY(0); }
 
 /* ==========================================================================
-   4. CHAPTER I: PRELUDE (BROKEN GRID)
-   ========================================================================== */
-.section-prelude {
-    padding: 15vw 0;
+          5. HERO SECTION
+          ========================================================================== */
+.hero-section {
+min-height: 100vh; padding-top: 8vh; padding-bottom: 15vh; 
+display: flex; align-items: center; justify-content: center; position: relative; z-index: 10;
 }
 
-.prelude-img-box {
-    grid-column: 2 / 7;
-    border: var(--border-hairline);
-    padding: 2vw;
-    position: relative;
+.hero-composition { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.hero-pretitle { margin-bottom: var(--s-kilo); }
+.hero-title-group { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
+.name-bertwin, .name-mechele { font-size: clamp(4rem, 10vw, 9rem); line-height: 1; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em;}
+.name-bertwin { transform: translateX(-5vw); }
+.name-mechele { transform: translateX(5vw); }
+
+.hero-ampersand {
+position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+font-size: clamp(6rem, 15vw, 12rem); z-index: -1;
 }
 
-/* Placeholder for secondary floral/couple image */
-.prelude-img-box img {
-    width: 100%; height: 100%; object-fit: cover;
-    background: #E8E1D5; /* Placeholder color */
-    min-height: 60vh;
+.hero-date {
+margin-top: 8vh; display: flex; align-items: center; gap: 20px;
+font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-navy-deep);
 }
+.date-line { width: 60px; height: 1px; background: var(--c-gold-pure); }
 
-.prelude-text-box {
-    grid-column: 6 / 12;
-    margin-top: 10vw;
-    background: var(--c-ivory); /* Overlaps the image border */
-    padding: 4vw 0 4vw 4vw;
-    z-index: 5;
-    position: relative;
+.scroll-indicator {
+position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
+display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 50;
 }
-
-.editorial-header {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 6rem);
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    color: var(--c-navy-deep);
-}
-
-.editorial-body {
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
-    max-width: 500px;
-    color: var(--c-navy-light);
-}
+.mouse { width: 20px; height: 30px; border: 1px solid var(--c-gold-metallic); border-radius: 10px; display: flex; justify-content: center; padding-top: 5px; }
+.wheel { width: 1px; height: 5px; background: var(--c-gold-metallic); animation: scrollWheel 2s ease-in-out infinite; }
+@keyframes scrollWheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(8px); opacity: 0; } }
 
 /* ==========================================================================
-   5. CHAPTER II: DETAILS (STAGGERED TYPOGRAPHY)
-   ========================================================================== */
-.section-details {
-    padding: 10vw 0 20vw;
-}
+          6. CHAPTER I: PRELUDE (STRICT LEFT ALIGNMENT)
+          ========================================================================== */
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8vw; }
+.prelude-floral-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; mix-blend-mode: multiply; opacity: 0.8;}
+.prelude-floral-wrapper img { width: 100%; max-width: 450px; height: auto; object-fit: contain; }
 
-.details-title-box {
-    grid-column: 1 / 13;
-    text-align: center;
-    margin-bottom: 10vw;
-}
+.story-text-content { text-align: left; }
+.chapter-label { display: block; margin-bottom: 2rem; }
+.story-text-content h2 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 2rem; font-weight: 400; text-transform: uppercase;}
 
-.detail-block {
-    position: relative;
-    border-top: var(--border-hairline);
-    padding-top: 2rem;
+/* Specific Gold Italicized Subheading */
+.story-text-content p:first-of-type {
+font-family: var(--font-display);
+font-size: clamp(1.2rem, 2vw, 1.5rem);
+font-style: italic;
+color: var(--c-gold-pure) !important;
+line-height: 1.6;
+margin-bottom: 2rem;
 }
-
-.detail-church {
-    grid-column: 2 / 6;
-    /* Pushed up out of alignment */
-    transform: translateY(-5vw); 
-}
-
-.detail-reception {
-    grid-column: 8 / 12;
-    /* Pushed down out of alignment */
-    transform: translateY(5vw);
-    text-align: right;
-}
-
-.detail-block h3 {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    color: var(--c-navy-deep);
-    margin-bottom: 1rem;
-}
-
-.time-accent {
-    color: var(--c-gold-pure);
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    letter-spacing: 0.1em;
-    display: block;
-    margin-bottom: 1rem;
-}
+.story-text-content p:last-child { font-size: 1rem; line-height: 2; max-width: 500px; }
 
 /* ==========================================================================
-   6. CHAPTER III: ENTOURAGE (MAGAZINE SPREAD)
-   ========================================================================== */
-.section-entourage {
-    padding: 10vw 0;
-    border-top: var(--border-hairline);
-}
+          7. CHAPTER II: DETAILS (CENTER AXIS ALIGNMENT)
+          ========================================================================== */
+.details-header { text-align: center; margin-bottom: 6vw; width: 100%; }
+.details-header h2 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; text-transform: uppercase;}
 
-.entourage-header-col {
-    grid-column: 1 / 3;
-    position: relative;
-}
-
-.vertical-title {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 6vw, 6rem);
-    color: var(--c-navy-deep);
-    white-space: nowrap;
-}
-
-.entourage-content {
-    grid-column: 4 / 12;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4vw;
-}
-
-.list-group {
-    border-bottom: var(--border-hairline);
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-}
-
-.list-role {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c-gold-pure);
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.list-names {
-    list-style: none;
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--c-navy-deep);
-    column-count: 2;
-    column-gap: 2rem;
-}
-
-.list-names li { margin-bottom: 0.5rem; }
+.details-masonry { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6vw; text-align: center; }
+.detail-card-inner { padding: 0; background: transparent; border: none; }
+.detail-icon-svg { width: 50px; height: 50px; margin: 0 auto 20px; color: var(--c-gold-metallic); }
+.detail-card-inner h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; font-weight: 400; text-transform: uppercase; }
+.detail-card-inner .lux-time { display: block; margin-bottom: 20px; }
+.detail-card-inner p { font-size: 0.9rem; letter-spacing: 0.05em; line-height: 2; color: var(--c-navy-light) !important; }
 
 /* ==========================================================================
-   7. CHAPTER IV: THE RSVP (ULTRA-MINIMAL)
-   ========================================================================== */
-.section-rsvp {
-    padding: 15vw 0;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
+          8. CHAPTER III: ENTOURAGE (CLEAN GRID)
+          ========================================================================== */
+.editorial-spread-title { text-align: left; margin-bottom: 6vw; }
+.editorial-spread-title h2 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 400; text-transform: uppercase;}
 
-.rsvp-container {
-    width: 100%;
-    max-width: 600px;
-    border: var(--border-hairline);
-    padding: 5vw;
-    background: rgba(253, 251, 247, 0.7);
-    backdrop-filter: blur(10px);
-    z-index: 10;
-}
+.magazine-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 5vw; row-gap: 5vw; }
+/* Delicate 1px gold dividing lines */
+.mag-block { border-top: 1px solid var(--c-gold-metallic); padding-top: 2rem; text-align: left; }
+.mag-block-title { display: block; margin-bottom: 2rem; }
 
-.form-group {
-    position: relative;
-    margin-bottom: 3rem;
-}
+.block-parents { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; }
+.name-lux { font-size: clamp(1.2rem, 2vw, 1.5rem); display: block; margin-bottom: 5px; font-weight: 400; text-transform: uppercase;}
 
-.lux-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--c-navy-light);
-    padding: 1rem 0;
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--c-navy-deep);
-    outline: none;
-    transition: all 0.4s ease;
-}
+.lux-list { list-style: none; column-count: 2; column-gap: 3vw; }
+.lux-list li { font-family: var(--font-display); font-size: 1rem; color: var(--c-navy-deep); margin-bottom: 10px; break-inside: avoid; }
+.lux-list li::before { display: none; } /* Removed decorative hearts for a cleaner editorial look */
 
-.lux-input:focus { border-bottom-color: var(--c-gold-pure); }
-
-.lux-label {
-    position: absolute;
-    top: 1rem; left: 0;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-navy-light);
-    pointer-events: none;
-    transition: all 0.4s ease;
-}
-
-.lux-input:focus ~ .lux-label, .lux-input:valid ~ .lux-label {
-    top: -10px;
-    font-size: 0.55rem;
-    color: var(--c-gold-pure);
-}
-
-.btn-gold {
-    width: 100%;
-    background: transparent;
-    border: 1px solid var(--c-gold-pure);
-    color: var(--c-gold-pure);
-    padding: 1.5rem;
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.btn-gold:hover {
-    background: var(--c-gold-pure);
-    color: var(--c-ivory);
-}
+.party-grid-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.party-member-lux { margin-bottom: 10px; }
+.party-member-lux .role { margin-bottom: 10px; }
 
 /* ==========================================================================
-   8. FOOTER
-   ========================================================================== */
-footer {
-    text-align: center;
-    padding: 5vw;
-    border-top: var(--border-hairline);
+          9. CHAPTER IV: ATTIRE
+          ========================================================================== */
+.attire-text { text-align: center; margin-bottom: 5vw; }
+.attire-text h2 { font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 2rem; font-weight: 400; text-transform: uppercase; }
+
+/* Specific Gold Italicized Subheading */
+.attire-text p {
+font-family: var(--font-display);
+font-style: italic;
+font-size: clamp(1.2rem, 2vw, 1.5rem);
+color: var(--c-gold-pure) !important;
+margin: 0 auto 3rem;
+max-width: 600px;
 }
 
+.swatch-rack { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.fabric-swatch { width: 50px; height: 70px; border-radius: 0; box-shadow: none; border: 1px solid var(--c-gold-light); }
+
+.attire-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-top: 5vw; }
+.guideline-box { text-align: left; padding: 0; background: transparent; border: none; border-top: 1px solid var(--c-gold-metallic); padding-top: 2rem; }
+.guideline-box strong { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 400; display: block; margin-top: 10px; color: var(--c-navy-deep) !important; text-transform: uppercase;}
+.guideline-box span { display: block; }
+
 /* ==========================================================================
-   9. MOBILE RESPONSIVENESS (COLLAPSING THE GRID GRACEFULLY)
-   ========================================================================== */
-@media (max-width: 900px) {
-    .grid-container { display: flex; flex-direction: column; padding: 0 8vw; }
-    
-    .hero-names { padding: 0; align-items: center; text-align: center; }
-    .name-b, .name-m { align-self: center; margin: 0; padding: 0; }
-    .ampersand { position: relative; transform: none; top: auto; left: auto; margin: 2rem 0; }
-    
-    .prelude-text-box { margin-top: -10vw; padding: 6vw 4vw; border: var(--border-hairline); }
-    
-    .detail-church, .detail-reception { transform: none; text-align: left; margin-bottom: 3rem; }
-    
-    .vertical-title { writing-mode: horizontal-tb; transform: none; margin-bottom: 2rem; }
-    .entourage-content { grid-template-columns: 1fr; }
-    
-    .list-names { column-count: 1; }
-    .rsvp-container { padding: 8vw; border-left: none; border-right: none; }
+          10. CHAPTER V: THE RSVP
+          ========================================================================== */
+.chapter-rsvp .glass-panel { max-width: 600px; margin: 0 auto; }
+.rsvp-title { text-align: center; margin-bottom: 5vw; }
+.rsvp-title h2 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.2; margin-bottom: 10px; font-style: italic; text-transform: none;}
+.rsvp-title p { color: var(--c-navy-light) !important; }
+
+.lux-form-group { position: relative; margin-bottom: 3rem; text-align: left; }
+.lux-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--c-gold-metallic); padding: 10px 0; font-family: var(--font-display); font-size: 1.2rem; color: var(--c-navy-deep); outline: none; transition: 0.3s; }
+.lux-label { position: absolute; top: 15px; left: 0; pointer-events: none; transition: var(--t-snappy); }
+.lux-input:focus ~ .lux-label, .lux-input:valid ~ .lux-label { top: -15px; font-size: 0.6rem; color: var(--c-gold-pure); }
+
+.lux-radio-group { display: flex; gap: 30px; margin-top: 20px; justify-content: flex-start; }
+.lux-radio-label { display: flex; align-items: center; cursor: pointer; font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-navy-deep); }
+.lux-radio-input { display: none; }
+.lux-radio-custom { width: 14px; height: 14px; border: 1px solid var(--c-gold-metallic); border-radius: 50%; margin-right: 15px; position: relative; }
+.lux-radio-input:checked + .lux-radio-custom::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; background-color: var(--c-gold-metallic); border-radius: 50%; }
+
+/* Elegant Button Border */
+.lux-submit { 
+width: 100%; 
+background: transparent; 
+border: 1px solid var(--c-gold-pure); 
+color: var(--c-gold-pure); 
+padding: 20px; 
+font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; margin-top: 2rem; border-radius: 0; transition: 0.3s; 
+}
+.lux-submit:hover { background-color: var(--c-gold-pure); color: var(--c-ivory-base); }
+
+/* ==========================================================================
+          11. FOOTER
+          ========================================================================== */
+footer { background-color: var(--c-ivory-base); color: var(--c-navy-deep); text-align: center; padding: var(--s-kilo) var(--s-mega); border-top: 1px solid var(--c-gold-pure) !important; position: relative; z-index: 20; }
+footer div { font-family: var(--font-display); font-size: 2.5rem; color: var(--c-navy-deep); margin-bottom: 10px; }
+footer p:first-of-type { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--c-gold-pure); }
+footer p:last-of-type { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 40px; color: var(--c-navy-light); }
+
+/* ==========================================================================
+          12. MOBILE REFINEMENTS
+          ========================================================================== */
+@media (max-width: 1024px) {
+.story-grid, .details-masonry, .magazine-grid, .attire-cards-container { grid-template-columns: 1fr; gap: 10vw; }
+.prelude-floral-wrapper { display: none; } /* Kept hidden on mobile as per original */
+.block-parents { grid-column: 1 / -1; grid-template-columns: 1fr; gap: 8vw; }
+}
+
+@media (max-width: 768px) {
+.editorial-section { padding: 10vh 8vw; }
+
+.hero-title-group { transform: none; padding: 2rem 0; }
+.name-bertwin, .name-mechele { transform: none; text-align: center; }
+.hero-ampersand { position: relative; transform: none; top: auto; left: auto; margin: 1rem 0; font-size: 5rem;}
+
+.story-text-content, .editorial-spread-title, .mag-block { text-align: center; }
+.party-grid-inner { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+.lux-list { column-count: 1; text-align: center; }
+.guideline-box { text-align: center; }
+.lux-radio-group { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
 
-<!-- ORGANIC PARALLAX FLORALS -->
-<div class="floral-overlay">
-    <!-- Reminders: Insert your specific "blue and white flower" PNGs here -->
-    <img src="static/flowers-top-right.png" class="f-layer f-1 parallax-f" data-speed="0.15" alt="">
-    <img src="static/flowers-bottom-left.png" class="f-layer f-2 parallax-f" data-speed="-0.08" alt="">
-    <img src="static/prelude-flower.png" class="f-layer f-3 parallax-f" data-speed="0.25" alt="">
+<!-- SVG DEFINITIONS FOR ICONS AND DIVIDERS -->
+<svg style="display: none;">
+<defs>
+<linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#FBF5B7" />
+<stop offset="30%" stop-color="#D4AF37" />
+<stop offset="70%" stop-color="#C5A059" />
+<stop offset="100%" stop-color="#9E7D3F" />
+</linearGradient>
+
+<g id="icon-church">
+<path d="M50 20 L20 50 L20 90 L80 90 L80 50 Z" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<path d="M50 10 L50 30 M40 20 L60 20" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<path d="M40 90 L40 60 A10 10 0 0 1 60 60 L60 90" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<path d="M30 60 L30 75 M70 60 L70 75" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+</g>
+
+<g id="icon-reception">
+<path d="M10 50 L50 20 L90 50 L80 50 L80 90 L20 90 L20 50 Z" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<path d="M40 90 L40 70 L60 70 L60 90" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<rect x="25" y="60" width="10" height="15" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+<rect x="65" y="60" width="10" height="15" fill="transparent" stroke="var(--c-gold-metallic)" stroke-width="2"/>
+</g>
+
+<g id="icon-branch-light">
+<path d="M10 50 Q 50 50 90 50" stroke="var(--c-gold-metallic)" stroke-width="1.5" fill="none"/>
+<path d="M25 50 Q 30 35 40 50 Q 30 65 25 50" fill="none" stroke="var(--c-gold-metallic)" stroke-width="1.5"/>
+<path d="M45 50 Q 50 35 60 50 Q 50 65 45 50" fill="none" stroke="var(--c-gold-metallic)" stroke-width="1.5"/>
+<path d="M65 50 Q 70 35 80 50 Q 70 65 65 50" fill="none" stroke="var(--c-gold-metallic)" stroke-width="1.5"/>
+</g>
+</defs>
+</svg>
+
+<!-- ATMOSPHERIC BACKGROUNDS & FRAMES -->
+<div class="global-noise"></div>
+<div class="gold-border-frame"></div>
+
+<!-- 
+     ==========================================================================
+     MASSIVE 40% COVERAGE FLORALS
+     ========================================================================== 
+   -->
+<div class="floral-background-container">
+<img src="static/flowers-top-right.png" class="floral-bg-image f-top-right" alt="Decorative Floral Top Right">
+<img src="static/flowers-bottom-left.png" class="floral-bg-image f-bottom-left" alt="Decorative Floral Bottom Left">
 </div>
 
-<!-- MAIN EDITORIAL CANVAS -->
-<main>
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-names">
-            <h1 class="name-primary name-b parallax-f" data-speed="-0.1">Bertwin</h1>
-            <span class="ampersand">&</span>
-            <h1 class="name-primary name-m parallax-f" data-speed="0.1">Mechele</h1>
-        </div>
-        <div class="hero-meta">
-            <span>26 . 09 . 2026</span>
-        </div>
-    </section>
+<!-- PETAL PHYSICS CONTAINER -->
+<div id="petal-container"></div>
 
-    <!-- CHAPTER I -->
-    <section class="section-prelude grid-container">
-        <div class="prelude-img-box parallax-f" data-speed="0.05">
-            <!-- Insert couple photo or solid thematic block -->
-            <div style="width: 100%; height: 100%; background: #0A1424;"></div>
-        </div>
-        <div class="prelude-text-box parallax-f" data-speed="-0.03">
-            <h2 class="editorial-header">The<br>Prelude</h2>
-            <p class="editorial-body">What began as a quiet understanding has blossomed into a magnificent journey. Every shared glance, whispered dream, and unspoken promise has led us to this defining moment. We invite you to bear witness as we step into our forever.</p>
-        </div>
-    </section>
+<!-- SPLASH SCREEN REVEAL -->
+<div id="splash-screen" onclick="unlockExperience()">
+<div class="splash-image-wrapper">
+<img src="static/2.png" alt="M & B Monogram Splash">
+</div>
+<div class="splash-hint">Tap to Enter</div>
+</div>
 
-    <!-- CHAPTER II -->
-    <section class="section-details grid-container">
-        <div class="details-title-box">
-            <h2 class="editorial-header">The Celebration</h2>
-        </div>
-        
-        <div class="detail-block detail-church parallax-f" data-speed="0.08">
-            <h3>Ceremony</h3>
-            <span class="time-accent">8:30 AM</span>
-            <p class="editorial-body">St. John the Apostle & Evangelist<br>Labo, Camarines Norte</p>
-        </div>
+<!-- MAIN LUXURY EXPERIENCE -->
+<main id="main-experience">
 
-        <div class="detail-block detail-reception parallax-f" data-speed="-0.05">
-            <h3>Reception</h3>
-            <span class="time-accent">To Follow</span>
-            <p class="editorial-body">Labo Convention Center<br>Hillcrest Subdivision</p>
-        </div>
-    </section>
+<!-- ==========================================================================
+            HERO SECTION (NON-CARD)
+            ========================================================================== -->
+<header class="hero-section">
+<div class="hero-composition k-reveal">
+<div class="hero-pretitle">Joyfully invite you</div>
+<div class="hero-title-group">
+<span class="name-bertwin">Bertwin</span>
+<span class="hero-ampersand">&</span>
+<span class="name-mechele">Mechele</span>
+</div>
+<div class="hero-date">
+<div class="date-line"></div>
+<span>September 26, 2026</span>
+<div class="date-line"></div>
+</div>
+</div>
 
-    <!-- CHAPTER III -->
-    <section class="section-entourage grid-container">
-        <div class="entourage-header-col">
-            <h2 class="vertical-title parallax-f" data-speed="0.1">Entourage</h2>
-        </div>
-        
-        <div class="entourage-content">
-            <div class="list-group">
-                <span class="list-role">Parents</span>
-                <ul class="list-names">
-                    <li>Alberto D. Ponce</li>
-                    <li>Chona N. Ponce</li>
-                    <li>Edgardo B. Taupo</li>
-                    <li>Ma. Cecilia A. Taupo</li>
-                </ul>
-            </div>
+            <!-- Cinematic Scroll Down Indicator -->
+<div class="scroll-indicator">
+<div class="mouse"><div class="wheel"></div></div>
+<span>Scroll</span>
+</div>
+</header>
 
-            <div class="list-group">
-                <span class="list-role">Maid of Honor & Best Man</span>
-                <ul class="list-names">
-                    <li style="color: var(--c-gold-pure);">Shiela Taupo</li>
-                    <li style="color: var(--c-gold-pure);">Ariel Nataño</li>
-                </ul>
-            </div>
-            
-            <div class="list-group" style="grid-column: 1 / -1;">
-                <span class="list-role">Principal Sponsors</span>
-                <ul class="list-names">
-                    <li>Alex G. Garfin</li><li>Grant A. Bonum</li>
-                    <li>Alex Oira</li><li>Cesar V. Alaon Jr</li>
-                    <li>Marites O. Cariño</li><li>Concepcion S. Gerio</li>
-                    <!-- Add remaining sponsors here -->
-                </ul>
-            </div>
-        </div>
-    </section>
+<!-- ==========================================================================
+            CHAPTER I: THE STORY (Original Light/White Theme)
+            ========================================================================== -->
+<section id="chapter-story" class="chapter-story editorial-section">
+<div class="story-grid glass-panel k-reveal">
 
-    <!-- CHAPTER IV: RSVP -->
-    <section class="section-rsvp">
-        <div class="rsvp-container parallax-f" data-speed="-0.02">
-            <h2 class="editorial-header" style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center;">Répondez s'il vous plaît</h2>
-            
-            <form id="rsvpForm">
-                <div class="form-group">
-                    <input type="text" id="guestName" class="lux-input" required>
-                    <label for="guestName" class="lux-label">Name(s) of Guest(s)</label>
-                </div>
+<div class="silk-bg-container">
+<div class="silk-accent silk-v1"></div>
+</div>
 
-                <div class="form-group">
-                    <input type="text" id="dietary" class="lux-input" required>
-                    <label for="dietary" class="lux-label">Dietary Restrictions</label>
-                </div>
+<div class="prelude-floral-wrapper k-reveal">
+<img src="static/prelude-flower.png" alt="Floral Decoration">
+</div>
 
-                <button type="submit" class="btn-gold">Send Response</button>
-            </form>
-        </div>
-    </section>
+<div class="story-text-content k-reveal">
+<span class="chapter-label">Chapter I</span>
+<h2>The Prelude</h2>
+<p>What began as a quiet understanding has blossomed into a magnificent journey. Every shared glance, whispered dream, and unspoken promise has led us to this defining moment.</p>
+<p>Our love is a tapestry woven with patience, grace, and an unbreakable bond. We are profoundly honored to invite you to bear witness as we exchange vows and step into our forever. Your presence will add immeasurable joy to our celebration.</p>
+</div>
+</div>
+</section>
 
-    <footer>
-        <div style="font-family: var(--font-display); font-size: 2rem; color: var(--c-gold-pure);">B & M</div>
-        <p style="font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 1rem; color: var(--c-navy-light);">© 2026 Bertwin & Mechele</p>
-    </footer>
+<!-- ==========================================================================
+            CHAPTER II: DETAILS (Blue Theme)
+            ========================================================================== -->
+<section id="chapter-details" class="chapter-details editorial-section">
+<div class="glass-panel theme-blue k-reveal">
+
+<div class="silk-bg-container">
+<div class="silk-accent silk-v2"></div>
+</div>
+
+<div class="details-header">
+<h2>The Celebration</h2>
+</div>
+
+<div class="details-masonry mobile-swipe-container">
+<div class="detail-card-inner card-church mobile-swipe-item">
+<svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-church"/></svg>
+<h3>Church Ceremony</h3>
+<span class="lux-time">8:30 am</span>
+<svg class="floral-divider" viewBox="0 0 100 100" style="height: 30px;"><use href="#icon-branch-light"/></svg>
+<p>Saturday, September 26, 2026<br>
+<strong>St. John the Apostle & Evangelist Church</strong><br>
+Labo, Camarines Norte</p>
+</div>
+
+<div class="detail-card-inner card-reception mobile-swipe-item" style="transition-delay: 0.2s;">
+<svg class="detail-icon-svg" viewBox="0 0 100 100"><use href="#icon-reception"/></svg>
+<h3>The Reception</h3>
+<span class="lux-time">To Follow</span>
+<svg class="floral-divider" viewBox="0 0 100 100" style="height: 30px;"><use href="#icon-branch-light" transform="scale(-1, 1) translate(-100, 0)"/></svg>
+<p>Immediately after the ceremony<br>
+<strong>Labo Convention Center</strong><br>
+Hillcrest Subdivision, Brgy Bulhao<br>
+Labo, Camarines Norte</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==========================================================================
+            CHAPTER III: ENTOURAGE (White Theme)
+            ========================================================================== -->
+<section id="chapter-entourage" class="chapter-entourage editorial-section">
+<div class="glass-panel theme-white k-reveal">
+
+<div class="silk-bg-container">
+<div class="silk-accent silk-v3"></div>
+</div>
+
+<div class="editorial-spread-title">
+<span class="chapter-label">Chapter III</span>
+<h2>The Entourage</h2>
+</div>
+
+<div class="magazine-grid mobile-swipe-container">
+
+<div class="mag-block block-parents mobile-swipe-item">
+<div class="parent-side">
+<span class="mag-block-title">Parents of the Groom</span>
+<span class="name-lux">Alberto D. Ponce</span>
+<span class="name-lux">Chona N. Ponce</span>
+</div>
+<div class="parent-side">
+<span class="mag-block-title">Parents of the Bride</span>
+<span class="name-lux">Edgardo B. Taupo</span>
+<span class="name-lux">Ma. Cecilia A. Taupo</span>
+</div>
+</div>
+
+<div class="mag-block block-sponsors-groom mobile-swipe-item">
+<span class="mag-block-title">Principal Sponsors (Groom)</span>
+<ul class="lux-list">
+<li>Alex G. Garfin</li><li>Grant A. Bonum</li>
+<li>Alex Oira</li><li>Cesar V. Alaon Jr</li>
+<li>Gilbert Babala</li><li>Hermenegildo B. Arce</li>
+<li>Frederick V. Blasa</li><li>George Babagay</li>
+<li>Mario Nopre</li><li>Nilo Diliman</li>
+<li>Felix M. Canaria</li><li>Col. Jomar Daquiaog</li>
+<li>Atty. William Mamanteo</li><li>Col. Fedil I. Macatangay</li>
+<li>PO2 Napoleon Mendoza PN</li><li>PO2 Abner Angue PN</li>
+<li>CPO John D Domingo PN</li><li>TSgt Anthony Lo PN(M)</li>
+<li>Benito R. Namoro</li><li>Christian Villa</li>
+<li>Ruben Balicbic</li>
+</ul>
+</div>
+
+<div class="mag-block block-sponsors-bride mobile-swipe-item">
+<span class="mag-block-title">Principal Sponsors (Bride)</span>
+<ul class="lux-list">
+<li>Marites O. Cariño</li><li>Concepcion S. Gerio</li>
+<li>Theresa Carlene L. Herradura</li><li>Maila N. Galero</li>
+<li>Myra Babala</li><li>Alisa Francisco P. Legaspi</li>
+<li>Eden T. Saenz</li><li>Josephine O. Duena</li>
+<li>Emma A. Paor</li><li>Irene N. Dicion</li>
+<li>Sharon M. Largo</li><li>Reynalyn V. Cereno</li>
+<li>Arlyn F. Monternel</li><li>Marivic R. Pagapong</li>
+<li>Arnelyn R. Blasco</li><li>Christine C. Anastacio</li>
+<li>Annalyn D. Alaon</li><li>Ivy S. Anastacio</li>
+<li>Lorna T. Guevarra</li><li>Angelina C. Taupo</li>
+<li>Crisanta Rasco</li>
+</ul>
+</div>
+
+<div class="mag-block block-secondary-1 mobile-swipe-item">
+<span class="mag-block-title">Secondary Sponsors</span>
+<div class="party-grid-inner">
+<div class="party-member-lux"><span class="role">Maid of Honor</span><span class="name-lux" style="font-size: 1.4rem;">Shiela Taupo</span></div>
+<div class="party-member-lux"><span class="role">Veil</span><span class="name-lux">Rose Ann Villamar</span></div>
+<div class="party-member-lux"><span class="role">Cord</span><span class="name-lux">Rosebelle Anunciacion</span></div>
+<div class="party-member-lux"><span class="role">Candle</span><span class="name-lux">Lyka Madi</span></div>
+<div class="party-member-lux"><span class="role">Motif</span><span class="name-lux">Abby Dacuba</span></div>
+</div>
+</div>
+
+<div class="mag-block block-secondary-2 mobile-swipe-item">
+<span class="mag-block-title">Secondary Sponsors</span>
+<div class="party-grid-inner">
+<div class="party-member-lux"><span class="role">Best Man</span><span class="name-lux" style="font-size: 1.4rem;">Ariel Nataño</span></div>
+<div class="party-member-lux"><span class="role">Veil</span><span class="name-lux">Ismael Taupo</span></div>
+<div class="party-member-lux"><span class="role">Cord</span><span class="name-lux">Joseph Paul Oira</span></div>
+<div class="party-member-lux"><span class="role">Candle</span><span class="name-lux">Ryan Muncada</span></div>
+<div class="party-member-lux"><span class="role">Motif</span><span class="name-lux">Mariel Nataño</span></div>
+</div>
+</div>
+
+<div class="mag-block block-bearers mobile-swipe-item">
+<span class="mag-block-title">Bearers of Faith & Love</span>
+<div class="party-grid-inner">
+<div class="party-member-lux"><span class="role">Ring Bearer</span><span class="name-lux">Cxian Jeff Anastacio</span></div>
+<div class="party-member-lux"><span class="role">Coin Bearer</span><span class="name-lux">Zain Sky Corporal</span></div>
+<div class="party-member-lux" style="grid-column: 1 / -1;"><span class="role">Bible Bearer</span><span class="name-lux">Xian Gail De Leon</span></div>
+</div>
+</div>
+
+<div class="mag-block block-flower-girls mobile-swipe-item">
+<span class="mag-block-title">Flower Girls</span>
+<div class="party-grid-inner">
+<div class="party-member-lux"><span class="name-lux" style="margin-top: 15px;">Precious Jhade Nala</span></div>
+<div class="party-member-lux"><span class="name-lux" style="margin-top: 15px;">Celyn Taupo</span></div>
+<div class="party-member-lux" style="grid-column: 1 / -1;"><span class="name-lux">Abegail Balce</span></div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ==========================================================================
+            CHAPTER IV: ATTIRE (Gold Theme)
+            ========================================================================== -->
+<section id="chapter-attire" class="chapter-attire editorial-section">
+<div class="glass-panel theme-gold k-reveal">
+
+<div class="silk-bg-container">
+<div class="silk-accent silk-v4"></div>
+</div>
+
+<div class="attire-text">
+<span class="chapter-label">Chapter IV</span>
+<h2>Aesthetic</h2>
+<p>We invite you to celebrate in elegance. Our desired palette mirrors the serene depth of the ocean intertwined with the warmth of golden hour.</p>
+
+<div class="swatch-rack">
+<div class="fabric-swatch" style="background-color: var(--c-navy-deep);" title="Navy Blue"></div>
+<div class="fabric-swatch" style="background-color: #5A6B7A;" title="Dusty Blue"></div>
+<div class="fabric-swatch" style="background-color: #ADD8E6;" title="Soft Blue"></div>
+<div class="fabric-swatch" style="background-color: var(--c-gold-pure);" title="Warm Gold"></div>
+<div class="fabric-swatch" style="background-color: #F5F5DC;" title="Beige"></div>
+</div>
+</div>
+
+<div class="attire-cards-container mobile-swipe-container">
+<div class="guideline-box mobile-swipe-item">
+<span>Principal Sponsors</span>
+<strong>Gentlemen: Barong</strong>
+<strong>Ladies: Dusty Blue or Beige Gown</strong>
+</div>
+<div class="guideline-box mobile-swipe-item" style="transition-delay: 0.2s;">
+<span>Guests</span>
+<strong>Semi-Formal Attire</strong>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==========================================================================
+            CHAPTER V: THE RSVP (Blue Theme)
+            ========================================================================== -->
+<section id="chapter-rsvp" class="chapter-rsvp editorial-section">
+<div class="glass-panel theme-blue k-reveal rsvp-envelope">
+
+<div class="silk-bg-container">
+<div class="silk-accent silk-v5"></div>
+</div>
+
+<div class="rsvp-title">
+<p>Kindly reply by September 1, 2026</p>
+<h2>Répondez s'il vous plaît</h2>
+</div>
+
+<form id="rsvpForm" onsubmit="handleRSVP(event)">
+<div class="lux-form-group">
+<input type="text" id="guestName" name="GuestName" class="lux-input" required>
+<label for="guestName" class="lux-label">Name(s) of Guest(s) *</label>
+</div>
+
+<div class="lux-form-group" style="margin-top: 40px;">
+<span class="lux-label" style="position: relative; top: 0; font-size: 0.6rem; color: var(--c-navy-light);">Will you attend? *</span>
+<div class="lux-radio-group">
+<label class="lux-radio-label">
+<input type="radio" name="Attendance" value="Accepts with Pleasure" class="lux-radio-input" required>
+<div class="lux-radio-custom"></div>
+Accepts with Pleasure
+</label>
+<label class="lux-radio-label">
+<input type="radio" name="Attendance" value="Declines with Regret" class="lux-radio-input" required>
+<div class="lux-radio-custom"></div>
+Declines with Regret
+</label>
+</div>
+</div>
+
+<div class="lux-form-group" style="margin-top: 40px;">
+<input type="text" id="dietary" name="Dietary" class="lux-input">
+<label for="dietary" class="lux-label">Dietary Restrictions (Optional)</label>
+</div>
+
+<button type="submit" class="lux-submit">Send Response</button>
+</form>
+</div>
+</section>
+
+<!-- ==========================================================================
+            FOOTER
+            ========================================================================== -->
+<footer>
+<div>B & M</div>
+<p>Together with their families</p>
+<p>© 2026 Bertwin & Mechele</p>
+</footer>
+
 </main>
 
+<!-- ==========================================================================
+        JAVASCRIPT LOGIC
+        ========================================================================== -->
 <script>
-    // EDITORIAL PARALLAX ENGINE
-    // This script translates elements on the Y-axis based on scroll position,
-    // creating fluid depth between the organic florals and the rigid typography.
-    document.addEventListener("DOMContentLoaded", () => {
-        const parallaxElements = document.querySelectorAll('.parallax-f');
-        
-        // Use requestAnimationFrame for buttery smooth scrolling performance
-        let ticking = false;
+// --- 1. SPLASH SCREEN LOGIC ---
+function unlockExperience() {
+const splash = document.getElementById('splash-screen');
+const main = document.getElementById('main-experience');
 
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    let scrolled = window.pageYOffset;
-                    
-                    parallaxElements.forEach(el => {
-                        let speed = parseFloat(el.getAttribute('data-speed'));
-                        // Apply subtle rotation to florals for organic movement
-                        let rotation = el.classList.contains('f-layer') ? scrolled * (speed * 0.05) : 0;
-                        
-                        el.style.transform = `translateY(${scrolled * speed}px) rotate(${rotation}deg)`;
-                    });
-                    
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-    });
+splash.classList.add('unlocked');
+
+setTimeout(() => {
+main.classList.add('active');
+document.documentElement.classList.add('smooth-scroll');
+checkReveals();
+startPetalPhysics();
+}, 1000);
+
+document.body.style.overflowY = 'auto';
+}
+
+document.body.style.overflowY = 'hidden';
+
+// --- 2. KINETIC SCROLL REVEAL SYSTEM ---
+const revealElements = document.querySelectorAll('.k-reveal');
+const revealOptions = { threshold: 0.05, rootMargin: "0px 0px 0px 0px" };
+
+const revealObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('is-in-view');
+revealObserver.unobserve(entry.target);
+}
+});
+}, revealOptions);
+
+function checkReveals() {
+revealElements.forEach(el => revealObserver.observe(el));
+}
+
+// --- 3. IMMERSIVE 3D PETAL PHYSICS ENGINE ---
+function startPetalPhysics() {
+const container = document.getElementById('petal-container');
+const MAX_PETALS = 15;
+
+const petalDataURI = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,15 10,20 C0,15 5,5 10,0 Z" fill="%23C5A059" opacity="0.6"/></svg>`;
+
+class Petal {
+constructor() {
+this.el = document.createElement('div');
+this.el.classList.add('falling-petal');
+this.el.style.backgroundImage = `url('${petalDataURI}')`;
+
+this.reset();
+container.appendChild(this.el);
+}
+
+reset() {
+this.size = Math.random() * 15 + 10;
+this.x = Math.random() * window.innerWidth;
+this.y = -50;
+
+this.speed = Math.random() * 1 + 0.5;
+this.swaySpeed = Math.random() * 0.02 + 0.01;
+this.swayAmplitude = Math.random() * 50 + 20;
+this.angle = Math.random() * 360;
+this.spinSpeed = Math.random() * 2 - 1;
+this.time = Math.random() * 100;
+
+this.el.style.width = `${this.size}px`;
+this.el.style.height = `${this.size}px`;
+this.update();
+}
+
+update() {
+this.time += this.swaySpeed;
+this.y += this.speed;
+this.angle += this.spinSpeed;
+
+const currentX = this.x + Math.sin(this.time) * this.swayAmplitude;
+this.el.style.transform = `translate3d(${currentX}px, ${this.y}px, 0) rotate(${this.angle}deg)`;
+
+if (this.y > window.innerHeight + 50) this.reset();
+}
+}
+
+const petals = Array.from({ length: MAX_PETALS }, () => new Petal());
+
+function animate() {
+petals.forEach(p => p.update());
+requestAnimationFrame(animate);
+}
+animate();
+}
+
+// --- 4. THE RSVP GOOGLE SHEETS HANDLER ---
+function handleRSVP(e) {
+e.preventDefault();
+const form = document.getElementById('rsvpForm');
+const btn = form.querySelector('.lux-submit');
+
+btn.innerHTML = "Sending...";
+btn.style.pointerEvents = "none";
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwEgCBzascCcBdrmpEUFgXd7qrcT_8peJl6nKsqanl_Mgv1WzUChZ0OCZSBOOQbLvNE/exec';
+
+fetch(scriptURL, { 
+method: 'POST', 
+mode: 'no-cors',
+body: new FormData(form)
+})
+.then(response => {
+form.parentElement.innerHTML = `
+                   <div style="text-align: center; padding: 40px 0; animation: etherealReveal 1s forwards;">
+                       <h3 style="font-family: var(--font-display); font-size: 3rem; color: var(--c-navy-deep); margin-bottom: 10px;">Thank You</h3>
+                       <p style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-navy-light);">
+                           Your response is cherished.
+                       </p>
+                   </div>
+               `;
+})
+.catch(error => {
+console.error('Error!', error.message);
+btn.innerHTML = "Error. Please try again.";
+btn.style.pointerEvents = "auto";
+});
+}
 </script>
-
 </body>
 </html>
